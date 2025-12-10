@@ -121,5 +121,16 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
     maxAge: 60 * 60 * 60 * 30, // 30 days
   },
+    cookies: {
+        sessionToken: {
+            name: `__Secure-next-auth.session-token`,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: '/',
+                secure: true, // Bắt buộc true trên production (HTTPS)
+            },
+        },
+    },
   secret: process.env.NEXT_AUTH_SECRET,
 }
