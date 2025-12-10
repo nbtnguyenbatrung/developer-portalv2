@@ -28,6 +28,7 @@ export const authOptions: NextAuthOptions = {
           email: credentials.email,
           status: USER_STATUS.ACTIVE,
         })
+          console.log("trung user ", user)
         if (!user) {
           return null
         }
