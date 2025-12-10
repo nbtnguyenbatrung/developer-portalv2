@@ -40,14 +40,11 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.next()
   }
-    console.log("Cookies:", request.cookies)
-    console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL)
   // Get token from NextAuth session
   const token = await getToken({
     req: request,
       secret: process.env.NEXTAUTH_SECRET,
   })
-    console.error("trung token ", token)
   if (!token) {
     console.log('!token=true :>> ')
     const url = new URL('/login', request.url)
