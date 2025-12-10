@@ -1,0 +1,13 @@
+{
+  "dashboard_api_key_header": "Quản lý khóa API của bạn để xác thực với API Napas.",
+  "dashboard_api_key_guide_header": "Hướng dẫn sử dụng và bảo mật khóa API",
+  "dashboard_api_key_guide_sub_title": "Các bước cần thiết để bảo vệ và sử dụng API Key của bạn",
+  "dashboard_api_key_guide_content_1": "Hướng dẫn Sử dụng Key",
+  "dashboard_api_key_guide_content_2": "Để thực hiện cuộc gọi API thành công, bạn phải sử dụng giá trị API Key được cấp và set vào Header của yêu cầu::",
+  "dashboard_api_key_guide_content_3": "Application: {{GIÁ TRỊ API KEY CỦA BẠN}}",
+  "dashboard_api_key_guide_content_4": "Thực hành Bảo mật Tốt nhất (Hành động Cần làm)",
+  "dashboard_api_key_guide_content_5": "Cấm tuyệt đối hiển thị API Key trong mã client-side hoặc kho lưu trữ công khai.",
+  "dashboard_api_key_guide_content_6": "Lưu trữ API Key trong biến môi trường hoặc Hệ thống két sắt an toàn (secure vault) trên máy chủ.",
+  "dashboard_api_key_guide_content_7": "Sử dụng các Key khác nhau cho môi trường thử nghiệm (sandbox) và môi trường chính thức (production).",
+  "dashboard_api_key_guide_content_8": "Thu hồi (Revoke) ngay lập tức các API Key không còn sử dụng hoặc nghi ngờ đã bị lộ."
+}

@@ -1,0 +1,2034 @@
+{
+  "components": {
+    "schemas": {
+      "Balance": {
+        "properties": {
+          "amount": {
+            "properties": {
+              "currency": {
+                "description": "Loại tiền tệ quy định theo mã của bộ ISO 4212",
+                "example": "VND",
+                "type": "string"
+              },
+              "value": {
+                "example": 424176.63,
+                "format": "double",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value",
+              "currency"
+            ],
+            "type": "object"
+          }
+        },
+        "required": [
+          "amount"
+        ],
+        "type": "object"
+      },
+      "Exclusion": {
+        "properties": {
+          "name": {
+            "description": "Tên TPP bị từ chối",
+            "example": "TPP 01",
+            "type": "string"
+          },
+          "reason": {
+            "description": "Lý do từ chối",
+            "example": "TEST",
+            "type": "string"
+          },
+          "taxCode": {
+            "description": "Mã số thuế của TPP.",
+            "example": "1122330011223",
+            "type": "string"
+          }
+        },
+        "required": [
+          "taxCode",
+          "name",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "Provider": {
+        "properties": {
+          "activationDate": {
+            "description": "Thời điểm nhà cung cấp kích hoạt trên hệ thống (ISO 8601 UTC).",
+            "example": "2024-10-01T10:00:00.000Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "address": {
+            "description": "Địa chỉ của DP như trên đăng ký kinh doanh.",
+            "example": "HA NOI",
+            "type": "string"
+          },
+          "authUrl": {
+            "description": "Đường dẫn điều hướng xác thực người dùng.",
+            "type": "string"
+          },
+          "bankCode": {
+            "description": "Mã do NHNN cấp cho các tổ chức tín dụng.",
+            "example": "BANK01",
+            "type": "string"
+          },
+          "email": {
+            "description": "Địa chỉ email của DP (đầu mối chịu trách nhiệm đăng ký đơn onboarding với OB).",
+            "example": "bank01@bank01.com.vn",
+            "format": "email",
+            "type": "string"
+          },
+          "exclusions": {
+            "description": "Các TPP bị loại trừ khỏi nhà cung cấp này.",
+            "example": [],
+            "items": {
+              "$ref": "#/components/schemas/Exclusion"
+            },
+            "type": "array"
+          },
+          "fullName": {
+            "description": "Tên của DP như đã được cung cấp trong mẫu đơn đăng ký với OB.",
+            "example": "Bank 01",
+            "type": "string"
+          },
+          "logo": {
+            "description": "Đường dẫn logo của DP.",
+            "example": "/u01/obh/res/logo",
+            "type": "string"
+          },
+          "period": {
+            "description": "Các kỳ hạn hỗ trợ (ngày).",
+            "example": [
+              30,
+              60,
+              90,
+              120,
+              180
+            ],
+            "items": {
+              "enum": [
+                30,
+                60,
+                90,
+                120,
+                180
+              ],
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "phone": {
+            "description": "Số điện thoại của DP (đầu mối chịu trách nhiệm đăng ký đơn onboarding với OB).",
+            "example": "0123456789",
+            "type": "string"
+          },
+          "shortName": {
+            "description": "Tên rút gọn của DP.",
+            "example": "Bank 01",
+            "type": "string"
+          },
+          "status": {
+            "description": "Mặc định “AUTHORIZED”.",
+            "enum": [
+              "ACCEPTED",
+              "PENDING",
+              "REJECTED",
+              "AUTHORIZED",
+              "WITHDRAWN"
+            ],
+            "example": "AUTHORIZED",
+            "type": "string"
+          },
+          "url": {
+            "description": "Link website của DP.",
+            "example": "https://napas.com.vn",
+            "type": "string"
+          }
+        },
+        "required": [
+          "bankCode",
+          "fullName",
+          "shortName",
+          "status",
+          "logo",
+          "address",
+          "phone",
+          "email",
+          "period",
+          "activationDate",
+          "exclusions"
+        ],
+        "type": "object"
+      },
+      "res-accounts": {
+        "description": "Dữ liệu trả về khi gọi API accounts",
+        "properties": {
+          "message": {
+            "description": "Danh sách các tài khoản của chủ tài khoản. Dữ liệu nhạy cảm cần được mã hóa.",
+            "example": "eyJjaXBoZXJUZXh0IjoiNzU2YjdjYzIzN2ZjYWQzYjM4ODVlOTBlZDIxZGNmZDU1ZmIxZGE3YTRmZTk2YWEzZGJlNjkwM2EwNzk0MGFjNDFlMDQ1YmIyNDJjZGI0NDk4MzRhZWY1YWY5YmZiYWI5Y2RiNDczMTQxZTU5MjE1ZjM3MTE4ZmFhOGI4YjlhMGM4YzRmZmFjYTI4MjQ2NDJhMjA0MTk3MmM5YzJmYTUyMjdmYjU3ZjBhYmE4NWIwMGI3NWQ1ZjI3ODlmZjU5NmZiMzRkN2YyYzZlNzE5MWNmYzNhMGRmMGUxYjJjMSIsIml2IjoiMGI5MmY4OTcwN2JjNjAwODQ5YTVkZjdmIiwidGFnIjoiMTM3ZDg3NjUxNGU1ZjE4ZWQyZmE5MDgzY2JlOTYzMzAiLCJlbmNyeXB0ZWRLZXkiOiJJVUlXZUY5NWJjZWdOOVlIQmEyYWg3ZFppb0gwU0haNUZPUk9jcTVHRHBhbjRYY1NJaFBYWWR2blRHTFhMcjRxUmpQT1BLV2xod3JzOTl6VFFRbUFBOS91Ujc0d3dFUmZEUnIvdm5VQ3BYK0ZJeGFoMTdGU3d6NFVQdE8zSjRuNTNBTCsvQmYrTCt3Y0dsTFJRd2gzcWVNRWRIRGZSQUEwZnl1NVVyb2VEeFFmeDlZSXg3cmNsdjBRQTR4N0tzcnhlSFFjWS9CazFYUXFESUlTZGQwdG5hVXRocGhSUEgrdWxyOGhqTEdCdEs4ZHJEVUNKWkl5THNqT3dYSGgvMG9QU1o0VlhZMkp4Zmk4OUV3cVBwS3lLbTE4K3JKMTZuRTgvbkRuSWgyWVdOOEJBUDEyMS9HdElCa1U3SlhVeDJ5dnIvVFYwNlZXUGtZRk1NTFZmdDMvWXc9PSJ9",
+            "type": "string"
+          }
+        },
+        "required": [
+          "accounts"
+        ],
+        "type": "object"
+      },
+      "res-auth": {
+        "description": "Trả về thông tin trạng thái ủy quyền bao gồm ob transaction id và trạng thái của consent",
+        "properties": {
+          "consentStatus": {
+            "description": "Trạng thái ủy quyền: AWAITING_AUTH: Đã gửi yêu cầu thành công và đang chờ xác nhận.",
+            "enum": [
+              "AWAITING_AUTH",
+              "AUTHORIZED",
+              "REJECTED",
+              "CANCELLED",
+              "EXPIRED"
+            ],
+            "example": "AWAITING_AUTH",
+            "type": "string"
+          },
+          "obTransactionId": {
+            "description": "Mã định danh duy nhất cho phiên chấp thuận trên hệ thống của OB",
+            "example": "dfde9eea-63d1-4c5d-a46e-9adf36292c21-1122330011223-150611",
+            "type": "string"
+          }
+        },
+        "required": [
+          "obTransactionId",
+          "consentStatus"
+        ],
+        "type": "object"
+      },
+      "res-auth-revoke": {
+        "description": "Dữ liệu trả về khi gọi thu hồi xác thực chấp thuận",
+        "properties": {
+          "message": {
+            "description": "Thông điệp kết quả.",
+            "example": "Authentication and consent revocation successful",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "res-auth-status": {
+        "description": "Kết quả trả về trạng thái xác thực và chấp thuận",
+        "properties": {
+          "accounts": {
+            "description": "Danh sách tài khoản đã được chủ tài khoản uỷ quyền (dữ liệu mã hóa).",
+            "example": "eyJjaXBoZXJUZXh0IjoiODJkMzY4MWRlYTYyNzIxMzJlMDhkNDQ5OTExNWJhNzNhYmE0OWU0MjY5ODg3Yjg4ODI0MDg4Yzk3ODkyMWRhY2MzMzk1NDZiYjAxNzE3NDMxOGQ0MGUxNjY5N2QyZWZiYmE2ZjljMjk2NTYxMjhlOThmYTIyY2EyM2MiLCJpdiI6ImYxNjVjNDc3MjVjNjcwMThjNGU5NTE3MSIsInRhZyI6IjlhNTc0NjRjOTlkY2MwYTRhNTk1YWZhNWU4NGRlNGE0IiwiZW5jcnlwdGVkS2V5IjoiUHplRlNlVmlRSkxNY1hCNlpJTkVueFRLSHNZa2c5TXpwVmhNSlRoSFB6YkVhMWVkbGM5dEp3c2pYOUJ4K2RsaFF4WnN4WTZ3eWdwd21hdEZKNGRvVVR6dDVvU3o4VGtvWHZ0cDkvK1VwdzBvZk91b3lBdG1WWFNWS2ZJT1N1QzJ3L3JPNHFmdEw0SERKMDNISXp4bjYwczdSU0NkYk1SQTlQV3JsUkt4eG0vbUdJa3hiRU1Yakx6TjlvSEtVQWhwSHVGVGVwQlhESDNwbjhsWGVsUEJOcGNjeEZHbmpUcGt3bEdUcHY0ZjcvUzhGWW5Sdmp6WmNiK0E5R3JaaEpCOE9CVGpacVF1ZXdBT2Q2SXdvTlNOUVZxUmIzV3hkYmhwZkE3dUo1TEpVYU1MaXJlNVM2dTlSbW1nSzRhLzZCR3FPcnBrV3VYTDJzWko1Mi9ZODNUNHJRPT0ifQ",
+            "type": "string"
+          },
+          "consentId": {
+            "description": "Mã chấp thuận của người dùng do OB cung cấp cho TPP.",
+            "example": "78e2754d-e5d6-4f16-88b0-eea3b4eef023-BANK0111223300112230000002020250529165501",
+            "type": "string"
+          },
+          "consentStatus": {
+            "description": "Trạng thái consent hiện tại.",
+            "enum": [
+              "AWAITING_AUTH",
+              "AUTHORIZED",
+              "REJECTED",
+              "CANCELLED",
+              "EXPIRED"
+            ],
+            "example": "AUTHORIZED",
+            "type": "string"
+          },
+          "expiredTime": {
+            "description": "Thời gian hết hạn hiệu lực của phiên chấp thuận.",
+            "example": "2025-08-27T09:55:20.000Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "consentStatus",
+          "consentId",
+          "expiredTime",
+          "accounts"
+        ],
+        "type": "object"
+      },
+      "res-auth-update": {
+        "description": "Dữ liệu trả về khi gọi API update-consent",
+        "properties": {
+          "message": {
+            "description": "Thông điệp kết quả.",
+            "example": "Authentication and consent successful",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "res-balance": {
+        "description": "Kết quả trả về khi TPP gửi yêu cầu truy vấn số dư của chủ tài khoản tới hệ thống OB.",
+        "properties": {
+          "accountName": {
+            "description": "Tên chủ tài khoản.",
+            "example": "Võ Đức Lan",
+            "type": "string"
+          },
+          "accountNo": {
+            "description": "Số tài khoản được mã hoá",
+            "example": "eyJjaXBoZXJUZXh0IjoiZWVmYTc5YTcyMDc1OWNlNjM1MzAyNWZkIiwiaXYiOiIxZGIxZDMyYTI0NjMyNjJmYmUyY2IyMGIiLCJ0YWciOiJhZTFhMGEyMTk5NGQzMjFkY2NmMmM0ODIwMTRiZDU1MCIsImVuY3J5cHRlZEtleSI6IlA2emRLM2ZzOHY1ck8xYnVQYkoxRW8xTWorTDh2ZXJVSVlCNC9MUTVkbmxUcjloWDMrdXpNNTFway9OTzV2Wm5CYWdUNE9zQlMvK25xeUNWZVl4dXBlWm1GY0xvNzkzT3hzblJTTy9HYmRQZUxiRVNqYlVuV1BQSXNscXRmOVQ0eTd0L20zWk9PK2RVQUZWRkF2WTQ1Y0R4VlBic29KbHA0Y3dvQjIrdTZWMDFER3htUCtZbXI3azRPdWVtS1Y3ZXBPaFRRS25qN0RPWEVQd0NkYVNINnNIUElFOHJFdVhrSGNRWllZYzNoV0xDR1lFOE8vdTVFZFRzZmtjZVNrMzV3NEJ1RUc1UU12anFqK0lUN1RhYSt2UStUZjJrS3lmd2JWanpmWEc3QkpYL1IyMXNZeDJ0bEx3UGJLcDRhaDUvU3pEZEFGSDgvNU0xMGQ1MVk0Y3Rxdz09In0",
+            "type": "string"
+          },
+          "actualBalance": {
+            "$ref": "#/components/schemas/Balance"
+          },
+          "availableBalance": {
+            "$ref": "#/components/schemas/Balance"
+          },
+          "holdBalance": {
+            "$ref": "#/components/schemas/Balance"
+          },
+          "type": {
+            "description": "Loại tài khoản.",
+            "enum": [
+              "SVGS",
+              "CARD",
+              "TRAN"
+            ],
+            "example": "TRAN",
+            "type": "string"
+          }
+        },
+        "required": [
+          "accountNo",
+          "accountName",
+          "type",
+          "availableBalance",
+          "actualBalance",
+          "holdBalance"
+        ],
+        "type": "object"
+      },
+      "res-information": {
+        "description": "Dữ liệu trả về khi gọi API information",
+        "properties": {
+          "message": {
+            "description": "Dữ liệu đã được hóa toàn bộ các tham số. Tham khảo thêm techspec",
+            "example": "eyJjaXBoZXJUZXh0IjoiYjYwMmUzYjcyMTljMzVkNWU2NzUyNTRhOGZhNGM0ZmE5MTNmNmI3YjUzNTg0MzBlMzNlNmUwYmUxZGJlNGI2NmU4YzMwOWRmMzA5YTY4ZjYyYjk3ZjRjZGZhOGY0OTlmZTBjYTgzZjMyOWZhYTdiYTE4ZjdjY2ExYzQ0ZTc0MmU5OGZhMWM0NDQ4NDZjMzUzM2FhZjU3ZmQ4MjVjMmM1YWQ3NDJhMmY2N2NiMDZiZWFjOTg4NzNiYTBiNThhOGQ3NzFmMDE1YjQ0YTUzMGQwZmJmODBlMGVkNDk4OTU2OGNjOTI1ZjQyYWM4Njc1NTI2MTI3MmFjYjQ1MTdmMzgwMDgyYmU0MjZhN2ZmZGJjZDE3YmY1MWY3OWYzMjQxNzBhNjljOTQzMWU0MWNkNDNhZTViNDc5NGRmNmM3NDA2Y2U2NjhlYTlkY2ZiMjU0ZTZmMTVhZWNlZDgyZWFhM2RhMGVmYzlmOWY3MWU1YzNjZDM1Y2FiMmE3NTg1ZmNiNTc5YzE1MTQyNmQwNWZjZDY5Y2E2ZTM4MjNmNjQzNDBhOGJjOTA0ZWI4NWQxM2Q5ZTdmNzAyNWJkNWM1ZWFlMzUwZTY3ZmQyZDVkM2ZiNjk4NjE2NzA0ZjY0YTEzNDZmNDY2ZGMyNGI3MTJhOWMzNWNiOTE2MDMxNWRhM2RkNjVhNmU4ZDM1N2IyYTlkMWYwZDEwN2UxNzA1NDBlMWU5ZDA3YTc3MDk2NDA2ZTA1NDhhOTY4ZDcwN2Q0MDUyN2I1NjQ4ZWI4NmRkZjdmZDY0ZDBiYzRkYjNkZjYxNmYwNWY5MWJlNzdiNGU0MjFkZTY0NDFlZTYwY2RiNmE5ODFjYWI3MjgyY2RhZmE3NmFiYjRmYTNkOGIwZmFlMGQyZTQ3ODg3NzA1M2Y5ZTRlZGU3ZGFiZiIsIml2IjoiNzMxOWIyNjY5OGNjMTQ3ZmZkZmFjNGI1IiwidGFnIjoiNGI4NTFlMTJjZTZkNWQ4M2U4ZjkxNDU4ZWY5MzJlN2IiLCJlbmNyeXB0ZWRLZXkiOiJQQm1Fem1NNUVaUUZGdVVKclRLbHdRa2F5akZRcVRyVHB3QW9sTzJaUm05ZEtoeXNEYmt5Zm9NV29FYnhEYW1ub1VHbGFqb2M0a1cyQ2hFeDVYbnRTeWVldkRRQy9iU2lHTkliQmVkaE9OeU9UTTdIMzFyR2tSMG5ZR3AzaWhkRGdwWXBiN00xNGwrSW0yeTVwVGlNM2o1bDVoaWFHeis0MVR1MHg4OGgvM0h5YmJ2MUVLU3dWR0J1dUdMeThOU280VkJ2M2NYR3lzcGdOV3JiYkpOUWZzL09OY0FITmVtbkNPNXBudDloa3JnamdJS080VGxLTHdXM3ZiS04yVjgrelZhMm1yWHk5aGQzZ0x5b1RnbVNGU3JWb1ZSRXNKQkpvbmZmVnp4bVdvQjQ4K2NOMWp1eGNwdEVhNmZ3cWc5NGtlcFpwYmo0SXl3MjJzenNHZ0J0eGc9PSJ9",
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      },
+      "res-payment-cancel": {
+        "description": "Kết quả yêu cầu hủy giao dịch khởi tạo thanh toán tới hệ thống OB",
+        "properties": {
+          "orderId": {
+            "description": "Mã giao dịch duy nhất cho dịch vụ thanh toán, DP cấp cho TPP thông qua OB",
+            "example": "3dae13fb-5940-4406-9bf6-e2f7c37e1d44-ORDER_-085152",
+            "type": "string"
+          },
+          "paymentStatus": {
+            "description": "Mã trạng thái của giao dịch theo tiêu chuẩn của ISO 20022. Mặc định ở phần khởi tạo trạng thái: PDNG: Giao dịch đang chờ xử lý",
+            "enum": [
+              "PDNG",
+              "ACSC",
+              "ACSP",
+              "RJCT",
+              "CANC",
+              "EXPR"
+            ],
+            "example": "ACSP",
+            "type": "string"
+          },
+          "statusDateTime": {
+            "description": "Ngày và giờ tại thời điểm cập nhật trạng thái khởi tạo thanh toán yyyy-MM-ddTHH:mm:ssZ",
+            "example": "2025-05-30T15:52:23Z",
+            "format": "string",
+            "type": "string"
+          }
+        },
+        "required": [
+          "orderId",
+          "paymentStatus",
+          "statusDateTime"
+        ],
+        "type": "object"
+      },
+      "res-payment-status": {
+        "description": "Kết quả truy vấn trạng thái thanh toán tới hệ thống OB",
+        "properties": {
+          "paymentId": {
+            "description": "Mã giao dịch duy nhất cho dịch vụ thanh toán, DP cấp cho TPP thông qua OB",
+            "example": "3dae13fb-5940-4406-9bf6-e2f7c37e1d44-ORDER_-085152",
+            "type": "string"
+          },
+          "paymentStatus": {
+            "description": "Mã trạng thái của giao dịch theo tiêu chuẩn của ISO 20022. Mặc định ở phần khởi tạo trạng thái: PDNG: Giao dịch đang chờ xử lý",
+            "enum": [
+              "PDNG",
+              "ACSC",
+              "ACSP",
+              "RJCT",
+              "CANC",
+              "EXPR"
+            ],
+            "example": "ACSP",
+            "type": "string"
+          },
+          "statusDateTime": {
+            "description": "Ngày và giờ tại thời điểm cập nhật trạng thái khởi tạo thanh toán yyyy-MM-ddTHH:mm:ssZ",
+            "example": "2025-05-30T15:52:23Z",
+            "format": "string",
+            "type": "string"
+          }
+        },
+        "required": [
+          "orderId",
+          "paymentStatus",
+          "statusDateTime"
+        ],
+        "type": "object"
+      },
+      "res-payment-submit": {
+        "description": "Kết quả yêu cầu xác nhận thanh toán tới hệ thống OB",
+        "properties": {
+          "orderId": {
+            "description": "Mã giao dịch duy nhất cho dịch vụ thanh toán, DP cấp cho TPP thông qua OB",
+            "example": "3dae13fb-5940-4406-9bf6-e2f7c37e1d44-ORDER_-085152",
+            "type": "string"
+          },
+          "paymentStatus": {
+            "description": "Mã trạng thái của giao dịch theo tiêu chuẩn của ISO 20022. Mặc định ở phần khởi tạo trạng thái: PDNG: Giao dịch đang chờ xử lý",
+            "enum": [
+              "PDNG",
+              "ACSC",
+              "ACSP",
+              "RJCT",
+              "CANC",
+              "EXPR"
+            ],
+            "example": "ACSC",
+            "type": "string"
+          },
+          "statusDateTime": {
+            "description": "Ngày và giờ tại thời điểm cập nhật trạng thái khởi tạo thanh toán yyyy-MM-ddTHH:mm:ssZ",
+            "example": "2025-05-30T15:52:23Z",
+            "format": "string",
+            "type": "string"
+          }
+        },
+        "required": [
+          "orderId",
+          "paymentStatus",
+          "statusDateTime"
+        ],
+        "type": "object"
+      },
+      "res-payments": {
+        "description": "Khởi tạo thanh toán",
+        "properties": {
+          "consentStatus": {
+            "description": "Trạng thái ủy quyền: AWAITING_AUTH: Đã gửi yêu cầu thành công và đang chờ xác nhận.",
+            "enum": [
+              "AWAITING_AUTH",
+              "AUTHORIZED",
+              "REJECTED",
+              "CANCELLED",
+              "EXPIRED"
+            ],
+            "example": "AWAITING_AUTH",
+            "type": "string"
+          },
+          "obTransactionId": {
+            "description": "Mã định danh duy nhất cho phiên chấp thuận trên hệ thống của OB",
+            "example": "dfde9eea-63d1-4c5d-a46e-9adf36292c21-1122330011223-150611",
+            "type": "string"
+          },
+          "orderId": {
+            "description": "Mã giao dịch duy nhất cho dịch vụ thanh toán, DP cấp cho TPP thông qua OB. Khuyến nghị dùng định dạng: {Provider-ID}-{TPP-ID}-{uuid}.",
+            "example": "84e1f613-db52-49f8-8cda-98330528c745-ORDER_-150611",
+            "type": "string"
+          },
+          "paymentStatus": {
+            "description": "Mã trạng thái của giao dịch theo tiêu chuẩn của ISO 20022. Mặc định ở phần khởi tạo trạng thái: PDNG: Giao dịch đang chờ xử lý",
+            "enum": [
+              "PDNG",
+              "ACSC",
+              "ACSP",
+              "RJCT",
+              "CANC",
+              "EXPR"
+            ],
+            "example": "PDNG",
+            "type": "string"
+          },
+          "statusDateTime": {
+            "description": "Ngày và giờ tại thời điểm cập nhật trạng thái khởi tạo thanh toán.",
+            "example": "2025-05-29T22:06:11Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "obTransactionId",
+          "consentStatus",
+          "paymentStatus",
+          "orderId",
+          "statusDateTime"
+        ],
+        "type": "object"
+      },
+      "res-providers": {
+        "description": "Kết quả trả về danh sách DP trên OB với trạng thái mặc định “AUTHORIZED”.",
+        "example": {
+          "providers": [
+            {
+              "activationDate": "2024-10-01T10:00:00.000Z",
+              "address": "HA NOI",
+              "bankCode": "BANK01",
+              "email": "bank01@bank01.com.vn",
+              "exclusions": [],
+              "fullName": "Bank 01",
+              "logo": "/u01/obh/res/logo",
+              "period": [
+                30,
+                60,
+                90,
+                120,
+                180
+              ],
+              "phone": "0123456789",
+              "shortName": "Bank 01",
+              "status": "AUTHORIZED"
+            },
+            {
+              "activationDate": "2024-10-01T10:00:00.000Z",
+              "address": "HA NOI",
+              "bankCode": "BANK02",
+              "email": "bank02@bank02.com.vn",
+              "exclusions": [
+                {
+                  "name": "TPP 01",
+                  "reason": "TEST 2",
+                  "taxCode": "1122330011223"
+                }
+              ],
+              "fullName": "Bank 02",
+              "logo": "/u01/obh/res/logo",
+              "period": "[30, 60, 90, 120, 180]",
+              "phone": "0123456789",
+              "shortName": "Bank 02",
+              "status": "AUTHORIZED"
+            }
+          ]
+        },
+        "properties": {
+          "providers": {
+            "items": {
+              "$ref": "#/components/schemas/Provider"
+            },
+            "minItems": 0,
+            "type": "array"
+          }
+        },
+        "required": [
+          "providers"
+        ],
+        "type": "object"
+      },
+      "res-token": {
+        "description": "OAuth2 access-token payload trả về khi lấy token OB.",
+        "properties": {
+          "access_token": {
+            "description": "Mã truy cập",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzA2MSwiaWF0IjoxNzQ4NTA3NDUyLCJleHAiOjE3NDg1NTc0NTJ9.UtPQtWp33y94c3RaGvVS0eTqtmNrNFpNzJyU75e9jmM",
+            "type": "string"
+          },
+          "expires_in": {
+            "description": "Giá trị hiệu lực của mã truy cập, tính bằng giây. Độ dài tối đa của trường là 6 chữ số.",
+            "example": 50000,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "scope": {
+            "description": "Phạm vi của mã truy cập được lấy giá trị từ yêu cầu của TPP.",
+            "example": "ob.decoupled.v1.auth-request ob.decoupled.v1.auth-status.* ob.decoupled.v1.auth-revoke ob.decoupled.v1.update-consent ob.ais.v1.accounts ob.ais.v1.accounts.information ob.ais.v1.accounts.balances ob.ais.v1.accounts.transactions ob.v1.providers ob.pis.v1.payments ob.pis.v1.payments.submit ob.pis.v1.payments.cancel ob.pis.v1.payments.status.*",
+            "type": "string"
+          },
+          "token_type": {
+            "description": "Loại token (mặc định là Bearer).",
+            "enum": [
+              "Bearer"
+            ],
+            "example": "Bearer",
+            "type": "string"
+          }
+        },
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_in",
+          "scope"
+        ],
+        "type": "object"
+      },
+      "res-transactions": {
+        "description": "Kết quả trả về danh sách lịch sử giao dịch (dữ liệu giao dịch được mã hoá).",
+        "properties": {
+          "currentPage": {
+            "description": "Trang hiện tại",
+            "example": 2,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "nextPage": {
+            "description": "Số trang kế tiếp; `null` nếu không còn trang.",
+            "example": null,
+            "minimum": 1,
+            "nullable": true,
+            "type": "integer"
+          },
+          "pageSize": {
+            "description": "Số bản ghi tối đa mỗi trang.",
+            "example": 10,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "totalCount": {
+            "description": "Tổng số bản ghi giao dịch.",
+            "example": 17,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "totalPages": {
+            "description": "Tổng số trang kết quả.",
+            "example": 2,
+            "minimum": 1,
+            "type": "integer"
+          },
+          "transactions": {
+            "description": "Chuỗi dữ liệu giao dịch được mã hoá.",
+            "example": "eyJjaXBoZXJUZXh0IjoiOTg3NjRlNDI5ZDQ3NWQ4OTRjMWI2YmQxNjM2NDExM2I5MjJmNmU3MTc2ZWIyYTcyYjVkNTU0MGRhZjQ2NDA4NGQ1NmZhMGI0MjBmMjJkMzBkZjNmZmI5ZjljODBjYzQ0OWU5YzE4NDdhYmQwOTA1YWQ3ZGNiN2JmY2NjN2MzNjI5MjBmYWM3MTM2NTc5YzJiNGNjODIxMGY2ZGIwYzhlZjQwZGIzOWI0YzkwY2JkYWYxNmFiZjYxZmYzNDU0MTRjNGUyOWM3MDc2NDM3NGEzMTM5ZTIwZTU5MWVhZWRlN2YwMzg3Y2Y0MjNhNmQ1ZDA1NGJhNWUyNTBiNGU4Yzc1Yzc5MmFlY2VmMTg3NzkwNDIwYWY4NDkyMzkzNThjZjhmYTljY2U1Zjc4ZGE3YWZmNDBhZTFlMGRiMzkxMGJlNTcxYTFjODU3MzMzNTlhNDcxNDE0OGY4OGJhZTAwMjkyNDdiZWY5MjgwM2NmZmM1MmU2NWJjMzYwNjNmODg2MTQzMjQzZmVmMDQ3MDhmNDlhZjI1ZmE5N2QxNTkxOWI3MzcxMTVjODhmNWM1YzdkMTZiZmM5MDY1OTdlMjUwYmI4MWJkZWNhMzcyMTVhMmZjZjg5NmU1MDIyNTg0YjA0MzFjNTY4YjMxYjc0MTIxNDhiZDg3ZDdjYTQyOGI2MjQzYmY4MTJjMzlmOTMwNGMwZDVhNzcxOTAwOTc0OWY3YTAzNzVjNTg1NzBkOWUwOWNhYzNlNGVlN2E5NWMwNjg1OGMzMmJmNTA2ZjQ1NzQ5Y2QzOWMyNzY5MjAzMmE2NjFlMmJjN2JhNDVmNDg1YWQyZDYxYTJkYjAyMTFiYTE5ZTBlN2NlODVlYWExMTM4MGMzNDM3MjQ0YzI1NTY0NjcyNzQ0MzNmZDI0M2M0ODEzNmJhZTQ2NTQ2MGY2MGFhZGZlNDBhMWFmYzU2ZjU4MmQ0ZTYzMGM0YmI0Y2VhMTgwOGVlYzY5ZTkyMzMzNDQ0MjI1ODJhYzExZTg0ZThlNjNhMzQ2ZGM4ZTE0Y2U5NmMxMDA5NWY1MjBlNzA2ZWQ0NTAxM2M0Mjc5Y2U3N2I3NThmOTUyMmYyOTU0ODllZjU4YjRlNWFlNWM3ZmQ5NDM4ZDdhMmI4MjFmMTEwN2E5YTlkYTQ5Mjg1YzJkZjIwYmFhNTI4NDc3MTczMDhlY2YyZTBjZjFlNzBmNTc1OTkwMTQ0Nzk3YTZmYTcxYzUyODU5MDc5MTVkMzZlMThlNjc2Mzk2ZmFhMGQyOWMxOTQyZjE3NjNhZmRmMmY2YjJiYzZlYjg2ZDFmZDk2ODdhN2Q1YmE1NmY4YjQ4MjQ4MmQzZDI3MDQyOTc0ODlhNGI5NmEyYWJjMjZhODE0OGQzYTVlZTkxNzM4MzQyNmE5MzUzYTlkMDhhMzVjYzU3YWYzOWM3ZmQwNTg3YWJjYjE2YmMyYzM5ODY1NzcxZmZmZWJjYjg1YTUyYTZjYmU2OWQ4MTQyZGJmYmNkZTZjYWQ1YTg5MDQ1YTlhZDY2ODI4ZmUwOTQyMTY2NGRlOWEyMmE3MzQwODFkZjc3MjBhNzQwMjczMWE4OWQzZGM4NWUwY2ZjZWJiMDI5ZWUyZWM4MGM3YzA1YTVhZTM4MmZlZjBlYTQ1MmE5ZmFjNGI3YTQ3OGIzMTliMzQyZTQxMTQwOTA1YzZlNjM1YTRiNzQ4ZWRhMTM5ODgzZDBjNjY5ZGViNTkyZDZiNWRkY2E4MjA3OGEwNjNjMjBmMjQwOWQ0MWIwYTFkYzZhZjlmOTM2ZjVhYmI2MzlkNGU0MmMwZTkyZWE3ODU0ODY1ZTc2MGFhMmI3ZjY5NDc2OWEyY2MxOTZjNmI0ZDgwOTVkMzExMDc3OGYwOWI5MThlMTI4ZmNjYTRlNWRjNWU3NmM0ZjY4MmE5Y2E2YTcwZTQ5MGY1ZTZjNGEwMTNkZjY0NzFkY2Q2YWYzZmM5ZTI0ZGYwYzQ2MmY4M2U4YjhkYzZlZGQwZWM1NTcyZjYxMDJlMDdlMWNhMWM2ODk2MzBlZTczZGUyZTM3NTI0ZTI1ODQ1M2E3ZGQ4NzE2OTEwOGI0YTY1OTg3NjEyMjlhMGM5NWExZDAwZDAxNGJkNmUyNDBkNDE4YTIyOGY1ZDY4NGQ3MzZmMWFjYTc3MDgyMGNjODUxYTE4ZGRjZWI5YTYyYTU4MDk4NTdmODQ2NWVhMDg5ZWJjYjYxNmEyZjVkNjBlZjU1OTMyOGRmZjk5YjlmNGMxZGU5MjFkNDIyNWYzZWUzODIwMjE1NzE5ZTE3YmRhYjQ4MGUyN2RhNDE5ZmNhODdjYjZmMmNmYzY5MDRjOTIzYzhmYjlmOTVjNjU5ZjNmOWU3NWM5NDI1YjFmMDY0YzQ2ZmZjZWQyZWYxYTljNDNkNGFhMjkwOGIxNTRmNGE4Y2I5ZWM0NzYyY2E4ZDVkYzA3NWVhYWIwZTUzOTk5YzJiZTY5MTNkMmU5NjkzMDRkODU0MDQyOGMyMzliYTJmODU1OTE0ZDc5OWJhYjQxNDRiNGY5NDczNmYwOWNiODMzYzdmNTFiNGE3Yjg4YTUwMWM5OTY4YzJjNjEyMGMwM2I3ZDJmZGJlYjkyNWZlZTA2NGIwYjFlYTE1OWJiZDRmMDQwOWFiYWNkZWZhMGZiOTRlM2FkOTY3ZDI5MzJkYjhhMjE2OTZhNjQ4YWEyYzZmYWNmNjc0MzA4MjYwZWI4NGI0ZDhmZWRiYzgyOTAzNDE3MmViOTEzODMxMjY3ZWM1OGVmOGMxOTI2N2UxZTcyZjg5YzVkZTQ4OWEzZGYxMDg1MTEwYjI0NzUwMjk0OTY5NmJkOGQ5ZjYzYzA0ZGIyYzMzYzVhZWQyMmEyMTU1ZWU3N2EzYmU1MjMwMDNjODFjY2VhMGJlODIzNTUwOWM4ZjZiYzYzMmY5YTA5OTgyZDI4YjAwNTc2YzA2MzhjMjgzMWU0YmM5NjAwYWZjYjg5NjEyYjk3YzYwZDk0N2U3OGFkZjYzMGQ1NTNmOTE3ZTc4YjhlMzAyMDc1NjY1MGEyZWE3NzFlMGYxZWI2ZWYzMzA1NTFjYjcwN2Q4NzhjMWFhZmQ0ZmZmMzBkY2YyMGQ3YWI5OTU1YzExZjYzOTUyZWE2ZDliN2YyMWY3NjJiMGE4YTM2NjQ1Y2RkZTAzMDFhZDZmOWM4YmVjNzQyNDBjNjAzYmY1YzE3ZTEwMzdhZjRhODY2YzM0YmMyNGVkNmE4ZmI4MTA2MDI4NTNjMjJhMWFlYWQ4YmUxMzQ0MGYyNGUxODU1MmMwZjQzNGE2YTIwZGY4ZjI4MTFmZDIyZThlNTY3NjQ4NTM0NjEyMGY0M2JhZDAyOWViZWNmMDU2N2NhN2ZlZWM1Y2I1MGVlNzIzNDdmODk2ZjQ0OGQwZDcxZDUxNjJmNjAwYzliOGE2NmJmZmQ5NjIzZTQ2OTU2ODM0Mjg5NDdlNjNiNjE0NWQ3Y2Q5OTE2NTcwOTM1MzE1NWI2NGUyNGViYTIzMzYyMjIwYWFiYzZjYzBjNjMzMzRiYWRjMGZkNmNhN2ZkOTQ3ODk5OWNmM2MxNDE3ZDUxNmYwM2MwMmE1ZGUzMDA1ZTE5NTE5MWFhNTdmMGI2N2EyOTg5ZTUzNDNjYjc3MjhjN2Q2MWI0MjIxNGVjODg2MDFiMzkwNWQ4NTBjYTdmY2M0YmEzOTQyZTVlNDdhNDkzMDExNzZjMGRjOTBhZDlhN2IwMzU5N2U5YmZlNDE0ZTliODIzMzAzYTc5NGQ3YWU2Yjk2NjA5Yjc0NDA5OGRkMDQ5ZjM3ZjRjN2YyMzllMGE3M2EyMjFmNGU0MDhkNzRiYjc3OWQ5NDVkYmI5ODNjMmM2OWZiNWVkMWFlMWQ1MTQ1MmM5MzBmNDM1ZDRiYTdlMjgzNjdkMzI2NzA5ZDNjMjFlMTFhNDVjMzNjNzI0MDNkMzIwZWYzZWM0MjhkMDkxMjRkYjg2ZGM4OGNiYjg4NmU3ZDIzN2RmZGMwNjI0ZTZiYjQyMTYzMzkxMzJmYTIxZWI5MzZkOTQ2OTAyN2ZlMGNlZTNlNGVhMDk1OWI2NGVlYTAwNjQxNGYzY2M2MzMzNTI5ODFjYjg3M2Q3MzI0Y2I5ZDk1ZjJhZDE2NWJmZjBlOTFkNGQ1ZDI5MDA4NTMwZTBmNjQ1OTAzMTcyZTEwNjNmNTJlNTYxYmEzNmU3ZDIzYjE0OTEwNTBmYThjNTdlZGVmNWIzZGE3ODMwMTZjZGZmYjk3YWQxYTk4OTliZWE5YjA4NWE5MGEyMzU4ZGY2MTAyY2I2ZjI4YmQ4MDAwNDQ4OTlhYjAxNzAzZDlmMmQxMmY4M2QwN2Q2OGZjYzcyM2RkOTNjMzZkMjk1MDRjZTBjMTcyZjIwYzE1OGJkOTBkMWRmYTEyMTM2OWI0NDZmNzJmZmViMWZhMWVjZTkzMjViMGRkY2ZjNGQ3ZWU0NGM3MzdlZWI1OTkwN2M4N2JmMDJjM2E4YzgzNDM4YThmZjI0YTZhOGRiOTAzZDFhZDBjMWYyZjQxOWM3Y2RiMDQxY2M2MzEyZjUxZWRjYjJhMDg4Y2U4NDgyN2Y0ZTA4Yjg2NGYzZGI5Y2NlNDYyNmNhZDRlMmY2OWFiYmRiNzFlY2U4NDk4NjRjMWZjYjAyY2UwZmRmNDRjN2Q2OWM1OWY2OTdjMzQ2YjViNzQ0MzFhZTFhNGNiMzk0ZGZhYWJmY2VkZmY1NDQ2YmU1NjlmODFkNTczYmUyZGI5Nzg1ZjA4NjY0YmFkZWQzMmZkZWQzMjFhOTI4NjVjNTY4NDcwNGM4MzM3MWRkMjZlYzMxYTg0NjlhODkwODllNzk2YmIzY2FiZWMzYjEwZmU5N2VkMmRlOWMyZGFjMzlmNWUxMGY3NDVjZDBiZTUwZDE1ZDMxMzVhMzVlNTc1YmYyYzcxYWYzYWFmNmE1NjE0NGViZjNkMzVmMDM3NmY5MWIwYjFhMjljYWQxZDgyYTE1ZTI0YTUwMjkwMjQ2YzkxZGFjZjQwMjgyOGM2MzE5MTUzMDU3ZTMwMmY2OTRlYzdlMTMzYjZkM2E4NmIwYjIxNDRiODU0ZDRkYTUwOTNhOWEwZmE1Njc3OTg1NzBiZTBmMDU2NzljOTQzMzMwZTM5ZGZmMzUzZTBlYzg1OTcxZGRmYjY0OTRkNGFmODUxNDBjOGMzNWY5MTRhN2QzMjc4MWVkYWRkMWFlOTdiN2Y0MGU1ZjUzZjk2MGY2MDRhOWNkYjU2MzkxMzFiYjdkZTJhYjBhODQxZTk4NDI5MWQ5MjE2YmEzNzhkOGZkYmI0YWZlNmIwMDhkMWMzMDY2MzJiODc1NGI1MzYzZGYwMGQ1MmY4N2FjOGFjM2ZkNGYxNjhmMDE4NDQ4MjE1MWZmNzg3Nzg5ZWFjMTEzNDY5ZDRlZDk5ZTIzZWFmYTljNzBmZTQxOTEyN2JiZmMwYTk2ZDhlZGYwZGZjMGU2YmJlMGZhYjVmNGRlN2FjYmQ2ZmY3NzE4ZWIwM2YwYmQxYTA5NDI5OTIzNzgwMjViOGMxZjM2NmM0ZjY4OTUzZjc0NTY5ZDk2YjA1OGFiNzdjZDZkYjM5MTIyZjkyZGE2MjljYzRjMGExYzlkNmNjNDk0ZTllOGVjOWM2MjdlOGY4NGNmNTJhOWVmNzA5YzBiYjI1YzQ1OTY1MzFmZGYxYzBhMmJjMDQ5ODJjYTdkZjI3MjE2MDU5NjZiZGNmYWNmNjIzYjVlNmYyMjYzMzFlMzZkODRhNzQyMTM1NWEwYTYzNzdlMmFiYjNhYjYxNTY2MDlkOWRhZjdhNzVlNWIwYTMyYWJmMjgxMDhiNzk0NmIxZThiNmI4YmJhMGU0MGFkYzQ3ZjNjNWIwNTVkMDc2MGMyYWJiYTY5MzY2YzU5MTk4NGZmZDM3OTJkNzE2OWQ4ZDYxNTYzYzlkODAzNTNjZmQ2ZTk4OThlYjk2NWZlNjU4NDUyYTM4Yzc3NzAwMjQ3M2Y5MDA3OTYxMzcxMWU3YTY2MjAyMGRiMjhmYTc3NzExMzhkMzk0YTgzMGFmZmNlYTMzZWFjYTBhYTY3MzAxNmQ2YTg4OWFkNjcxOTM5NDMyYzk2ZDhmZjA4MDcwYzA3ZmJiYmY2NWMzZjU0YTI0OWU0YzhkMjA3NzJlZjJiODFiNWMwMTNjMjc2MzA0MjVmY2ZhMTYyZmY1NzhlNzFjYWQxOWQyM2QyOTZmNDQyNDUyODFjZDk4MzgwNDI2MDg3MmM5ZDc3MDlhOWVjNzQxZmEwZjE0OTYyZjE5ODRiZWYyNjA2MjMxN2VkZWEyYzRhYjIxNThkYzdhMjUyMDZhZTRmNzlkMWU3MmY0Yjc0YjZkNTMwZDEzYjU0NWZhNzQ2MTUwNjhiOTQxOTk5NGViMTA0MjU0YzMwMzNiMmYyOTk2MWYwNTJhMWUzNDA4MDllYzU4NjI0OTU4NGNlMWM0OTcyOTU2NjY1Yzk0Y2FlY2Y1MjNlMmRjMzk1NWY5NGJiYjg5NjA4MzIxMzA4ZDM2ZDAzNDM2MzI2ZGJlM2Y1MDU4NTI5NDUzMmQwODA3NGMxMTFkYTMxOTlhMmU0ZTJjY2ZiYzI5MjM1NGJhZTFmMDg3YzY2OTM4YWQ4NWQ1YTFjYWQyMWY0NjQyNjFkNmI4ZjE0NGViNDNlODhlMDBiNzQ4NDQyOTI5Y2ZkMTI3NDUyZmQ5MTEyOTY0OGY2MmE0N2U2MDk2ZDcyZGNiMjI3MDk3NTc3OWM2NzA1ZjQzZTQzOGRiODk3MDUxM2JjMjBhMjk0NmM5MWE0NmJjOWI5OTNmNjNhZjdjZDc1YzM2ZjI3ZGNkMDcwZmY4MTFmYTkyZTgwNmRjNTk1YjJmOGY4ZDVmZTM4OWJkZjFlNmQwMWYxZjc2NGMwZDkxYjA1YTAyNGYwNThlM2IzMzM0OTljZDMyZjUwMjFlYzE4ZTkxNTJjY2NmNjJjY2I0Y2U0NjBmZDA2ZTZmZGUzZmY3NGVhNDRhNTY0MmFkMjE3OGQwMDUyOTA1YWJmZGQwZWJhZTQ0NmMxOGFmMWVhOGFlNDM3MmI0ZjA0NWUwMTY4ZjRjOTlkZWFlZTk0MWIzZGJhM2RjYTQ3ZTgyMTI1YzAwNGNhOGUxYTZhY2MyOTRhMGJhNTZhYjM0Njk1NWNmMmE1YWQ2MTg3Y2MzNGZmZTc4YTA4MGJmMWY1Y2EwZDdiMjA3NzgxY2I5MWQxNTVmZjY2NWE3YmRhMTUxZDYzNmU4ZmNlNWMxYjc0MDk4MzEyOWUwYTg2ZjhlNzdkYmM0MDEyMDY3ZmI4NDFjNTM2ZDhkMjNiNjE2ZDA4NDZjMjkwOTY1M2ZiOWMyM2VlMzAzYWIxMDFjZmE3YmI0NjlmYzk2MjcyMzZkZTYwMDQ1MTkzYTYyYzA5NTk4NWZiOTE4ZjFkZTgwYzIxNDBhYmM4MmI4NmRjMzUyM2I0OTU0MTNmZTlhZDhmYjY0YTc3ZGVhOTA3YWQ0ZGZiN2RjZWMxZjk0M2E3OTQ1ZTdhYTA0ZDQzYTdlZTBiYzQ0NzAyNDJhMzM2NTk0NGJhMjg4ODg5YzliOWQzOWZlZGJlMWRmMjczYzQ3M2FlOWFhMjk4YzFkYmFlMjZkMWM4ZTBhYWNkZTYxMzQwN2ZkYjYzYzExZDAxNTA3OGMwYzgzMDE0NTFkNTY2NDZiZjk4ZDZlYmU4YTdlMDljYTA4ZDk5NjgxM2QxNDcwMDE4MzI3ZmRiNmUzNDQzM2U1OTkyMWE2Mzc0ZDgwMjU4NWJlY2IzNDY0YzlhMGJkY2RkOGY2YTFmYTYzMTE3MDhkNjI4ZWU3NWJlZGZhNDM5MzRmMGJkNjU3OTc0MWFjZjFhYjA2MTFhYzgxNzdmNGFiOTY4MzdiMzUzZTI2YThkYThkNjQwMWQ3MDE2YTllZjc0MGNmYWM3M2U4ODc1NWM2NmNhOTRiNzMwZTlmN2MyOWYxZTkyMGZiMzAwMzk2MTRkNWM4ZDNlMDNiNTBhZTNhODc3OGJjNDBjZTUxZmIyNWRmN2YxMzM2ZWMzNmQxNzc1YzE4NGU2ZDJhZWNjMTFjYjM5MTI0Y2I1MDQ2MzFmMzA4MjZjZWMwZGM1YzE5OThiNTExNDNkMDNmODNjYThlOTRkMDZmYzI2NzY5YWU2ZmM3NDcwYmY3YmNjODBlZDkwOWEyN2EzZmFjNWQxMzZhMzZlMjNhNjNlYTQ4NGNhNDcxZTllOWQ1YTY2ZmQ2MDY5ZjgxMTAwNDJiMmRhNDk4Y2VlNTNmNjc5NzA2ZjY5N2MyYTljMmIwODAzYjQ2OTBmNWE0MzBlNzc0OGRlN2YxOTM2ZjJkYTQ0MWI3MjZhOWEwN2ZjMDIwMDE0YzQ3OWFlODc4NzA5YTMyNzljZjk4YTZmZjdjYjZlZGNlODE1ZjlmMDc1NTFlMjcyMDdkOTYzYmE3ZjFjYTIwNjE1YjdmZTZjYWM1YTZmYzM0Zjg1N2NjOTVkM2QxYTM5NWQwMjFkOTY4ODE5YmUyNTc1YTYyY2FkYjAyMzY2YTFiNmMzMTEzNmRhOTNkM2RhNzZiYjBkOGI3NWExYWI3OTk3NjY2YjhlMmFlZTJhMDU3ZmY2M2JiNjJlMGNhMDcxYTBiYjVkZGMyZTM5OWU5MDk1YmYzMGNkZTliZjNmZWNmODFjYTk5YTA2ODVkNmY2ZTNjMjZmYjM1MjUzMDA4YzM0NDdiZmYzNGM4OTQ5YTU2NWQwNDQwNmEwZDc5NDI1NGY3NmJiNmY5N2MxMWU1N2M3ZDNjOTllNDhkMWY5MzFhMTVhODk1Mzg4ZWI2ZWUxMmY0ZjM5MDY0OTdhOWRiYzczMmYzMTYzYjFjODE5Njg5YTg2NzJiYzgyMThhZjIwMjRkNTRiMTM3MTlhMTk3Mjk4NTAxYmVkMmZlMWM5ZDc4NjM3MGRiOTQwZTllOGFhNTgzNGMxYzhmZDBmMDMxZDc3NTBlNGNhNGY2M2Y0ZDhlMmMzMDc3NjVjM2M2ODFlMDU0OTFmMDhmYzZmM2QxOWMxNDk1MGExOTc0ZTMwNjNiODgwMjMzZjA2ZjNjYmRjNGI1YTkzOGQzYmU2YWMwYTcxMDNkYjYxNWE2Nzc0YzM5ZDFhYTk4NDNjZTEzMjNmYTY1NjkxZGIwMTNkZDE1NGQ2MGNiZjIyNDZjMmJmYTQ3MzVmYmZiOTBmY2RiNzNlNmU0ZDUxMzkxYzJkNThlMDQzNWFlN2RhNjc3MWExZWI5NjM5NjllN2U2ODU4ZTI2OTY3ZWI4MTIzMzcwZTEwZTA4NmI0Yzg0ZGRmMGUzNDhjMmNmY2UxOWQ4MzkyODJmZDkxZWM4MWFkYmY0MmI1YmNiZDgwYjk3YTUyNzhhN2RlZWQ5MzM0NGU1NjY3NjNhNGM2Zjk1ZDhmMTZhYTk3OTM3IiwiaXYiOiJlMjkxNmFlM2EyZTE1ZTIxZTEzZThkZWYiLCJ0YWciOiI0NWM4NmM3NTY3ZDE5NGI0ODVkYTgzZjkxMWY4YjlhMiIsImVuY3J5cHRlZEtleSI6IkRpemlhNWc5dWZzNDIwMnlCdFNrYlRSNEk2amlXaysyNVVYalVBN0dPTkd6aUpEYW1zNDluS1lING1XRitxUkpFT0lNSWEvaTBaTDNzM2crR0dQbGdvUGNpY2p3SjVWanM3eEdHQUJvem1WNktTTUNJUEdNc1F0KzhnSkE3bVV3cWVEWUttM1cyZWtvNHNhTDhqNHF3LzhWYXZMMEh5aC9wR24wZnlNZFVDQjBZMEpuOFlBL0pTeEhvSDBROURiUVM2MTNOd1FnZTNqbHBhNjErNVJHTWFjQUcvZTNjZ0FDUW9CTjlaR3oyQlpnSzdZQmMwQXYxeFJtWWg5MWd0eVlhZjFVeitnOXlTK2hWZUkwTnJtRlZ6T1VyRENhUjBxOEY0MWhVd1Q5OHpacUlaUEFMTXBJNFc0SDM4TWVuSlhQYTNwU3Z3TnhSVmhFb1VRZGJoWUYvUT09In0",
+            "type": "string"
+          }
+        },
+        "required": [
+          "totalPages",
+          "currentPage",
+          "pageSize",
+          "totalCount",
+          "transactions"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "basicAuth": {
+        "scheme": "basic",
+        "type": "http"
+      },
+      "bearerAuth": {
+        "bearerFormat": "JWT",
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "File hỗ trợ test Open Banking",
+    "title": "Open Banking_Version 0.3.5",
+    "version": "0.5.3"
+  },
+  "openapi": "3.0.1",
+  "paths": {
+    "/ob/ais/v1/accounts": {
+      "post": {
+        "operationId": "2_3_ais_v1_accounts",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OTk0ODMxMzkzZTI0ZGRhODIyYTFiYjQyYWNlY2Y4ZGQyNWU0ZWVjMzUwZmFlZDExNmYzNGM2YmU1ZmY3NWEzMA.hruC-odYkscP6Ssb-DbaTxezFY_r2ltrtedKFS9PlTqBmo9vmnJKJqDSM5uDXEFrPQ8CG2mn2qpUkIcFpdf2HuWsCstUwKPxRtA7wdkY-e-UCbPgops6PA0x9y_PrdQe5m_QlaoR4TP00JLMVocBZefJvt3gzWydT1X2nnWp2T7c6P-JAz5B1BeiTwivgbnLehtoWI21Tfjc8yw1VQslVo1R8BjXjqcUb7JoBpgqWToCQrwdDHULZal6awVpBl-m0pMkv5IEeGMqsK8ljP4MW3-R7KQ90iowNitO1lKZgDTtCu927vw8Z-tyU7X3Vl-oEa2xksern9jlKj3BpDpcHA",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "consentId": "e3bac283-7966-43d8-8b91-950f72062889-BANK0111223300112230000000120250425161549"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-accounts"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API lấy danh sách tài khoản",
+        "tags": [
+          "3.AIS"
+        ]
+      }
+    },
+    "/ob/ais/v1/accounts/balances": {
+      "post": {
+        "operationId": "2_3_ais_v1_accounts_balances",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OGFlNThlM2QzMmI5ZjBjNGEwNDk1MDRmNzI2M2Y5YTdjMGY0ZmZkMDIwMDA1OWM5NGVjYTBjNjAyYzhlZDc1Mg.C0dl9Q8t-mD3L3cwU13AID9ZovZx-4RJSfqn-4rpGvLNV1p8teqI6--I9EmAT37UH5-kkmSsXntKDe_HwD_EWk5-w-oBwk2JQtpUpnt0nVr5WRgbrBDltp05BtZ5_gvZEXY0424qNw22hdh_UCN9oe_t5cI4va0gsZH1rD-VWUBBvNB5KK6FUHle2c-2nOB1F2Up51SA6a3hVG5TrwjFI39YxlTH5NE1AyRzuDvBNyUvKfA0d39Kk2lUqKNp9VaSsT3GVIIRmSmBip2jutmmjDf1poOlQGcBzJdRkxRNqcwVzjgqqkk6FZClT9ZQN2pX3zmYtX60wEZngh52KseL8Q",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "accountNo": "eyJjaXBoZXJUZXh0IjoiZDdiNGU4NTdkNmYwODMzZjQzYWQ0ZDk1IiwiaXYiOiJkZjc3NmUwOGIzYmFkY2ZmMTVmZDYyZTUiLCJ0YWciOiI5MzMzM2RmODA3YTJmNDk5NTI4YmQ0YjBlNjA5MjE5NSIsImVuY3J5cHRlZEtleSI6ImJzOTk3YkNkRW43RWQvWmZHZUwvMUZVbWZGNTNhalk5UVhRL0pTTHp0cWFCMG41NXJJNDhpeHltQTNLUEhGT25GWlM1QU44d1cvR1Z3WDRqdElZdDJ6UlptRzhiUXhXNm5HU2swNXZ0VVdFdkFuYWJDdXdJdzI0ZmR6cGcyUWxTSWJqdGIwZFZIdUJFZ2V6SmNaUXZvVEJPWm1lRSttb3RONStvd2tiZFcydHlIY2V5eTZORm1naXRDMnVmSVpBWDNtdThraHFNV3pVY2VkMk9ldTVTbTk5ckEvUWRCQVF4cjhxT2dVaklkelNNN2VsRkxXenFwMW0zdmZRWVk2RC9PZDRBbElFWFZrQW15RURYdjA2OS9LeVBPbC9KQndVVUQ4UXk5WFlrYnFVWmhOeDNWWDZXSG12RVZ5cVh6SXZUZWhqUS83UVQ3bktiQmJwZmphcWlLQT09In0",
+                "consentId": "e3bac283-7966-43d8-8b91-950f72062889-BANK0111223300112230000000120250425161549"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-balance"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API tra cứu số dư",
+        "tags": [
+          "3.AIS"
+        ]
+      }
+    },
+    "/ob/ais/v1/accounts/information": {
+      "post": {
+        "operationId": "2_3_ais_v1_accounts_information",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.ZWE1MmFjMTM5YzE5NjZkZGFiMTBlMWQ3MTFmOGQzNDU0NTEwM2EyMGRkNTkxZTUwYTU0ZmYxMzA4MTFjMGU3Nw.KqPsuiz-Vkb5QCA7bYvH_XKdw9gcId-jlzoodeLJ-RCQedNwCKhEn1MFvyISCbBEHo0M9teGmnpjtBXiyP4zdz-_X4JHLp5KPT-c1pq-T-21TxQspdG3JEbm11qMmJKAOTF5maFxDTHOyu0YtOVaAc286gAnDdKdnMfO2g3mrvk3zB25YzoyQw9XHtAZgWfbrg7qYXlbt5qZKRLctYHIZ9npWZmkXNTdTi1mh4D10VWPe_3erzlXCsX68jdzNnPKuxkSTIJQzOR7npKj6FFiKCncOvY8eTRHKth-Yf_zMBBO3cSZiq4f7IO4NXGiC4BoxFuNyRnkVFhaSve1i87Tgw",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "accountNo": "eyJjaXBoZXJUZXh0IjoiZDdiNGU4NTdkNmYwODMzZjQzYWQ0ZDk1IiwiaXYiOiJkZjc3NmUwOGIzYmFkY2ZmMTVmZDYyZTUiLCJ0YWciOiI5MzMzM2RmODA3YTJmNDk5NTI4YmQ0YjBlNjA5MjE5NSIsImVuY3J5cHRlZEtleSI6ImJzOTk3YkNkRW43RWQvWmZHZUwvMUZVbWZGNTNhalk5UVhRL0pTTHp0cWFCMG41NXJJNDhpeHltQTNLUEhGT25GWlM1QU44d1cvR1Z3WDRqdElZdDJ6UlptRzhiUXhXNm5HU2swNXZ0VVdFdkFuYWJDdXdJdzI0ZmR6cGcyUWxTSWJqdGIwZFZIdUJFZ2V6SmNaUXZvVEJPWm1lRSttb3RONStvd2tiZFcydHlIY2V5eTZORm1naXRDMnVmSVpBWDNtdThraHFNV3pVY2VkMk9ldTVTbTk5ckEvUWRCQVF4cjhxT2dVaklkelNNN2VsRkxXenFwMW0zdmZRWVk2RC9PZDRBbElFWFZrQW15RURYdjA2OS9LeVBPbC9KQndVVUQ4UXk5WFlrYnFVWmhOeDNWWDZXSG12RVZ5cVh6SXZUZWhqUS83UVQ3bktiQmJwZmphcWlLQT09In0",
+                "consentId": "e3bac283-7966-43d8-8b91-950f72062889-BANK0111223300112230000000120250425161549"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-information"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API lấy chi tiết thông tin tài khoản",
+        "tags": [
+          "3.AIS"
+        ]
+      }
+    },
+    "/ob/ais/v1/accounts/transactions": {
+      "post": {
+        "operationId": "2_3_ais_v1_accounts_transactions",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OGFlNThlM2QzMmI5ZjBjNGEwNDk1MDRmNzI2M2Y5YTdjMGY0ZmZkMDIwMDA1OWM5NGVjYTBjNjAyYzhlZDc1Mg.C0dl9Q8t-mD3L3cwU13AID9ZovZx-4RJSfqn-4rpGvLNV1p8teqI6--I9EmAT37UH5-kkmSsXntKDe_HwD_EWk5-w-oBwk2JQtpUpnt0nVr5WRgbrBDltp05BtZ5_gvZEXY0424qNw22hdh_UCN9oe_t5cI4va0gsZH1rD-VWUBBvNB5KK6FUHle2c-2nOB1F2Up51SA6a3hVG5TrwjFI39YxlTH5NE1AyRzuDvBNyUvKfA0d39Kk2lUqKNp9VaSsT3GVIIRmSmBip2jutmmjDf1poOlQGcBzJdRkxRNqcwVzjgqqkk6FZClT9ZQN2pX3zmYtX60wEZngh52KseL8Q",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "accountNo": "eyJjaXBoZXJUZXh0IjoiZDdiNGU4NTdkNmYwODMzZjQzYWQ0ZDk1IiwiaXYiOiJkZjc3NmUwOGIzYmFkY2ZmMTVmZDYyZTUiLCJ0YWciOiI5MzMzM2RmODA3YTJmNDk5NTI4YmQ0YjBlNjA5MjE5NSIsImVuY3J5cHRlZEtleSI6ImJzOTk3YkNkRW43RWQvWmZHZUwvMUZVbWZGNTNhalk5UVhRL0pTTHp0cWFCMG41NXJJNDhpeHltQTNLUEhGT25GWlM1QU44d1cvR1Z3WDRqdElZdDJ6UlptRzhiUXhXNm5HU2swNXZ0VVdFdkFuYWJDdXdJdzI0ZmR6cGcyUWxTSWJqdGIwZFZIdUJFZ2V6SmNaUXZvVEJPWm1lRSttb3RONStvd2tiZFcydHlIY2V5eTZORm1naXRDMnVmSVpBWDNtdThraHFNV3pVY2VkMk9ldTVTbTk5ckEvUWRCQVF4cjhxT2dVaklkelNNN2VsRkxXenFwMW0zdmZRWVk2RC9PZDRBbElFWFZrQW15RURYdjA2OS9LeVBPbC9KQndVVUQ4UXk5WFlrYnFVWmhOeDNWWDZXSG12RVZ5cVh6SXZUZWhqUS83UVQ3bktiQmJwZmphcWlLQT09In0",
+                "consentId": "e3bac283-7966-43d8-8b91-950f72062889-BANK0111223300112230000000120250425161549",
+                "fromDate": "2020-09-01T00:00:00Z",
+                "page": 2,
+                "size": 10,
+                "toDate": "2020-09-29T23:59:59Z"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-transactions"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API tra cứu lịch sử giao dịch",
+        "tags": [
+          "3.AIS"
+        ]
+      }
+    },
+    "/ob/decoupled/v1/auth-request": {
+      "post": {
+        "operationId": "2_1_auth_request",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.NjhhZDYyN2NmNzdhOGZhN2IwZmZlNTQyMjM4YTk1NTc0YjNlN2RlZTEwZDUzNTIxZGY5ZGYxNzBmOTEwNDE1OA.Es70HcWW7LbbUYE3rkRN5uCDZiE4PykqnpFUij9JGGeXovjkByQ7UzAi0Un7QJZoQL3RtZcWmQShA3G7eYlFyxMUXRiIipePrrnWWzFNusZ8DRwo5EZYboelje1HF39doXaChz611ssXu9nK_TeUpJ956eZy4hrUjeIxS9zbbanrqEIxRpDnZ4ytpgbhavRZaONf1EabOCMjSVV9_dMzjIDlzRXGe4hissBclw8AoXzHTT6bjJnlT_CfxcRSzBcBc4FTzzHO-2kJYeLxy5CEgOVL4F1pkm5BuWf0wm5sTLsZ5sCT565gH5mQN8MTzYZ-1WU1pGaG3zNEvmQUePLCBQ",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "period": 90,
+                "permissions": "ACCOUNTS, ACCOUNT_DETAIL, BALANCES",
+                "psuId": "eyJjaXBoZXJUZXh0IjoiNzY3ZGJmYjZiM2Y2M2I4MTExYjQyNjkyIiwiaXYiOiIzMTEyNjFhMjZjNWJmYzMzOWUwMGU1NjMiLCJ0YWciOiIzNzE4NDJjMmIxZDRiMzBmYjkxMjE4N2VmNTIwNjU4ZSIsImVuY3J5cHRlZEtleSI6IlJQZWowQTBYKzlmeW1SeU9GN2tEVjVFQW1TUjBxR0VrTE1WdXdLeXQ2ZWNqdUVDNVhNcXo3Ujh3ZHBYNDNJNEs5OVN5OWgzc21HRHUwRlhIamZaVW1vU1k5NEw1aGF0Y0xaMzdKaXRxMjN2aUZnTVBEUVlmbnV0cFd1b0RNRmhmRlFrZUwxQWI5eG5KVG1qVEZEMDRucWtWY3dJa3JZaTUxSUpyTWhmWHVTY240SWxCTFJ2Nm5xSzlxRzVWQkRoWVhXM1NHYkJqVGkycWl6SUlWY0xSMmE3dlFzbFErem1na2lCb29ZZi9mSUtaZGM4SHMrZTRyUDJlUm83L0paMllYajhMYittSnlUaXBLMnBsVXk3MmMvd1VxWHMrVGJBUHhZYWJlVGxmRUhHTytZM1F3TGRNNnMwMENnTnJzY3ZzRWQyS3JyRlRpaFE2NE5BeTU2cUxoQT09In0",
+                "psuType": "CITIZEN_ID"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-auth"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API khởi tạo yêu cầu xác thực và chấp thuận",
+        "tags": [
+          "2.AUTH-DECOUPLE"
+        ]
+      }
+    },
+    "/ob/decoupled/v1/auth-revoke": {
+      "post": {
+        "operationId": "2_3_auth_revoke",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OTk0ODMxMzkzZTI0ZGRhODIyYTFiYjQyYWNlY2Y4ZGQyNWU0ZWVjMzUwZmFlZDExNmYzNGM2YmU1ZmY3NWEzMA.hruC-odYkscP6Ssb-DbaTxezFY_r2ltrtedKFS9PlTqBmo9vmnJKJqDSM5uDXEFrPQ8CG2mn2qpUkIcFpdf2HuWsCstUwKPxRtA7wdkY-e-UCbPgops6PA0x9y_PrdQe5m_QlaoR4TP00JLMVocBZefJvt3gzWydT1X2nnWp2T7c6P-JAz5B1BeiTwivgbnLehtoWI21Tfjc8yw1VQslVo1R8BjXjqcUb7JoBpgqWToCQrwdDHULZal6awVpBl-m0pMkv5IEeGMqsK8ljP4MW3-R7KQ90iowNitO1lKZgDTtCu927vw8Z-tyU7X3Vl-oEa2xksern9jlKj3BpDpcHA",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "consentId": "e3bac283-7966-43d8-8b91-950f72062889-BANK0111223300112230000000120250425161549"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-auth-revoke"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API thu hồi xác thực và chấp thuận",
+        "tags": [
+          "2.AUTH-DECOUPLE"
+        ]
+      }
+    },
+    "/ob/decoupled/v1/auth-status/{obTransactionId}": {
+      "get": {
+        "operationId": "2_2_auth_status",
+        "parameters": [
+          {
+            "example": "a7f3a8e5-1f37-4cc6-bcbd-4c3146c285ad-1122330011223-112519",
+            "in": "path",
+            "name": "obTransactionId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-auth-status"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API lấy thông tin trạng thái xác thực và chấp thuận",
+        "tags": [
+          "2.AUTH-DECOUPLE"
+        ]
+      }
+    },
+    "/ob/decoupled/v1/update-consent": {
+      "post": {
+        "operationId": "2_3_pis_dp_auth_update",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OTk0ODMxMzkzZTI0ZGRhODIyYTFiYjQyYWNlY2Y4ZGQyNWU0ZWVjMzUwZmFlZDExNmYzNGM2YmU1ZmY3NWEzMA.hruC-odYkscP6Ssb-DbaTxezFY_r2ltrtedKFS9PlTqBmo9vmnJKJqDSM5uDXEFrPQ8CG2mn2qpUkIcFpdf2HuWsCstUwKPxRtA7wdkY-e-UCbPgops6PA0x9y_PrdQe5m_QlaoR4TP00JLMVocBZefJvt3gzWydT1X2nnWp2T7c6P-JAz5B1BeiTwivgbnLehtoWI21Tfjc8yw1VQslVo1R8BjXjqcUb7JoBpgqWToCQrwdDHULZal6awVpBl-m0pMkv5IEeGMqsK8ljP4MW3-R7KQ90iowNitO1lKZgDTtCu927vw8Z-tyU7X3Vl-oEa2xksern9jlKj3BpDpcHA",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "consentStatus": "AUTHORIZED",
+                "dpTransactionId": "596e348c-1ab3-4638-9dc0-fcb195398283-BANK01-111846",
+                "orderId": "BANK01-1122330011223-64a53783-9338-4435-b692-d034acbb574d",
+                "paymentStatus": "ACSP"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-auth-update"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API cập nhật thông tin chấp thuận",
+        "tags": [
+          "2.AUTH-DECOUPLE"
+        ]
+      }
+    },
+    "/ob/pis/v1/payments": {
+      "post": {
+        "operationId": "2_1_pis_payment",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OTk0ODMxMzkzZTI0ZGRhODIyYTFiYjQyYWNlY2Y4ZGQyNWU0ZWVjMzUwZmFlZDExNmYzNGM2YmU1ZmY3NWEzMA.hruC-odYkscP6Ssb-DbaTxezFY_r2ltrtedKFS9PlTqBmo9vmnJKJqDSM5uDXEFrPQ8CG2mn2qpUkIcFpdf2HuWsCstUwKPxRtA7wdkY-e-UCbPgops6PA0x9y_PrdQe5m_QlaoR4TP00JLMVocBZefJvt3gzWydT1X2nnWp2T7c6P-JAz5B1BeiTwivgbnLehtoWI21Tfjc8yw1VQslVo1R8BjXjqcUb7JoBpgqWToCQrwdDHULZal6awVpBl-m0pMkv5IEeGMqsK8ljP4MW3-R7KQ90iowNitO1lKZgDTtCu927vw8Z-tyU7X3Vl-oEa2xksern9jlKj3BpDpcHA",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "data": "eyJjaXBoZXJUZXh0IjoiNjgyY2U3NWUwZGU0Yjg4NDRmNmVlMzQxNjcyNjQwY2Q2YzdmNzkwZmVhNWQzMzViYWJhZWIyMTFkM2M5ZTE1ZGZlMWNjZDk0MTIwMzUwM2MxN2RmM2Y5ZGQ4ZDZiMmVhYTBmNzYwNTU3MGUxMTQ3NTQyZWY4YmEwZTg1NWI1M2MyNTg3Y2FjMzYwN2JiNzc4NTRhNGQ4N2NhZWY5YzM1MjMwZWI1YzMzYjQyYzdhZjcwZWVlNmUyZGUzMzc4MjQzZTNkODNmMTc0N2E0ZDY1ZmViOTZlOTNkM2IyMGJkYzY0ZjY3YzdlNGU0MGZiNjRjZGI1MGYwNTM4ZWU5Yzc3NjlmY2Y0Zjk2MWViNjA3ZjE3MmYyZjkxMjVmMjNmMmVjZjQwYTI0ZDBmZGFkMGVhZTg1MjlkMGMyMmNmZjcyNjIxZDg1NmY4MmUwOTUwZjQ5M2Q2ZDhiYjI2ZjU5MGJiMzdhNTUzYzQ2NGEwNmY3ZTM5YjhlMDY1YzQ0MGUwOGQ4YzkwZmFmN2RlMzcwMDgyNDdmOTJmNDNmYzA2MGY1MDQzYTUyMTllNTg5ZjU5MGE2ZjI5ZWRhNmJkMzJhNWU3YmE1NDMxMmFiOTgyOTgxZmQ0ZmEyZjhjOThiMmFmZTc1OGY2YmVlMDVkMjU4ZTMxMjRkMDhmNGIzNDcxZGMyNjlmNTJiYTkwZjk3ZTYxOTM3ZTE4YTQ0ODBhNzc3YzRkZjFhMjUyOTM1ZmViOTBhMzc3YzkxNjI5MGQ2Yjc1MjRlMGZlNDNmNGZhOWZmNTc2OWU3MWVmNDNjYTA0ODRlMzViZDQ2MmIxYWU1NjZmOTZjYzFhMzE1M2ZjZjkzN2IzOTAxMmZjOTgzN2U3OTRhMTM5NGRiMjU4N2JmOTNjZmY4ZTYwNWZhN2RkYjE1ZjdkZWM0M2RiMjA0ZGEzMzUwNjEyNDM3NWQ4YmQxNWVmZjJmZmU2NWI5MjFlNjdjNGZjMzI0OWYzNGU4ZTgzMzliM2IiLCJpdiI6IjI4MmE5ODIxMjdkNWE0OWQ0MmU2YjNlNSIsInRhZyI6IjRkYmQ2YWY4YzFhYjJmZDM3Y2FiNmYxNDc1MDM5YjliIiwiZW5jcnlwdGVkS2V5IjoiSlRJd0VmMU9JME0xSkpicXo3enBxc3hCWkdXdlZiNUx2Z08xa2pkUG9HL2VVYUhia1R3SkZ1RVUrbyticmYwY0FCWDZYak1ia0toSlV2NlVNZFFNWEFkSnZ1NUNxYVVuaXdYbGlsa0sxWHlOTzhXTTNFWVk3WmQ0bzZIZnl4WGkwQTQydzJ1YjBLMkllV3pvenJibEJ1MGFGYzN1NngraEd4T21vTGJVUitkV05BZ0JIZG9tcWthQytZQjY0VEo4UWtSRHE0N0dnYTg1ZzV3bXVwcDhBZHllcmNYTER3RDN0eERoV0luR1JCTy80VUVEV0tRVG1iOG1SRjMveTkrL2xEb1hGL2pCcjlGK2tURUpHSUkxcXRRNDJsc1dFWDRXRWRKamE0T2hvU0czNWduVCtIM0ZPRy95K0FUWElteTdBUHkyaENKaURMRzZSRU51R1VTWkdRPT0ifQ"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-payments"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API khởi tạo thanh toán",
+        "tags": [
+          "4.PIS"
+        ]
+      }
+    },
+    "/ob/pis/v1/payments/cancel": {
+      "post": {
+        "operationId": "2_3_pis_paymentCancel",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OTk0ODMxMzkzZTI0ZGRhODIyYTFiYjQyYWNlY2Y4ZGQyNWU0ZWVjMzUwZmFlZDExNmYzNGM2YmU1ZmY3NWEzMA.hruC-odYkscP6Ssb-DbaTxezFY_r2ltrtedKFS9PlTqBmo9vmnJKJqDSM5uDXEFrPQ8CG2mn2qpUkIcFpdf2HuWsCstUwKPxRtA7wdkY-e-UCbPgops6PA0x9y_PrdQe5m_QlaoR4TP00JLMVocBZefJvt3gzWydT1X2nnWp2T7c6P-JAz5B1BeiTwivgbnLehtoWI21Tfjc8yw1VQslVo1R8BjXjqcUb7JoBpgqWToCQrwdDHULZal6awVpBl-m0pMkv5IEeGMqsK8ljP4MW3-R7KQ90iowNitO1lKZgDTtCu927vw8Z-tyU7X3Vl-oEa2xksern9jlKj3BpDpcHA",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "debtor": {
+                  "accountNo": "eyJjaXBoZXJUZXh0IjoiODI5ZDhlNjBlN2UzYmFmZDYzNmZjZTQ3IiwiaXYiOiJkYzJhMDk4ZTdlMDI3ZDlkMjVjODgyNWMiLCJ0YWciOiJjOWE4MjI0OWM4YTIzMmNiNmYwN2QwNTA5MzgzMTRhYyIsImVuY3J5cHRlZEtleSI6ImF5cE9yQ1pheEFMSkxBdGthdUlZY21ST2E2VDZSbTdwZjVjditZRityVVpEVWFBN1VpWmpkOWFXcE80MkFrV1FCNTFvWXJ6WllzS3ZVT3krM3IveEY1Qks2c2lhWXNNSUVSSjhDT25sOWZaQ0RDcThBNnowaTBmOHVXMloxMWRtUjFwQ09jakNVK3BNVGpZODhBWFFkTld6UjdxNVo2Um9zM1habGx5TGxWVWlxd0t6V2JVQS8xbXUxcGJxd3RDWHhnUU9nYjZHS0ZDTnBYbEVkR1E0TXlYTlVGcXpMNGhTSSthQlJreW55Tk01dVBEWE5jWEI2SkMyMFVsdHIxWmpmbWxYcFJ6U1NadENYK1NKT2NoRFdNb0d0WEsvdE9CMDkrVVFIUGlFNityaVlGN1BxblNNbWlwakM3N2pNUll1NkZMVG52UC9zcTJwUEtWS1VhbFkvZz09In0",
+                  "bankCode": "BANK01",
+                  "name": "Nguyen Van A"
+                },
+                "instructionIdentification": "44fd9bfd-31db-4f42-bf0a-e61bbbac9af8",
+                "orderId": "37422ebb-e65e-4f28-9a5e-4caf7bf29709-ORDER_-160158"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-payment-cancel"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API hủy thanh toán giao dịch",
+        "tags": [
+          "4.PIS"
+        ]
+      }
+    },
+    "/ob/pis/v1/payments/status/{orderId}": {
+      "get": {
+        "operationId": "2_2_pis_paymentStatus",
+        "parameters": [
+          {
+            "example": "BANK01-1122330011223-64a53783-9338-4435-b692-d034acbb574d",
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-payment-status"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API truy vấn trạng thái thanh toán",
+        "tags": [
+          "4.PIS"
+        ]
+      }
+    },
+    "/ob/pis/v1/payments/submit": {
+      "post": {
+        "operationId": "2_4_pis_paymentSubmit",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "192.168.1.1",
+            "in": "header",
+            "name": "PSU-IP-Address",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "BANK01",
+            "in": "header",
+            "name": "Provider-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "eyJhbGciOiJQUzI1NiJ9.OTk0ODMxMzkzZTI0ZGRhODIyYTFiYjQyYWNlY2Y4ZGQyNWU0ZWVjMzUwZmFlZDExNmYzNGM2YmU1ZmY3NWEzMA.hruC-odYkscP6Ssb-DbaTxezFY_r2ltrtedKFS9PlTqBmo9vmnJKJqDSM5uDXEFrPQ8CG2mn2qpUkIcFpdf2HuWsCstUwKPxRtA7wdkY-e-UCbPgops6PA0x9y_PrdQe5m_QlaoR4TP00JLMVocBZefJvt3gzWydT1X2nnWp2T7c6P-JAz5B1BeiTwivgbnLehtoWI21Tfjc8yw1VQslVo1R8BjXjqcUb7JoBpgqWToCQrwdDHULZal6awVpBl-m0pMkv5IEeGMqsK8ljP4MW3-R7KQ90iowNitO1lKZgDTtCu927vw8Z-tyU7X3Vl-oEa2xksern9jlKj3BpDpcHA",
+            "in": "header",
+            "name": "JWS-Signature",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "consentId": "e3bac283-7966-43d8-8b91-950f72062889-BANK0111223300112230000000120250425161549",
+                "orderId": "BANK01-1122330011223-64a53783-9338-4435-b692-d034acbb574d"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-payment-submit"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API xác nhận thanh toán / hủy thanh toán",
+        "tags": [
+          "4.PIS"
+        ]
+      }
+    },
+    "/ob/v1/oauth2/token": {
+      "post": {
+        "operationId": "1_ob_oauth2",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "grant_type": "client_credentials",
+                "scope": "ob.decoupled.v1.auth-request ob.decoupled.v1.auth-status.* ob.decoupled.v1.auth-revoke ob.decoupled.v1.update-consent ob.ais.v1.accounts ob.ais.v1.accounts.information ob.ais.v1.accounts.balances ob.ais.v1.accounts.transactions ob.v1.providers ob.pis.v1.payments ob.pis.v1.payments.submit ob.pis.v1.payments.cancel ob.pis.v1.payments.status.*"
+              },
+              "schema": {
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-token"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "API lấy mã truy cập",
+        "tags": [
+          "1.COMMON"
+        ]
+      }
+    },
+    "/ob/v1/providers": {
+      "get": {
+        "operationId": "2_getProviders",
+        "parameters": [
+          {
+            "example": "2025-04-25T23:16:07Z",
+            "in": "header",
+            "name": "Request-DateTime",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "cea8db10-e7ee-4093-b928-3101ba805005",
+            "in": "header",
+            "name": "Request-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "1122330011223",
+            "in": "header",
+            "name": "TPP-ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "example": "br6xc86hj2vdk3p5dcck8j8a",
+            "in": "header",
+            "name": "Application",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/res-providers"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "API lấy danh sách DP",
+        "tags": [
+          "1.COMMON"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Napas test",
+      "url": "https://developer.napas.com.vn",
+      "variables": {
+        "Open banking domain": {
+          "default": "developer.napas.com.vn"
+        }
+      }
+    },
+    {
+      "description": "Napas production",
+      "url": "https://api.napas.com.vn"
+    }
+  ],
+  "tags": [
+    {
+      "description": "Nhóm API Chung",
+      "externalDocs": {
+        "description": "Xem thêm tại Open Banking",
+        "url": "https://developer.napas.com.vn/page/introduce"
+      },
+      "name": "1.COMMON"
+    },
+    {
+      "description": "API lấy thông tin trạng thái xác thực và chấp thuận",
+      "externalDocs": {
+        "description": "Xem thêm tại Open Banking",
+        "url": "https://developer.napas.com.vn/page/introduce"
+      },
+      "name": "2.AUTH-DECOUPLE"
+    },
+    {
+      "description": "Nhóm API truy vấn thông tin tài khoản",
+      "externalDocs": {
+        "description": "Xem thêm tại Open Banking",
+        "url": "https://developer.napas.com.vn/page/introduce"
+      },
+      "name": "3.AIS"
+    },
+    {
+      "description": "Nhóm API khởi tạo thanh toán",
+      "externalDocs": {
+        "description": "Xem thêm tại Open Banking",
+        "url": "https://developer.napas.com.vn/page/introduce"
+      },
+      "name": "4.PIS"
+    }
+  ]
+}

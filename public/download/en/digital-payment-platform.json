@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "API Documentation",
+    "description": "Detailed instructions on how to integrate Open Banking API",
+    "fileType": "PDF",
+    "fileSize": "2.5 MB",
+    "icon": "Book",
+    "link": ""
+  },
+  {
+    "id": 2,
+    "title": "Data Privacy Policy",
+    "description": "Technical standards, legal and operating regulations",
+    "fileType": "PDF",
+    "fileSize": "1.8 MB",
+    "icon": "FileText",
+    "link": ""
+  },
+  {
+    "id": 3,
+    "title": "TPP contract template",
+    "description": "Standard Form for Third Party Provider",
+    "fileType": "DOCX",
+    "fileSize": "350 KB",
+    "icon": "File",
+    "link": ""
+  },
+  {
+    "id": 4,
+    "title": "Quick Integration Guide",
+    "description": "Quick start guide cho developers",
+    "fileType": "PDF",
+    "fileSize": "1.2 MB",
+    "icon": "Book",
+    "link": ""
+  }
+]

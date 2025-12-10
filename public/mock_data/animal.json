@@ -1,0 +1,102 @@
+{
+    "info": {
+        "description": "File test animal",
+        "title": "Animal_Version 0.3.5",
+        "version": "0.5.3"
+    },
+    "openapi": "3.0.1",
+    "paths": {
+        "/api/animals": {
+            "post": {
+                "operationId": "addPet",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "example": {
+                                "id": 10,
+                                "name": "cat"
+                            },
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 10,
+                                    "name": "cat"
+                                },
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "summary": "API Thêm động vật",
+                "tags": [
+                    "1.ANIMAL"
+                ]
+            }
+        },
+        "/api/animals/{id}": {
+            "get": {
+                "operationId": "getPet",
+                "parameters": [
+                    {
+                        "example": 10,
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "id": 10,
+                                    "name": "cat"
+                                },
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "OK"
+                    }
+                },
+                "summary": "API lấy động vật theo id",
+                "tags": [
+                    "1.ANIMAL"
+                ]
+            }
+        }
+    },
+    "servers": [
+        {
+            "description": "Animal test",
+            "url": "https://localhost:3000",
+            "variables": {
+                "animal domain": {
+                    "default": "https://localhost:3000"
+                }
+            }
+        }
+    ],
+    "tags": [
+        {
+            "description": "Nhóm API Chung",
+            "name": "1.ANIMAL"
+        }
+    ]
+}

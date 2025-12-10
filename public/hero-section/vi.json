@@ -1,0 +1,31 @@
+{
+  "text": "Cổng thông tin dành cho nhà phát triển",
+  "welcome": "Cổng tích hợp sản phẩm Napas",
+  "welcome_sub": "Tăng cường khả năng vận hành của doanh nghiệp của bạn và đưa nó lên một tầm cao mới.",
+  "btn_view_product": "Xem Sản Phẩm",
+  "btn_get_started": "Tiến hành tích hợp",
+  "image": [
+    "/card.png",
+    "/transfer.png",
+    "/qr.png"
+  ],
+  "hero_section_title": "Mạng lưới Tổ Chức Thành Viên của Napas",
+  "hero_section_subtitle": "Công ty Cổ phần Thanh toán Quốc gia Việt Nam (NAPAS) đang quản trị và vận hành hệ thống chuyển mạch tài chính hơn 20.600 máy ATM, hơn 741.000 thiết bị chấp nhận thanh toán (POS/mPOS) phục vụ hơn 80 triệu khách hàng của 68 Tổ chức thành viên là ngân hàng và công ty tài chính.",
+  "hero_section_stat": [
+    {
+      "title": "Ngân Hàng/ Công ty tài chính",
+      "quantity": 68,
+      "suffix": "+"
+    },
+    {
+      "title": "Đơn vị Trung gian thanh toán",
+      "quantity": 40,
+      "suffix": "+"
+    },
+    {
+      "title": "Thiết bị chấp nhận thanh toán (POS/mPOS)",
+      "quantity": 200,
+      "suffix": "+"
+    }
+  ]
+}

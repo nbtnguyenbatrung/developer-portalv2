@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "6937e7e176991837afa0400c"
+  },
+  "planName": "Basic Plan",
+  "quota": "10000",
+  "quotaPeriod": "Day",
+  "createdAt": {
+    "$date": "2025-12-09T09:12:01.390Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T09:12:01.390Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6937e99b76991837afa04015"
+  },
+  "planName": "Gold Plan",
+  "quota": "50000",
+  "quotaPeriod": "Day",
+  "createdAt": {
+    "$date": "2025-12-09T09:19:23.481Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T09:19:23.481Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6937ea0d76991837afa04017"
+  },
+  "planName": "Plantinum Plan",
+  "quota": "100000",
+  "quotaPeriod": "Day",
+  "createdAt": {
+    "$date": "2025-12-09T09:21:17.167Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T09:21:17.167Z"
+  },
+  "__v": 0
+}]

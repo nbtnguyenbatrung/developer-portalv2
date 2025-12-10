@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Tài liệu API Documentation",
+    "description": "Hướng dẫn chi tiết về cách tích hợp Open Banking API",
+    "fileType": "PDF",
+    "fileSize": "2.5 MB",
+    "icon": "Book",
+    "link": ""
+  },
+  {
+    "id": 2,
+    "title": "Quy định bảo mật dữ liệu",
+    "description": "Tiêu chuẩn kỹ thuật, pháp lý và quy định vận hành",
+    "fileType": "PDF",
+    "fileSize": "1.8 MB",
+    "icon": "FileText",
+    "link": ""
+  },
+  {
+    "id": 3,
+    "title": "Mẫu hợp đồng TPP",
+    "description": "Biểu mẫu chuẩn cho Third Party Provider",
+    "fileType": "DOCX",
+    "fileSize": "350 KB",
+    "icon": "File",
+    "link": ""
+  },
+  {
+    "id": 4,
+    "title": "Hướng dẫn tích hợp nhanh",
+    "description": "Hướng dẫn nhanh cho nhà phát triển",
+    "fileType": "PDF",
+    "fileSize": "1.2 MB",
+    "icon": "Book",
+    "link": ""
+  }
+]

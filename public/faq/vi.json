@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Làm thế nào để tích hợp với hệ thống API của Napas?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    <p class=\"mb-4\">\n                      Bước 1: <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/page/contact\">Liên hệ</a> với đầu mối kinh doanh của Napas để đăng ký tài khoản.\n                    </p>\n                    <p class=\"mb-4\">\n                      Bước 2: <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/login/\">Đăng nhập</a> Developer Portal sau khi được tạo tài khoản.\n                    </p>\n                    <p class=\"mb-4\">\n                      Bước 3: <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/applications/create\">Tạo ứng dụng</a> theo gói dịch vụ và Chờ Napas phê duyệt.\n                    </p>\n                    <p class=\"mb-4\">Bước 4: Sau khi được duyệt, sử dụng thông tin ứng dụng để tích hợp dịch vụ.</p>\n                  </div>"
+  },
+  {
+    "question": "Làm sao để tôi kiểm thử API?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    Sau khi đăng nhập Developer Portal, bạn có thể gọi thử API trong mục <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product/apis/\">Kiểm thử API</a> với dữ liệu giả lập có sẵn.\n                  </div>"
+  },
+  {
+    "question": "Các thông tin để tích hợp API bao gồm những gì? Tôi có thể tìm hiểu các thông tin đó ở đâu?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    Chúng tôi cung cấp techspec và kịch bản kiểm thử cho từng API đối với mỗi dịch vụ, các thông tin này có trong mục <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product\">Sản phẩm của Napas</a>  và mục <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product\">Tài liệu</a>.\n                    <!-- TODO: TIEP TUC TU CAU 2 -->\n                  </div>"
+  },
+  {
+    "question": "Tôi có bị mất phí khi sử dụng Developer Portal không? Khi nào thì tôi bị mất phí?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    Vui lòng <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Liên hệ</a> với chúng tôi để biết thêm chi tiết.\n                  </div>"
+  },
+  {
+    "question": "Sẽ phải làm gì nếu như tôi quên tài khoản để đăng nhập?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    Hãy <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Liên hệ</a> với đầu mối kinh doanh của chúng tôi để được hỗ trợ\n                  </div>"
+  },
+  {
+    "question": "Làm sao để thay đổi mật khẩu?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    Vào mục <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/member/edit\">Hồ Sơ</a> để đổi mật khẩu và cập nhật các thông tin cá nhân liên quan.\n                  </div>"
+  },
+  {
+    "question": "\"Application\" là gì và có thể đăng ký bao nhiêu application?",
+    "content": "Application là thông tin dùng để sử dụng dịch vụ, bao gồm thông tin gói dịch vụ, \"khóa\" và \"bí mật\" để truy cập API. Tùy thuộc vào nhu cầu của bạn, chúng tôi sẽ tạo ứng dụng cho bạn."
+  },
+  {
+    "question": "Làm sao để xác thực các API?",
+    "content": "<p class=\"mb-4\">\n                      Thông thường các API sử dụng các chuẩn xác thực <strong>basic authentication</strong> hoặc <strong>OAuth2</strong>, vui lòng tìm hiểu thêm tại techspec trong mục <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product\">Sản phẩm của Napas</a> và truy cập <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Liên hệ</a> để được hỗ trợ chi tiết.\n                    </p>"
+  },
+  {
+    "question": "Khi nào thì token hết hạn?",
+    "content": "Thời gian hết hạn có trong phản hồi của API lấy mã xác thực, thông thường là 5 phút."
+  },
+  {
+    "question": "Tôi tiếp tục nhận được phản hồi khác 200. Tôi có thể làm gì để giải quyết nó?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n                    <p class=\"mb-4\">Dưới đây là một số lỗi phổ biến mà bạn có thể gặp phải:</p>\n                    <ol class=\"pl-4\">\n                      <li class=\"mb-4\">- Kiểm tra khóa và bí mật có khớp với Application đã tạo.</li>\n                      <li class=\"mb-4\">- Một số API yêu cầu trường \"Application\" trong header, hãy đảm bảo đã thêm vào request.</li>\n                      <li class=\"mb-4\">- Nếu dùng basic authentication, kiểm tra định dạng mã hóa base-64 đúng theo tài liệu.</li>\n                      <li class=\"mb-4\">- Với dịch vụ yêu cầu phạm vi (scope), đảm bảo bạn đã cấu hình đúng phạm vi truy cập.</li>\n                      <li class=\"mb-4\">- Kiểm tra token không bị vô hiệu hoặc đã hết hạn.</li>\n                    </ol>\n\n                    <p class=\"mb-4\">Nếu vẫn gặp lỗi, hãy truy cập mục <a style=\"\n    --tw-text-opacity: 1;\n    color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Liên hệ</a> để được hỗ trợ.</p>\n                  </div>"
+  }
+]

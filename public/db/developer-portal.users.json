@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6932450f7c0b0f1110bfc9d4"
+  },
+  "email": "napastest@napas.com.vn",
+  "password": "$2b$10$D0iyS8OkX/mDj4tvum8KgOqUU.skoWSB8WgI/e5qoZALeiLmWDAgy",
+  "firstName": "Napas",
+  "lastName": "Napas",
+  "fullName": "Napas Napas",
+  "status": "active",
+  "role": [
+    "USER",
+    "ADM"
+  ],
+  "twoFactorEnabled": false,
+  "twoFactorSecret": "generatedSecret.base32",
+  "createdAt": {
+    "$date": "2025-12-05T02:35:59.291Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-05T02:35:59.291Z"
+  },
+  "__v": 0
+}]

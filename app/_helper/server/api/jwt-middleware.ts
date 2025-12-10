@@ -1,0 +1,29 @@
+import { NextRequest, NextResponse } from "next/server";
+
+import { auth } from "@/app/_helpers/server";
+import { validateRequest } from "@/lib/jwt";
+
+export { jwtMiddleware };
+
+async function jwtMiddleware(req: NextRequest) {
+  if (isPublicPath(req)) return;
+
+  // // verify token in request cookie
+  // const id = auth.verifyToken()
+  // req.headers.set('userId', id)
+
+  const payload = await validateRequest(req);
+  if (!payload) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+}
+
+function isPublicPath(req: NextRequest) {
+  // public routes that don't require authentication
+  const publicPaths = [
+    "POST:/api/account/login",
+    "POST:/api/account/logout",
+    "POST:/api/account/register",
+  ];
+  return publicPaths.includes(`${req.method}:${req.nextUrl.pathname}`);
+}

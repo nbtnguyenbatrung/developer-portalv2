@@ -1,0 +1,31 @@
+{
+  "text": "Developer Portal",
+  "welcome": "Napas Product Integration Gateway",
+  "welcome_sub": "Enhance your business's operational capabilities and take it to the next level.",
+  "btn_view_product": "View Product",
+  "btn_get_started": "Get Started",
+  "image": [
+    "/card.png",
+    "/transfer.png",
+    "/qr.png"
+  ],
+  "hero_section_title": "Napas Member Organization Network",
+  "hero_section_subtitle": "The National Payment Corporation of Vietnam (NAPAS) manages and operates a financial switching system of over 20,600 ATMs and more than 741,000 payment acceptance devices (POS/mPOS), serving over 80 million customers of 68 member organizations including banks and financial companies.",
+  "hero_section_stat": [
+    {
+      "title": "Banks/ Financial Companies",
+      "quantity": 68,
+      "suffix": "+"
+    },
+    {
+      "title": "Payment Intermediary Units",
+      "quantity": 40,
+      "suffix": "+"
+    },
+    {
+      "title": "Payment Acceptance Devices (POS/mPOS)",
+      "quantity": 200,
+      "suffix": "+"
+    }
+  ]
+}

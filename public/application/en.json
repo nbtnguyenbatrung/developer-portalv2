@@ -1,0 +1,13 @@
+{
+  "dashboard_api_key_header": "Manage your API keys for authenticating with Napas APIs.",
+  "dashboard_api_key_guide_header": "API Key Security & Usage Guide",
+  "dashboard_api_key_guide_sub_title": "Essential Steps for Protecting and Using Your API Key",
+  "dashboard_api_key_guide_content_1": "Key Usage Guide",
+  "dashboard_api_key_guide_content_2": "To make a successful API call, you must use the granted API Key value and set it in the request Header:",
+  "dashboard_api_key_guide_content_3": "Application: {{Your API Key Value}}",
+  "dashboard_api_key_guide_content_4": "Best Security Practices (Required Actions)",
+  "dashboard_api_key_guide_content_5": "Strictly prohibit displaying the API Key in client-side code or public repositories.",
+  "dashboard_api_key_guide_content_6": "Store the API Key in an environment variable or a secure vault system on the server.",
+  "dashboard_api_key_guide_content_7": "Use different Keys for the test environment and the production environment.",
+  "dashboard_api_key_guide_content_8": "Immediately revoke any API Keys that are no longer in use or suspected of being compromised (leaked)."
+}

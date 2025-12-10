@@ -1,0 +1,19 @@
+export default function LogoNapas({ className = '', size = 30 }: { className?: string; size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 30 31"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path d="M19.5599 8.41406L10.5625 16.828H20.9316L29.947 8.41406H19.5599Z" fill="#009BDB"></path>
+      <path d="M20.9316 16.8281L29.3785 26.6873H18.9665L10.5625 16.8281H20.9316Z" fill="#A6CE39"></path>
+      <path d="M20.9316 0H10.5625V16.8278H20.9316V0Z" fill="#0A3F7F" className="svg-w"></path>
+      <path d="M15.7418 30.3228H5.375L10.5663 16.8359H20.9331L15.7418 30.3228Z" fill="#009BDB"></path>
+      <path d="M10.5631 16.8281L0 26.6873H10.3781L20.9322 16.8281H10.5631Z" fill="#0A3F7F" className="svg-w"></path>
+      <path d="M20.9348 16.8261L11.8901 6.28125H1.4375L10.5657 16.8261H20.9348Z" fill="#A6CE39"></path>
+    </svg>
+  )
+}

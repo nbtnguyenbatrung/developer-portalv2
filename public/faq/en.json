@@ -1,0 +1,42 @@
+[
+  {
+    "question": "How to integrate with Napas API system?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n <p class=\"mb-4\">\n Step 1: <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/page/contact\">Contact</a> with Napas's business contact to register an account.\n </p>\n <p class=\"mb-4\">\n Step 2: <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/login/\">Log in</a> Developer Portal later when the account is created.\n </p>\n <p class=\"mb-4\">\n Step 3: <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/applications/create\">Create application</a> according to the service package and wait for Napas approval.\n </p>\n <p class=\"mb-4\">Step 4: After approval, use the application information to integrate the service.</p>\n </div>"
+  },
+  {
+    "question": "How do I test the API?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\nAfter logging in to the Developer Portal, you can test the API in the <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product/apis/\">Test the API</a> section with available mock data.\n </div>"
+  },
+  {
+    "question": "What information is included for API integration? Where can I find out about it?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n We provide techspec and test scenarios for each API for each service, which are included in the <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product\">Napas Products</a> and the <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product\">Documentation</a>.\n <!-- TODO: CONTINUE FROM QUESTION 2 -->\n </div>"
+  },
+  {
+    "question": "Do I have to pay for using the Developer Portal? When will I be charged?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\nPlease <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Contact</a> us for more details.\n </div>"
+  },
+  {
+    "question": "What should I do if I forget my login credentials?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\nPlease <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Contact</a> our sales contact for assistance\n </div>"
+  },
+  {
+    "question": "How to change password?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n Go to <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/member/edit\">Profile</a> to change password and update related personal information.\n </div>"
+  },
+  {
+    "question": "What is an \"Application\" and how many applications can be registered?",
+    "content": "An application is information used to use the service, including service package information, \"key\" and \"secret\" to access the API. Depending on your needs, we will create an application for you."
+  },
+  {
+    "question": "How to authenticate APIs?",
+    "content": "<p class=\"mb-4\">\n Usually APIs use <strong>basic authentication</strong> or <strong>OAuth2</strong> authentication standards, please learn more at techspec in <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/product\">Napas products</a> and visit <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Contact</a> for detailed support.\n </p>"
+  },
+  {
+    "question": "When does the token expire?",
+    "content": "The expiration time is in the response of the API to get the authentication code, usually 5 minutes."
+  },
+  {
+    "question": "I keep getting non-200 responses. What can I do to resolve it?",
+    "content": "<div class=\"support-faq-item-description text-neutral-700\">\n <p class=\"mb-4\">Here are some common errors you may encounter:</p>\n <ol class=\"pl-4\">\n <li class=\"mb-4\">- Check that the key and secret match the generated Application.</li>\n <li class=\"mb-4\">- Some APIs require an \"Application\" field in the header, make sure to include it in the request.</li>\n <li class=\"mb-4\">- If using basic authentication, check that the base-64 encoding format is correct according to the documentation.</li>\n <li class=\"mb-4\">- For services that require scopes, make sure you have configured the correct access scope access.</li>\n <li class=\"mb-4\">- Check that the token is not invalid or expired.</li>\n </ol>\n\n <p class=\"mb-4\">If you still encounter an error, visit <a style=\"\n --tw-text-opacity: 1;\n color: rgb(0 129 203 / var(--tw-text-opacity));\n\" href=\"/contact\">Contact</a> for support.</p>\n </div>"
+  }
+]

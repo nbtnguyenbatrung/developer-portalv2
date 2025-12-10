@@ -1,0 +1,151 @@
+[
+  {
+    "id": "7628a96b-80dc-4b50-83a6-ff3972537a5c",
+    "title": "Thẻ nội địa NAPAS",
+    "subTitle": "OAuth 2.0, MFA, và mã hóa dữ liệu",
+    "slug": "napas-domestic-card",
+    "content":
+    "Thẻ nội địa NAPAS (gọi tắt là Thẻ NAPAS) là thẻ thanh toán do các Ngân hàng và Công ty Tài chính Việt Nam phát hành, số thẻ được bắt đầu bằng mã tổ chức phát hành thẻ 9704 do Ngân hàng Nhà nước (NHNN) cấp. Thẻ được triển khai theo Tiêu chuẩn VCCS tại Bộ Quy định Tổ chức thành viên NAPAS, phù hợp với Tiêu chuẩn cơ sở về thẻ chip nội địa của NHNN và Tiêu chuẩn quốc tế EMV. Giao dịch thẻ chip an toàn, thuận tiện; công nghệ chip hiện đại giúp phòng tránh rủi ro gian lận, giả mạo.",
+    "summary": "Thẻ nội địa NAPAS ( gọi tắt là Thẻ NAPAS) là thẻ thanh toán do các Ngân hàng và Công ty Tài chính Việt Nam phát hành, số thẻ được bắt đầu bằng mã tổ chức phát hành thẻ 9704 do Ngân hàng Nhà nước cấp.",
+    "name": "Thẻ nội địa NAPAS",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/C_gif3.mp4",
+      "type": "video"
+    },
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01",
+    "icon": "IdCard",
+    "badge": "Phổ biến",
+    "features": [
+      "Thanh toán hàng hóa, dịch vụ tại đơn vị chấp nhận thẻ (online, offline)",
+      "Chuyển tiền/chuyển khoản nội bộ, liên ngân hàng 247",
+      "Rút tiền 247 liên ngân hàng qua hệ thống NAPAS",
+      "In sao kê",
+      "Đổi PIN"
+    ],
+    "productCode": "NAPAS",
+    "quantityApi": 0
+  },
+  {
+    "id": "8e4641c2-3320-4612-811c-a103a76418e7",
+    "title": "Chuyển nhanh NAPAS 247",
+    "subTitle": "<200ms thời gian đáp ứng cho 95% giao dịch",
+    "slug": "napas-247-fast-transfer",
+    "content":
+    "Dịch vụ Chuyển nhanh NAPAS 247 là dịch vụ do NAPAS cung cấp cho các Ngân hàng thành viên, tổ chức Trung gian thanh toán, và các tổ chức cung ứng dịch vụ chuyển tiền. Qua đó cho phép khách hàng có thể sử dụng thẻ hoặc tài khoản ngân hàng để chuyển tiền đi và nhận tiền chuyển đến ngay lập tức.",
+    "summary": "Dịch vụ Chuyển nhanh NAPAS 247 là dịch vụ do NAPAS cung cấp cho các Ngân hàng thành viên, tổ chức Trung gian thanh toán, và các tổ chức cung ứng dịch vụ chuyển tiền, qua đó cho phép khách hàng có thể sử dụng thẻ hoặc tài khoản ngân hàng để chuyển tiền đi và nhận tiền chuyển đến ngay lập tức.",
+    "name": "Chuyển nhanh NAPAS 247",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/B_gif2.mp4",
+      "type": "video"
+    },
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01",
+    "icon": "Zap",
+    "badge": "Phổ biến",
+    "features": [
+      "Chuyển tiền và nhận tiền ngay lập tức (realtime) mọi nơi, mọi lúc kể cả ngoài giờ hành chính và cuối tuần",
+      "Kết nối 58 thành viên là các Ngân hàng, Công ty viễn thông",
+      "Kiểm tra được thông tin chủ thẻ/tài khoản thụ hưởng trước khi thực hiện giao dịch.",
+      "Kênh giao dịch đa dạng, phù hợp với nhiều đối tượng khách hàng.",
+      "Hạn mức chuyển tiền tối đa lên tới dưới 500 triệu đồng/giao dịch."
+    ],
+    "productCode": "NAPAS",
+    "quantityApi": 0
+  },
+  {
+    "id": "19498f81-d1b9-4ba6-9298-5744d884aaa7",
+    "title": "Chuyển nhanh NAPAS 247 bằng mã VietQR",
+    "subTitle": "Chuyển tiền nhanh qua mã VietQR",
+    "slug": "napas-vietqr",
+    "content":
+    "Dịch vụ Chuyển nhanh NAPAS 247 bằng mã VietQR là dịch vụ cho phép khách hàng sử dụng mã VietQR để thực hiện chuyển tiền nhanh 24/7 thông qua các ứng dụng di động của Ngân hàng và Công ty Tài chính thành viên NAPAS. Khách hàng chỉ cần quét mã VietQR của người nhận để thực hiện chuyển tiền một cách nhanh chóng, an toàn và tiện lợi.",
+    "summary": "Dịch vụ Chuyển nhanh NAPAS 247 bằng mã VietQR cho phép khách hàng chuyển tiền từ tài khoản của mình tới tài khoản tại một ngân hàng khác trong mạng lưới của NAPAS theo phương thức chuyển tiền nhanh 24/7.",
+    "name": "Chuyển nhanh NAPAS 247 bằng mã VietQR",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/A_gif1.mp4",
+      "type": "video"
+    },
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01",
+    "icon": "QrCode",
+    "badge": "Phổ biến",
+    "features": [
+      "Tiêu chuẩn VietQR tuân thủ tiêu chuẩn thanh toán QR của EMV Co. và bộ Tiêu chuẩn cơ sở cho mã QR do NHNN ban hành.",
+      "Giao dịch nhanh chóng/ Đơn giản hóa trải nghiệm và tăng tốc độ thanh toán thông qua việc quét mã QR thay vì lựa chọn ngân hàng và nhập thông tin tài khoản/thẻ ngân hàng.",
+      "Khách hàng có thể tự tạo mã QR khi đã có tài khoản tại 50+ Ngân hàng thành viên",
+      "Thực hiện các giao dịch mọi nơi, mọi lúc kể cả ngoài giờ hành chính và cuối tuần với hạn mức tối đa 1 giao dịch dưới 500 triệu đồng."
+    ],
+    "productCode": "VietQR",
+    "quantityApi": 0
+  },
+  {
+    "id": "7726526e-f420-4023-8a6b-1ff4346e3a61",
+    "title": "Digital Payment Platform",
+    "subTitle": "Digital Payment Platform.",
+    "slug": "digital-payment-platform",
+    "content":
+    "NAPAS DPP là hạ tầng kỹ thuật để kết nối, truyền dẫn và xử lý dữ liệu điện tử các giao dịch thanh toán trực tuyến của NAPAS. NAPAS DPP kết nối khách hàng, đơn vị chấp nhận thanh toán với ngân hàng, chi nhánh ngân hàng nước ngoài, công ty tài chính được phép phát hành thẻ tín dụng, tổ chức cung ứng dịch vụ trung gian thanh toán nhằm hỗ trợ khách hàng thực hiện thanh toán trong giao dịch thương mại điện tử, thanh toán hóa đơn điện tử và các dịch vụ thanh toán điện tử khác. ",
+    "summary": "Thanh toán, chuyển khoản, giao dịch, an toàn, thời gian thực.",
+    "name": "Payments",
+    "active": true,
+    "featured": false,
+    "priority": 1,
+    "viewUrl": {
+      "url": "/introduce/dpp_images.png",
+      "type": "img"
+    },
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01",
+    "icon": "CreditCard",
+    "badge": "Mới",
+    "features": [
+      "Thanh toán bằng thẻ/tài khoản",
+      "Thanh toán/nạp tiền bằng token thẻ/token tài khoản",
+      "Thanh toán bằng mã VietQRPay",
+      "Thanh toán bằng ứng dụng của Ngân hàng/Trung gian thanh toán",
+      "Thanh toán bằng ApplePay",
+      "Giải pháp xác thực 3DS"
+    ],
+    "productCode": "DPP",
+    "quantityApi": 0
+  },
+  {
+    "id": "eb91044e-c0ee-46d6-98e8-671fa80f8e57",
+    "title": "Open Banking",
+    "subTitle": "Open Banking",
+    "slug": "open-banking",
+    "content":
+    "NAPAS cung cấp giải pháp Open Banking theo mô hình kết nối tập trung, đóng vai trò cầu nối tin cậy giữa các tổ chức nắm giữ dữ liệu (DP) như ngân hàng, ví điện tử, tổ chức tín dụng và các bên thứ ba (TPP). Thông qua hạ tầng bảo mật này, TPP có thể truy cập thông tin tài khoản với sự đồng ý của người dùng, từ đó phát triển các dịch vụ giá trị gia tăng cá nhân hóa. Giải pháp được xây dựng dựa trên kinh nghiệm quốc tế và nhu cầu thực tiễn tại Việt Nam, hướng tới một nền tảng chia sẻ dữ liệu tài chính mở, có khả năng mở rộng và tương thích cao, đồng thời đảm bảo tuân thủ đầy đủ quy định về an toàn bảo mật, chia sẻ dữ liệu và quyền riêng tư. NAPAS ban hành bộ tiêu chuẩn kỹ thuật, pháp lý và quy định vận hành thống nhất, giúp đơn giản hóa tích hợp, tăng khả năng tương tác và thúc đẩy triển khai dịch vụ mới linh hoạt.",
+    "summary": "Tài khoản, KYC, AML, quản lý.",
+    "name": "Accounts",
+    "active": true,
+    "featured": false,
+    "viewUrl": {
+      "url": "/introduce/ob_images.png",
+      "type": "img"
+    },
+    "priority": 2,
+    "createdAt": "2023-01-02",
+    "updatedAt": "2023-01-02",
+    "icon": "Users",
+    "badge": "Mới",
+    "features": [
+      "Kết nối duy nhất, tiêu chuẩn thống nhất: Tối ưu triển khai Open API với một kết nối, một chuẩn chung.",
+      "Linh hoạt vai trò: Hỗ trợ đồng thời 02 vai trò Data Provider (DP) và Third Party Provider (TPP).",
+      "AIS – Truy vấn thông tin tài khoản: Cung cấp số dư, chi tiết tài khoản, lịch sử giao dịch nhanh chóng, chính xác.",
+      "PIS – Thanh toán tiện lợi: Khởi tạo giao dịch chuyển tiền, truy vấn trạng thái và hủy giao dịch dễ dàng."
+    ],
+    "productCode": "OB",
+    "quantityApi": 14
+  }
+]

@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "6937f05c4cf48621ca7cb416"
+  },
+  "plan": "6937e7e176991837afa0400c",
+  "user": "6932450f7c0b0f1110bfc9d4",
+  "applicationName": "DPP Inbound",
+  "environment": "production",
+  "client_id": "nrd6bj3sfasu4xe4reat8qtf",
+  "createdAt": {
+    "$date": "2025-12-09T09:48:12.490Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T09:48:12.490Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6937f0864cf48621ca7cb418"
+  },
+  "plan": "6937ea0d76991837afa04017",
+  "user": "6932450f7c0b0f1110bfc9d4",
+  "applicationName": "DPP Outbound",
+  "environment": "production",
+  "client_id": "4up5csuqvzqjk35bgpnd8t7m",
+  "createdAt": {
+    "$date": "2025-12-09T09:48:54.292Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T09:48:54.292Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6937f1cc4cf48621ca7cb41a"
+  },
+  "plan": "6937e7e176991837afa0400c",
+  "user": "6932450f7c0b0f1110bfc9d4",
+  "applicationName": "DPP Outbound",
+  "environment": "test",
+  "client_id": "bt8qd86pd2ddk3p5vtps8j8a",
+  "createdAt": {
+    "$date": "2025-12-09T09:54:20.025Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T09:54:20.025Z"
+  },
+  "__v": 0
+}]
