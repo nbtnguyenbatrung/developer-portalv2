@@ -28,18 +28,14 @@ export const authOptions: NextAuthOptions = {
           email: credentials.email,
           status: USER_STATUS.ACTIVE,
         })
-          console.log("trung user ", user)
         if (!user) {
           return null
         }
-          console.log("trung password ", credentials.password)
-          console.log("trung user.password ", user.password)
         // Check password
         const isPasswordMatch = await bcrypt.compare(
           "Np@123@Test",
           user.password,
         )
-          console.log("trung isPasswordMatch ", isPasswordMatch)
         if (!isPasswordMatch) {
           return null
         }

@@ -40,12 +40,13 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.next()
   }
-
+    console.error("trung pathname ", pathname)
+    console.error("trung request ", request)
   // Get token from NextAuth session
   const token = await getToken({
     req: request,
   })
-
+    console.error("trung token ", token)
   if (!token) {
     console.log('!token=true :>> ')
     const url = new URL('/login', request.url)
