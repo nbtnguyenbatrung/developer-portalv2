@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import type React from 'react'
+import type React from "react";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -15,13 +15,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Loader2 } from 'lucide-react'
-import { signIn } from 'next-auth/react'
-import z from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
+import { signIn } from "next-auth/react";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -29,73 +29,72 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
+} from "@/components/ui/form";
 
 const formSchema = z.object({
   email: z
     .string()
     .email({
-      message: 'Invalid email format.',
+      message: "Invalid email format.",
     })
     .min(1, {
-      message: 'Email is required.',
+      message: "Email is required.",
     })
     .max(50, {
-      message: 'Email must be maximum 50 characters.',
+      message: "Email must be maximum 50 characters.",
     }),
   password: z
     .string()
     .min(1, {
-      message: 'Password is required.',
+      message: "Password is required.",
     })
     .regex(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       {
         message:
-          'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.',
-      },
+          "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.",
+      }
     ),
-})
+});
 
-type LoginFormValues = z.infer<typeof formSchema>
+type LoginFormValues = z.infer<typeof formSchema>;
 
 export default function LoginPage() {
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const redirectPath = searchParams.get('redirect') || '/'
-
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectPath = searchParams.get("callbackUrl") || "/";
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
-  })
+  });
 
   const handleSubmit = async (data: LoginFormValues) => {
-    setError('')
-    setError(null)
-    setIsLoading(true)
+    setError("");
+    setError(null);
+    setIsLoading(true);
 
     try {
-      const result = await signIn('credentials', {
+      const result = await signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
-      })
+      });
       if (result?.error) {
-        setError('Invalid email or password')
-        return
+        setError("Invalid email or password");
+        return;
       }
-      router.push(redirectPath)
+      router.push(redirectPath);
     } catch (err) {
-      setError('Invalid email or password. Please try again.')
+      setError("Invalid email or password. Please try again.");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <Form {...form}>
@@ -170,14 +169,14 @@ export default function LoginPage() {
                       Logging in...
                     </>
                   ) : (
-                    'Log in'
+                    "Log in"
                   )}
                 </Button>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <div className="text-center text-sm">
-                Don&apos;t have an account?{' '}
+                Don&apos;t have an account?{" "}
                 <Link href="/register" className="text-primary hover:underline">
                   Register
                 </Link>
@@ -187,5 +186,5 @@ export default function LoginPage() {
         </div>
       </form>
     </Form>
-  )
+  );
 }
