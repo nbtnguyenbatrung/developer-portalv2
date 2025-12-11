@@ -269,16 +269,20 @@ export function DocViewer() {
       </div>
 
       <div className="col-span-1 lg:col-span-9 flex flex-col flex-1 min-h-0 relative">
-        <div className="lg:hidden sticky top-0 bg-card border-b border-border p-4 flex justify-between items-center z-10">
+        <div className="lg:hidden sticky top-0 bg-card border-b border-border p-4 flex justify-between items-center z-10 gap-4">
           <button
             onClick={() => setIsTocOpen(!isTocOpen)}
-            className="p-2 rounded-lg text-2xl text-foreground hover:bg-muted font-bold leading-none"
+            className="px-3 py-2 rounded-lg text-foreground hover:bg-muted border border-border transition-colors flex items-center"
             aria-label="Toggle Table of Contents"
           >
             {isTocOpen ? (
-              <X className="mr-2 h-4 w-4" />
+              <>
+                <X className="h-4 w-4" />
+              </>
             ) : (
-              <Menu className="mr-2 h-4 w-4" />
+              <>
+                <Menu className="h-4 w-4" />
+              </>
             )}
           </button>
 
