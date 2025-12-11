@@ -17,6 +17,8 @@ import { readMarkdownFile } from '@/app/_helper/utils/ultils'
 import { callApi } from '@/app/_service/utils/api'
 import { useLanguage } from '@/contexts/language-context'
 import LogoSpinner from './logo-spinner'
+import {useApiPublic} from "@/hooks/use-api-public";
+import {Document} from "@/types/api";
 
 const components = {
   // Paragraphs — thêm hỗ trợ căn giữa nếu chứa class "text-center" (từ raw HTML)
@@ -121,19 +123,21 @@ const components = {
 }
 
 export function DocViewer() {
-  const params = useParams<{ slug: string }>()
+  const params = useParams<{ slug: string, version: string }>()
   const [selectedDoc, setSelectedDoc] = useState<DocumentItem>()
   const [activeHeading, setActiveHeading] = useState<string>('')
   const [tableOfContents, setTableOfContents] = useState<
     Array<{ id: string; level: number; text: string }>
   >([])
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [version, setVersion] = useState<string[]>([])
+  const [versions, setVersions] = useState<string[]>([])
   const [defaultVersion, setDefaultVersion] = useState('')
   const [versionSelect, setVersionSelect] = useState<string>('')
   const { language } = useLanguage()
   const [isLoading, setIsLoading] = useState(false)
   const [i18n, setI18n] = useState<any>()
+  const {call} = useApiPublic()
+  const [listDocs, setListDocs] = useState<Document[]>([])
   const fetchData = async () => {
     try {
       setIsLoading(true)
@@ -145,9 +149,12 @@ export function DocViewer() {
       ])
       if (!data) return null
 
+      const version = params.version || docData.defaultVersion
+      const listDocs = await call('get', `/api/docs?category=${docData.category}`)
+      setListDocs(listDocs)
       setSelectedDoc(docData)
       setDefaultVersion(docData.defaultVersion)
-      setVersion(docData.version)
+      setVersions(docData.version)
     } catch (e) {
       console.log('e :>> ', e)
     } finally {
@@ -230,10 +237,12 @@ export function DocViewer() {
       <div className="hidden lg:block lg:col-span-3 border-r border-border bg-card/50 overflow-y-auto min-h-0">
         <div className="sticky top-0 bg-card border-b border-border py-4">
           <VersionSwitcher
-            versions={version}
+            versions={versions}
             i18n={i18n}
             defaultVersion={defaultVersion}
             onVersionChange={handleVersionChange}
+            listDocs={listDocs}
+            slug={params.slug}
           />
         </div>
         <div className="py-4 space-y-2">

@@ -92,6 +92,7 @@ const config = {
           "2xl": "1440px",
           'max-xs': { 'max': '430px' },
           'max-md': { 'max': '768px' },
+          'max-lg': { 'max': '1024px' },
       },
   },
   plugins: [require("tailwindcss-animate")],

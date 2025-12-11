@@ -18,7 +18,7 @@ export default function ServiceGrid({ productList }: ServiceGridProps) {
     return (
         <div className="w-full">
             {/* Grid */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {productList.map((product, index) => {
                     const Icon = icons(product.icon)
                     return (

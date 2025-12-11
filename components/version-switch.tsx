@@ -3,23 +3,28 @@
 import { Check, ChevronsUpDown, GalleryVerticalEnd } from 'lucide-react'
 import * as React from 'react'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger,
+    DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Button } from './ui/button'
+import {Document} from "@/types/api";
 
 export function VersionSwitcher({
   versions,
   defaultVersion,
   i18n,
   onVersionChange,
+  listDocs,
+  slug
 }: {
   versions: string[]
   i18n: any
   defaultVersion: string
   onVersionChange: (version: string) => void
+  listDocs: Document[]
+  slug: string
 }) {
   const [selectedVersion, setSelectedVersion] = React.useState(defaultVersion)
   const [t, setT] = React.useState(i18n)
@@ -57,18 +62,57 @@ export function VersionSwitcher({
         className="w-[var(--radix-dropdown-menu-trigger-width)] bg-white shadow-lg rounded-xl p-1"
         align="start"
       >
-        {versions.map((version) => (
-          <DropdownMenuItem
-            key={version}
-            onSelect={() => handleSelect(version)}
-            className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
-          >
-            <span className="flex-1">v{version}</span>
-            {version === selectedVersion && (
-              <Check className="ml-2 w-4 h-4 text-blue-600" />
-            )}
-          </DropdownMenuItem>
-        ))}
+          {/*{
+              listDocs.length > 1 ?
+                  listDocs.map((doc) => (
+                      <DropdownMenuSub key={doc.id}>
+                          <DropdownMenuSubTrigger>{doc.name}</DropdownMenuSubTrigger>
+                          <DropdownMenuSubContent>
+                              {
+                                  doc.version.map((version) => (
+                                      <DropdownMenuItem
+                                          key={version}
+                                          onSelect={() => handleSelect(version)}
+                                          className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
+                                      >
+                                          <span className="flex-1">v{version}</span>
+                                          {version === selectedVersion && slug === doc.slug && (
+                                              <Check className="ml-2 w-4 h-4 text-blue-600" />
+                                          )}
+                                      </DropdownMenuItem>
+                                  ))
+                              }
+                          </DropdownMenuSubContent>
+                      </DropdownMenuSub>
+                  )) :
+                  versions.map((version) => (
+                      <DropdownMenuItem
+                          key={version}
+                          onSelect={() => handleSelect(version)}
+                          className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
+                      >
+                          <span className="flex-1">v{version}</span>
+                          {version === selectedVersion && (
+                              <Check className="ml-2 w-4 h-4 text-blue-600" />
+                          )}
+                      </DropdownMenuItem>
+                  ))
+          }*/}
+          {
+              versions.map((version) => (
+                  <DropdownMenuItem
+                      key={version}
+                      onSelect={() => handleSelect(version)}
+                      className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
+                  >
+                      <span className="flex-1">v{version}</span>
+                      {version === selectedVersion && (
+                          <Check className="ml-2 w-4 h-4 text-blue-600" />
+                      )}
+                  </DropdownMenuItem>
+              ))
+          }
+
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -63,7 +63,6 @@ export async function POST(
 
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ locale: string }> }) {
-    await new Promise((resolve) => setTimeout(resolve, 500))
     try {
         const { locale } = await params
         const fullPath = join(process.cwd(), "public", "docs")
