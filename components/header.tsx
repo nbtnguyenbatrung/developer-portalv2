@@ -116,7 +116,11 @@ export default function Header() {
           {session ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2 hover:bg-primary/50 hover:text-normal" 
+                >
                   <Avatar className="h-8 w-8">
                     <AvatarFallback>
                       {session?.user?.firstName?.charAt(0).toUpperCase() || ""}

@@ -51,7 +51,7 @@ export function Sidebar({
                 "w-full justify-start",
                 pathname === item.href
                   ? "bg-secondary"
-                  : "hover:bg-transparent hover:underline"
+                  : "hover:bg-transparent hover:text-normal hover:underline"
               )}
               asChild
             >

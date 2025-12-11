@@ -760,7 +760,7 @@
         "operationId": "2_3_ais_v1_accounts_balances",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -865,7 +865,7 @@
         "operationId": "2_3_ais_v1_accounts_information",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -970,7 +970,7 @@
         "operationId": "2_3_ais_v1_accounts_transactions",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1079,7 +1079,7 @@
         "operationId": "2_1_auth_request",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1195,7 +1195,7 @@
         "operationId": "2_3_auth_revoke",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1308,7 +1308,7 @@
         "operationId": "2_2_auth_status",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1408,7 +1408,7 @@
         "operationId": "2_3_pis_dp_auth_update",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1524,7 +1524,7 @@
         "operationId": "2_1_pis_payment",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1637,7 +1637,7 @@
         "operationId": "2_3_pis_paymentCancel",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1756,7 +1756,7 @@
         "operationId": "2_2_pis_paymentStatus",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -1856,7 +1856,7 @@
         "operationId": "2_4_pis_paymentSubmit",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
@@ -2039,7 +2039,7 @@
         "operationId": "2_getProviders",
         "parameters": [
           {
-            "example": "{{access_token}}",
+            "example": "Bearer {{access_token}}",
             "in": "header",
             "name": "Authorization",
             "required": true,
