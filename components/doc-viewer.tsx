@@ -1,27 +1,23 @@
-'use client'
+"use client";
 
-import {
-  DocumentItem,
-  DocumentSystem,
-  documentSystems,
-} from '@/app/constant/mock'
-import { useEffect, useRef, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
-import rehypeRaw from 'rehype-raw'
-import rehypeSanitize from 'rehype-sanitize'
-import remarkGfm from 'remark-gfm'
-import { VersionSwitcher } from './version-switch'
-import { useParams } from 'next/navigation'
-import { readMarkdownFile } from '@/app/_helper/utils/ultils'
-import { callApi } from '@/app/_service/utils/api'
-import { useLanguage } from '@/contexts/language-context'
-import LogoSpinner from './logo-spinner'
-import {useApiPublic} from "@/hooks/use-api-public";
-import {Document} from "@/types/api";
+import { DocumentItem } from "@/app/constant/mock";
+import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import remarkGfm from "remark-gfm";
+import { VersionSwitcher } from "./version-switch";
+import { useParams } from "next/navigation";
+import { callApi } from "@/app/_service/utils/api";
+import { useLanguage } from "@/contexts/language-context";
+import LogoSpinner from "./logo-spinner";
+import { useApiPublic } from "@/hooks/use-api-public";
+import { Document } from "@/types/api";
+import { Menu, X } from "lucide-react";
 
 const components = {
-  // Paragraphs — thêm hỗ trợ căn giữa nếu chứa class "text-center" (từ raw HTML)
+  // Paragraphs
   p: ({ node, ...props }: any) => (
     <p className="leading-7 my-2 text-gray-800" {...props} />
   ),
@@ -55,48 +51,47 @@ const components = {
 
   // Code — phân biệt inline vs block
   code: ({ node, inline, className, children, ...props }: any) => {
-    const match = /language-(\w+)/.exec(className || '')
+    const match = /language-(\w+)/.exec(className || "");
     if (!inline && match) {
-      const lang = match[1]
+      const lang = match[1];
       return (
         <div className="my-3 rounded-md overflow-hidden">
           <SyntaxHighlighter language={lang} /* style={github} */ PreTag="div">
-            {String(children).replace(/\n$/, '')}
+            {String(children).replace(/\n$/, "")}
           </SyntaxHighlighter>
         </div>
-      )
+      );
     }
     // inline code
     return (
       <code className="bg-gray-100 px-1 py-[2px] rounded text-sm" {...props}>
         {children}
       </code>
-    )
+    );
   },
 
   // Images — normalize relative paths from markdown files under `public/md`
   img: ({ node, src, alt }: any) => {
-    let resolvedSrc = src || ''
-    console.log('object :>> ', resolvedSrc);
+    let resolvedSrc = src || "";
     // If the src is relative (starts with ./ or does not start with / or http),
     // assume it's relative to `public/md` and rewrite to `/md/...` so Next serves it.
-    if (resolvedSrc.startsWith('../')) {
-      resolvedSrc = '/md/' + resolvedSrc.replace(/^\..\/+/g, '')
+    if (resolvedSrc.startsWith("../")) {
+      resolvedSrc = "/md/" + resolvedSrc.replace(/^\..\/+/g, "");
     } else if (
       resolvedSrc &&
-      !resolvedSrc.startsWith('/') &&
+      !resolvedSrc.startsWith("/") &&
       !/^https?:\/\//i.test(resolvedSrc)
     ) {
-      resolvedSrc = '/md/' + resolvedSrc
+      resolvedSrc = "/md/" + resolvedSrc;
     }
 
     return (
       <img
         src={resolvedSrc}
         className="max-w-full rounded-md shadow my-3"
-        alt={alt || ''}
+        alt={alt || ""}
       />
-    )
+    );
   },
 
   // Tables
@@ -120,116 +115,141 @@ const components = {
   hr: ({ node, ...props }: any) => (
     <hr className="my-4 border-gray-200" {...props} />
   ),
-}
+};
 
 export function DocViewer() {
-  const params = useParams<{ slug: string, version: string }>()
-  const [selectedDoc, setSelectedDoc] = useState<DocumentItem>()
-  const [activeHeading, setActiveHeading] = useState<string>('')
+  const params = useParams<{ slug: string; version: string }>();
+  const [selectedDoc, setSelectedDoc] = useState<DocumentItem>();
+  const [activeHeading, setActiveHeading] = useState<string>("");
   const [tableOfContents, setTableOfContents] = useState<
     Array<{ id: string; level: number; text: string }>
-  >([])
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const [versions, setVersions] = useState<string[]>([])
-  const [defaultVersion, setDefaultVersion] = useState('')
-  const [versionSelect, setVersionSelect] = useState<string>('')
-  const { language } = useLanguage()
-  const [isLoading, setIsLoading] = useState(true)
-  const [i18n, setI18n] = useState<any>()
-  const {call} = useApiPublic()
-  const [listDocs, setListDocs] = useState<Document[]>([])
+  >([]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [versions, setVersions] = useState<string[]>([]);
+  const [defaultVersion, setDefaultVersion] = useState("");
+  const [versionSelect, setVersionSelect] = useState<string>("");
+  const { language } = useLanguage();
+  const [isLoading, setIsLoading] = useState(true);
+  const [i18n, setI18n] = useState<any>();
+  const { call } = useApiPublic();
+  const [listDocs, setListDocs] = useState<Document[]>([]);
+
+  // State mới cho mobile TOC
+  const [isTocOpen, setIsTocOpen] = useState(false);
+
   const fetchData = async () => {
     try {
-      setIsLoading(true)
-      const data: any = { slug: params.slug }
-      const version = params.version
-      if (version) data.version = version.replace("v", "")
+      setIsLoading(true);
+      const data: any = { slug: params.slug };
+      const version = params.version;
+      if (version) data.version = version.replace("v", "");
       const [docData, i18n] = await Promise.all([
-        callApi('post', `/api/doc-version/${language}`, data),
+        callApi("post", `/api/doc-version/${language}`, data),
         getI18nData(),
-      ])
-      if (!data) return null
+      ]);
+      if (!docData) return null;
 
-      const listDocs = await call('get', `/api/docs?category=${docData.category}`)
-      setListDocs(listDocs)
-      setSelectedDoc(docData)
-      setDefaultVersion(docData.defaultVersion)
-      setVersions(docData.version)
+      const listDocs = await call(
+        "get",
+        `/api/docs?category=${docData.category}`
+      );
+      setListDocs(listDocs);
+      setSelectedDoc(docData);
+      setDefaultVersion(docData.defaultVersion);
+      setVersions(docData.version);
     } catch (e) {
-      console.log('e :>> ', e)
+      console.log("e :>> ", e);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const getI18nData = async () => {
-    const i18n = await callApi('get', `/api/doc-version/${language}`)
-    setI18n(i18n)
-  }
+    const i18n = await callApi("get", `/api/doc-version/${language}`);
+    setI18n(i18n);
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [language, versionSelect])
+    fetchData();
+  }, [language, versionSelect]);
 
   useEffect(() => {
-    if (!selectedDoc || !selectedDoc.content) return
-    const headings = extractHeadings(selectedDoc.content)
-    setTableOfContents(headings)
-    setActiveHeading(headings[0]?.id || '')
-  }, [selectedDoc])
+    if (!selectedDoc || !selectedDoc.content) return;
+    const headings = extractHeadings(selectedDoc.content);
+    setTableOfContents(headings);
+    setActiveHeading(headings[0]?.id || "");
+  }, [selectedDoc]);
 
   const extractHeadings = (markdown: string) => {
-    const headingRegex = /^(#{1,3})\s+(.+)$/gm
-    const headings: Array<{ id: string; level: number; text: string }> = []
-    let match
+    const headingRegex = /^(#{1,3})\s+(.+)$/gm;
+    const headings: Array<{ id: string; level: number; text: string }> = [];
+    let match;
 
     while ((match = headingRegex.exec(markdown)) !== null) {
-      const level = match[1].length
-      const text = match[2]
-      const id = text.toLowerCase().replace(/\s+/g, '-')
-      headings.push({ id, level, text })
+      const level = match[1].length;
+      const text = match[2];
+      const id = text.toLowerCase().replace(/\s+/g, "-");
+      headings.push({ id, level, text });
     }
 
-    return headings
-  }
+    return headings;
+  };
 
   const handleVersionChange = (newVersion: string) => {
-    // if (selectedDocs && selectedDocs.length > 0) return
-    // const doc = selectedDocs.find((d) => d.version === newVersion)
-    // if (doc) {
-    //   setSelectedDoc(doc)
-    // }
-    setVersionSelect(newVersion)
-  }
+    setVersionSelect(newVersion);
+  };
 
   const handleHeadingClick = (id: string) => {
-    setActiveHeading(id)
-    const element = document.getElementById(id)
-    const container = scrollContainerRef.current
+    setActiveHeading(id);
+    const element = document.getElementById(id);
+    const container = scrollContainerRef.current;
 
     if (element && container) {
-      // Lấy vị trí của element và container
-      const elementRect = element.getBoundingClientRect()
-      const containerRect = container.getBoundingClientRect()
+      const elementRect = element.getBoundingClientRect();
+      const containerRect = container.getBoundingClientRect();
 
-      // Tính toán vị trí cần scroll tới:
-      // (Vị trí element so với viewport) - (Vị trí container so với viewport) + (Scroll hiện tại của container) - 30px
       const offsetPosition =
-        elementRect.top - containerRect.top + container.scrollTop - 30
+        elementRect.top - containerRect.top + container.scrollTop - 30;
 
       container.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth',
-      })
+        behavior: "smooth",
+      });
     }
-  }
+
+    if (window.innerWidth < 1024) {
+      setIsTocOpen(false);
+    }
+  };
+
+  const TocContent = () => (
+    <div className="py-4 space-y-2">
+      <h2 className="text-sm font-semibold text-foreground ">
+        {i18n?.on_this_page || "On this page"}
+      </h2>
+      {tableOfContents.map((heading) => (
+        <button
+          key={heading.id}
+          onClick={() => handleHeadingClick(heading.id)}
+          className={`w-full text-left px-3 py-2 rounded-lg transition text-sm ${
+            activeHeading === heading.id
+              ? "bg-primary/10 text-primary font-medium border-l-2 border-primary"
+              : "text-foreground/70 hover:text-foreground hover:bg-muted"
+          }`}
+          style={{ paddingLeft: `${12 + (heading.level - 1) * 12}px` }}
+        >
+          {heading.text}
+        </button>
+      ))}
+    </div>
+  );
 
   if (isLoading) {
     return (
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background py-10 md:py-20 lg:py-30">
         <LogoSpinner />
       </section>
-    )
+    );
   }
 
   return (
@@ -245,29 +265,58 @@ export function DocViewer() {
             slug={params.slug}
           />
         </div>
-        <div className="py-4 space-y-2">
-          <h2 className="text-sm font-semibold text-foreground ">
-            {i18n?.on_this_page}
-          </h2>
-          {tableOfContents.map((heading) => (
-            <button
-              key={heading.id}
-              onClick={() => handleHeadingClick(heading.id)}
-              className={`w-full text-left px-3 py-2 rounded-lg transition text-sm ${
-                activeHeading === heading.id
-                  ? 'bg-primary/10 text-primary font-medium border-l-2 border-primary'
-                  : 'text-foreground/70 hover:text-foreground hover:bg-muted'
-              }`}
-              style={{ paddingLeft: `${12 + (heading.level - 1) * 12}px` }}
-            >
-              {heading.text}
-            </button>
-          ))}
-        </div>
+        <TocContent />
       </div>
 
-      {/* Main Markdown Content */}
-      <div className="col-span-1 lg:col-span-9 flex flex-col flex-1 min-h-0">
+      <div className="col-span-1 lg:col-span-9 flex flex-col flex-1 min-h-0 relative">
+        <div className="lg:hidden sticky top-0 bg-card border-b border-border p-4 flex justify-between items-center z-10">
+          <button
+            onClick={() => setIsTocOpen(!isTocOpen)}
+            className="p-2 rounded-lg text-2xl text-foreground hover:bg-muted font-bold leading-none"
+            aria-label="Toggle Table of Contents"
+          >
+            {isTocOpen ? (
+              <X className="mr-2 h-4 w-4" />
+            ) : (
+              <Menu className="mr-2 h-4 w-4" />
+            )}
+          </button>
+
+          <VersionSwitcher
+            versions={versions}
+            i18n={i18n}
+            defaultVersion={defaultVersion}
+            onVersionChange={handleVersionChange}
+            listDocs={listDocs}
+            slug={params.slug}
+          />
+        </div>
+
+        {/* Overlay/Drawer Mục lục trên Mobile */}
+        {isTocOpen && (
+          <div
+            className="absolute inset-0 z-20 bg-black/50"
+            onClick={() => setIsTocOpen(false)}
+          >
+            <div
+              className="absolute left-0 top-0 bottom-0 w-3/4 max-w-xs bg-card overflow-y-auto shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsTocOpen(false)}
+                className="absolute top-4 right-4 p-2 rounded-full text-2xl text-foreground hover:bg-muted font-bold leading-none z-10"
+                aria-label="Close Table of Contents"
+              >
+                <X className="mr-2 h-4 w-4" />
+              </button>
+
+              <div className="pt-16 px-4 pb-4">
+                <TocContent />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div
           ref={scrollContainerRef}
           className="max-w-4xl px-8 py-3 overflow-y-auto flex-1 min-h-0"
@@ -280,7 +329,7 @@ export function DocViewer() {
                 h1: ({ children }) => {
                   const text = String(children)
                     .toLowerCase()
-                    .replace(/\s+/g, '-')
+                    .replace(/\s+/g, "-");
                   return (
                     <h1
                       id={text}
@@ -288,12 +337,12 @@ export function DocViewer() {
                     >
                       {children}
                     </h1>
-                  )
+                  );
                 },
                 h2: ({ children }) => {
                   const text = String(children)
                     .toLowerCase()
-                    .replace(/\s+/g, '-')
+                    .replace(/\s+/g, "-");
                   return (
                     <h2
                       id={text}
@@ -301,12 +350,12 @@ export function DocViewer() {
                     >
                       {children}
                     </h2>
-                  )
+                  );
                 },
                 h3: ({ children }) => {
                   const text = String(children)
                     .toLowerCase()
-                    .replace(/\s+/g, '-')
+                    .replace(/\s+/g, "-");
                   return (
                     <h3
                       id={text}
@@ -314,7 +363,7 @@ export function DocViewer() {
                     >
                       {children}
                     </h3>
-                  )
+                  );
                 },
                 ...components,
               }}
@@ -325,5 +374,5 @@ export function DocViewer() {
         </div>
       </div>
     </div>
-  )
+  );
 }

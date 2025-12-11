@@ -1,27 +1,30 @@
-'use client'
+"use client";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ArrowRight, BarChart3, Key, Webhook } from 'lucide-react'
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ArrowRight, BarChart3, Key, Webhook } from "lucide-react";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useLanguage } from "@/contexts/language-context";
 
 export default function DashboardPage() {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
+  const { t } = useLanguage();
+  
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight">
-          Welcome back, {session?.user?.firstName || ''}
+          Welcome back, {session?.user?.firstName || ""}
         </h1>
         <p className="text-muted-foreground">
-          Manage your API integrations and monitor your usage statistics.
+          Manage your API integrations.
         </p>
       </div>
 
@@ -197,5 +200,5 @@ export default function DashboardPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }

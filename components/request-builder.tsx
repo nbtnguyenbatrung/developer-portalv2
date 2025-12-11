@@ -1,136 +1,141 @@
-'use client'
+"use client";
 
-import { Copy, Check } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import type { ApiEndpoint } from '@/types/api'
-import { JsonHighlight } from '@/components/response-viewer'
-import axios from 'axios'
-import LogoSpinner from '@/components/logo-spinner'
-import {useLanguage} from "@/contexts/language-context";
+import { Copy, Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import type { ApiEndpoint } from "@/types/api";
+import { JsonHighlight } from "@/components/response-viewer";
+import axios from "axios";
+import LogoSpinner from "@/components/logo-spinner";
+import { useLanguage } from "@/contexts/language-context";
+import { callApi } from "@/app/_service/utils/api";
 
 interface RequestBuilderProps {
-  api: ApiEndpoint
-  onResponseSelect: (index: number) => void
-  type: string
+  api: ApiEndpoint;
+  onResponseSelect: (index: number) => void;
+  type: string;
 }
 
-const HEADERS = 'headers'
-const PARAMS = 'params'
-const BODY = 'body'
+const HEADERS = "headers";
+const PARAMS = "params";
+const BODY = "body";
 
 export default function RequestBuilder({
   api,
   onResponseSelect,
-  type
+  type,
 }: RequestBuilderProps) {
-  const [copiedSection, setCopiedSection] = useState<string | null>(null)
-  const [copiedJson, setCopiedJson] = useState(false)
+  const [copiedSection, setCopiedSection] = useState<string | null>(null);
+  const [copiedJson, setCopiedJson] = useState(false);
   const [headers, setHeaders] = useState<
     Array<{
-      key: string
-      value: string
-      required: boolean
-      type: string
-      description: string
+      key: string;
+      value: string;
+      required: boolean;
+      type: string;
+      description: string;
     }>
-  >(api?.headers || [])
+  >(api?.headers || []);
   const [params, setParams] = useState<
     Array<{
-      key: string
-      value: string
-      required: boolean
-      type: string
-      description: string
-      in: string
+      key: string;
+      value: string;
+      required: boolean;
+      type: string;
+      description: string;
+      in: string;
     }>
-  >(api?.params || [])
-  const [body, setBody] = useState<any>('')
-  const [responseView, setResponseView] = useState<boolean>(false)
-  const [response, setResponse] = useState<any>()
-  const [loading, setLoading] = useState(false)
-  const {t} = useLanguage()
+  >(api?.params || []);
+  const [body, setBody] = useState<any>("");
+  const [responseView, setResponseView] = useState<boolean>(false);
+  const [response, setResponse] = useState<any>();
+  const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (api) {
-      setHeaders(api?.headers || [])
-      setParams(api?.params || [])
-      setBody(formatJSON(api?.body || ''))
-      setResponseView(false)
+      setHeaders(api?.headers || []);
+      setParams(api?.params || []);
+      setBody(formatJSON(api?.body || ""));
+      setResponseView(false);
     }
-  }, [api])
+  }, [api]);
 
   const copyToClipboard = (text: string, section: string) => {
-    navigator.clipboard.writeText(text)
-    setCopiedSection(section)
-    setTimeout(() => setCopiedSection(null), 2000)
-  }
+    navigator.clipboard.writeText(text);
+    setCopiedSection(section);
+    setTimeout(() => setCopiedSection(null), 2000);
+  };
 
   const copyJson = () => {
-    navigator.clipboard.writeText(JSON.stringify(api.body, null, 2))
-    setCopiedJson(true)
-    setTimeout(() => setCopiedJson(false), 2000)
-  }
+    navigator.clipboard.writeText(JSON.stringify(api.body, null, 2));
+    setCopiedJson(true);
+    setTimeout(() => setCopiedJson(false), 2000);
+  };
 
   const onChange = (key1: string, key2: string, value: any) => {
     if (key1 === HEADERS) {
       setHeaders((prev) =>
-        prev.map((h) => (h.key === key2 ? { ...h, value } : h)),
-      )
+        prev.map((h) => (h.key === key2 ? { ...h, value } : h))
+      );
     } else if (key1 === PARAMS) {
       setParams((prev) =>
-        prev.map((h) => (h.key === key2 ? { ...h, value } : h)),
-      )
+        prev.map((h) => (h.key === key2 ? { ...h, value } : h))
+      );
     } else if (key1 === BODY) {
-      setBody(value)
+      setBody(value);
     }
-  }
+  };
 
   function replacePathParams(path: string, params: any) {
     return params.reduce((acc: any, p: any) => {
-      const pattern = `{${p.key}}`
+      const pattern = `{${p.key}}`;
       if (acc.includes(pattern)) {
-        return acc.replace(pattern, p.value || '')
+        return acc.replace(pattern, p.value || "");
       }
-      return acc
-    }, path)
+      return acc;
+    }, path);
   }
 
   function getParams(queryParams: any) {
     return queryParams.reduce((acc: any, item: any) => {
-      acc[item.key] = item.value
-      return acc
-    }, {})
+      acc[item.key] = item.value;
+      return acc;
+    }, {});
   }
 
   const sendApi = async () => {
-    setLoading(true)
-    let url = api.server + api.path
-    const pathParam = params?.filter((item) => item.in === 'path')
-    const pathQuery = params?.filter((item) => item.in === 'query')
+    setLoading(true);
+    console.log("api :>> ", api);
+    let url = api.server + api.path;
+    const pathParam = params?.filter((item) => item.in === "path");
+    const pathQuery = params?.filter((item) => item.in === "query");
     if (pathParam && pathParam.length > 0) {
-      url = replacePathParams(url, pathParam)
+      url = replacePathParams(url, pathParam);
     }
-    let queryParams = {}
+    let queryParams = {};
     if (pathQuery && pathQuery.length > 0) {
-      queryParams = getParams(pathQuery || [])
+      queryParams = getParams(pathQuery || []);
     }
-    let headersValue = {}
+    let headersValue = {};
     if (headers) {
-      headersValue = getParams(headers || [])
+      headersValue = getParams(headers || []);
     }
     const timerId = setTimeout(async () => {
       try {
-        const res = await axios.request({
-          url,
+        const dataBody = {
+          url: api.path,
           method: api.method,
-          data: body,
-          headers: {
-            'Content-Type': 'application/json',
+          header: {
+            "Content-Type": "application/json",
             ...headersValue,
           },
-          params: queryParams,
-        })
-        setResponse(res.data)
+        };
+        if (api.method !== "GET") {
+          (dataBody as any).data = JSON.parse(body);
+        }
+        const result = await callApi("post", "/api/open-banking", dataBody);
+
+        setResponse(result);
       } catch (e: any) {
         setResponse({
           status: 500,
@@ -138,25 +143,25 @@ export default function RequestBuilder({
             description: e?.message,
             code: e?.code,
           },
-        })
+        });
       } finally {
-        setLoading(false)
-        setResponseView(true)
+        setLoading(false);
+        setResponseView(true);
       }
-    }, 500)
+    }, 500);
 
     return () => {
-      clearTimeout(timerId)
-    }
-  }
+      clearTimeout(timerId);
+    };
+  };
 
   const formatJSON = (data: any) => {
     try {
-      return JSON.stringify(data, null, 2)
+      return JSON.stringify(data, null, 2);
     } catch {
-      return String(data)
+      return String(data);
     }
-  }
+  };
 
   return (
     <div className="space-y-6 p-6">
@@ -187,10 +192,10 @@ export default function RequestBuilder({
               className="w-full px-4 py-2 bg-input border border-border rounded-lg text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
             <button
-              onClick={() => copyToClipboard(api.path, 'url')}
+              onClick={() => copyToClipboard(api.path, "url")}
               className="absolute right-2 top-1/2 -translate-y-1/2 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
             >
-              {copiedSection === 'url' ? (
+              {copiedSection === "url" ? (
                 <Check className="w-4 h-4 text-green-600" />
               ) : (
                 <Copy className="w-4 h-4 text-muted-foreground hover:text-accent" />
@@ -204,7 +209,7 @@ export default function RequestBuilder({
       {api.headers && api.headers.length > 0 && (
         <div className="space-y-3 animate-fade-in animation-delay-150">
           <label className="text-sm font-semibold text-foreground">
-            Headers{' '}
+            Headers{" "}
             {api.headers.some((h) => h.required) && (
               <span className="text-destructive">*</span>
             )}
@@ -250,9 +255,9 @@ export default function RequestBuilder({
                   <td className="px-4 py-2 text-sm">
                     <input
                       type="text"
-                      value={headers[index]?.value || ''}
+                      value={headers[index]?.value || ""}
                       onChange={(e) => {
-                        onChange(HEADERS, param.key, e.target.value)
+                        onChange(HEADERS, param.key, e.target.value);
                       }}
                       className="w-full px-4 py-2 bg-input border border-border rounded-lg text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                     />
@@ -268,7 +273,7 @@ export default function RequestBuilder({
       {api.params && api.params.length > 0 && (
         <div className="space-y-3 animate-fade-in animation-delay-200">
           <label className="text-sm font-semibold text-foreground">
-            Parameters{' '}
+            Parameters{" "}
             {api.params.some((p) => p.required) && (
               <span className="text-destructive">*</span>
             )}
@@ -315,9 +320,9 @@ export default function RequestBuilder({
                   <td className="px-4 py-2 text-sm">
                     <input
                       type="text"
-                      value={params[index]?.value || ''}
+                      value={params[index]?.value || ""}
                       onChange={(e) => {
-                        onChange(PARAMS, param.key, e.target.value)
+                        onChange(PARAMS, param.key, e.target.value);
                       }}
                       className="w-full px-4 py-2 bg-input border border-border rounded-lg text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-accent"
                     />
@@ -330,7 +335,7 @@ export default function RequestBuilder({
       )}
 
       {/* Request Body */}
-      {api.body && typeof api.body === 'object' && (
+      {api.body && typeof api.body === "object" && (
         /*<div className="space-y-3 animate-fade-in animation-delay-250">
                     <label className="text-sm font-semibold text-foreground">
                         Request Body <span className="text-destructive">*</span>
@@ -370,7 +375,7 @@ export default function RequestBuilder({
               <textarea
                 value={body}
                 onChange={(e) => {
-                  onChange(BODY, '', e.target.value)
+                  onChange(BODY, "", e.target.value);
                 }}
                 placeholder="Request body (JSON, XML, etc.)"
                 className="w-full h-[200px] p-3 bg-background rounded-md font-mono text-sm resize-none"
@@ -384,7 +389,7 @@ export default function RequestBuilder({
       )}
 
       {/* Send Button */}
-      <div className={'flex gap-2'}>
+      <div className={"flex gap-2"}>
         <button
           onClick={sendApi}
           className="w-full py-2 bg-gradient-to-r from-accent to-primary hover:from-accent hover:to-primary text-accent-foreground font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 active:scale-95 animate-fade-in animation-delay-300"
@@ -433,7 +438,7 @@ export default function RequestBuilder({
                     json={JSON.stringify(
                       response?.data || response?.description,
                       null,
-                      2,
+                      2
                     )}
                   />
                 </pre>
@@ -443,5 +448,5 @@ export default function RequestBuilder({
         </div>
       )}
     </div>
-  )
+  );
 }
