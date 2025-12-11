@@ -36,7 +36,7 @@ export default function Sidebar({ selectedCategory, onSelectCategory, searchQuer
     }, [filteredServices]);
 
     return (
-        <aside className={`w-full bg-card border-r border-border overflow-y-auto overflow-x-hidden sticky top-0 p-4 h-max lg:h-[${leftHeight}px]`}>
+        <aside className={`w-full bg-card lg:border-r lg:border-border overflow-y-auto overflow-x-hidden sticky top-0 p-4 h-max lg:h-[${leftHeight}px]`}>
 
             {/* Categories */}
             <nav className="space-y-2">

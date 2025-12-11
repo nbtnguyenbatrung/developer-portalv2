@@ -16,7 +16,7 @@ export default function RateLimitView({rateLimits}: RateLimitProps) {
             </h2>
 
             <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full text-xs lg:text-lg">
                     <thead>
                         <tr className="bg-gray-50 border-b-2 border-gray-200">
                         <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 uppercase tracking-wider">

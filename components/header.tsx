@@ -163,71 +163,75 @@ export default function Header() {
   )
 }
 
+const menuItems = [
+    { label: "home", href: "/" },
+    { label: "apiReference", href: "/product" },
+    { label: "contactSupport", href: "#" },
+]
+
 function MobileNav() {
   const { t } = useLanguage()
   const { data: session } = useSession()
-  const router = useRouter()
+    const handleScrollToContact = (e: { preventDefault: () => void }) => {
+        e.preventDefault();
+        const el = document.getElementById("footer");
+        el?.scrollIntoView({ behavior: "smooth" });
+    };
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <Link href="/">
-        <Logo asLink={false} />
-      </Link>
-      <nav className="flex flex-col gap-3 text-sm">
-        <Link
-          href="/product"
-          className="font-medium transition-colors hover:text-foreground/80"
-        >
-          {t('apiReference')}
-        </Link>
-
-        {session && (
-          <Link
-            href="/dashboard"
-            className="font-medium transition-colors hover:text-foreground/80"
-          >
-            {t('documentation')}
-          </Link>
-        )}
-        <Link
-          href="/support"
-          className="font-medium transition-colors hover:text-foreground/80"
-        >
-          {t('support')}
-        </Link>
-      </nav>
-      <div className="flex flex-col gap-2 mt-4">
-        {session ? (
-          <>
-            <div className="flex items-center gap-2 py-2">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback>
-                  {session?.user?.firstName?.charAt(0).toUpperCase() || ''}
-                </AvatarFallback>
-              </Avatar>
-              <span>{session?.user?.firstName}</span>
+    <div className="flex flex-col gap-4 p-4 pt-0">
+        <div className="flex items-center justify-between p-4 border-b border-border pl-0">
+          <img
+              src="/logo-napas.png"
+              alt="Napas Logo"
+              className="h-8 w-32 rounded-md"
+              style={{ objectFit: "contain" }}
+          />
+        </div>
+        <div className="space-y-6">
+            {/* Menu Items */}
+            <div className="space-y-3">
+                {menuItems.map((item, index) => (
+                    <a
+                        key={index}
+                        href={item.href}
+                        className="block px-4 py-3 rounded-lg text-foreground hover:bg-muted transition-colors font-medium"
+                        onClick={(e) => {
+                            if (item.label === "contactSupport") {
+                                handleScrollToContact(e)
+                            }
+                        }}
+                    >
+                        {t(item.label)}
+                    </a>
+                ))}
             </div>
+
+            {/* User Section */}
+            {
+                session ?
+                    <div className="border-t border-border pt-6">
+                        <div className="flex items-center gap-3 px-4 py-3 rounded-lg mb-4">
+                            <Avatar className="h-8 w-8">
+                                <AvatarFallback>
+                                    {session?.user?.firstName?.charAt(0).toUpperCase() || ''}
+                                </AvatarFallback>
+                            </Avatar>
+                            <span>{session?.user?.firstName}</span>
+                        </div>
+                    </div> :
+                    <Button variant="outline" asChild>
+                        <Link href="/login">{t('login')}</Link>
+                    </Button>
+            }
+        </div>
+
+        <div className="p-6 border-t border-border">
             <Button
-              variant="outline"
-              onClick={async () => {
-                await signOut({ redirect: false })
-                router.push('/')
-              }}
+                className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition-colors"
             >
-              <LogOut className="mr-2 h-4 w-4" />
-              {t('logout')}
+                Đăng xuất
             </Button>
-          </>
-        ) : (
-          <>
-            <Button variant="outline" asChild>
-              <Link href="/login">{t('login')}</Link>
-            </Button>
-            <Button asChild className="btn-gradient">
-              <Link href="/register">{t('register')}</Link>
-            </Button>
-          </>
-        )}
-      </div>
+        </div>
     </div>
   )
 }

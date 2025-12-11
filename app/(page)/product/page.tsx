@@ -77,8 +77,8 @@ export default function Home() {
   return (
     <main className="w-full bg-background">
       <div className={`flex overflow-hidden flex-col lg:flex-row`}>
-        <div className="w-60 border-r border-border flex flex-col bg-sidebar xs:w-full xs:h-max">
-          <div className="p-4 border-b border-border">
+        <div className="w-60 lg:border-r lg:border-border flex flex-col bg-sidebar max-md:w-full max-xs:h-max">
+          <div className="p-4 lg:border-b lg:border-border">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
