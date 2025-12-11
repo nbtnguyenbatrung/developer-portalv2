@@ -98,6 +98,7 @@ Direct API Implementation:
 * Contains the actual data to be sent to the server, usually in JSON format.
 * Example:
 
+```json
 {
   "apiOperation": "PURCHASE_ACCOUNT",
   "order": {
@@ -129,6 +130,7 @@ Direct API Implementation:
     "enable3DSecure": "false"
   }
 }
+```
 
 ### 2.2.5. Response Body
 

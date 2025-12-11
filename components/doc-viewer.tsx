@@ -162,15 +162,7 @@ export function DocViewer() {
 
   useEffect(() => {
     fetchData()
-  }, [language])
-
-  useEffect(() => {
-    fetchData()
-  }, [versionSelect])
-
-  useEffect(() => {
-    fetchData()
-  }, [])
+  }, [language, versionSelect])
 
   useEffect(() => {
     if (!selectedDoc || !selectedDoc.content) return

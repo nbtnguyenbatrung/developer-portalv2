@@ -11,8 +11,6 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ locale: string }> },
 ) {
-  await new Promise((resolve) => setTimeout(resolve, 500))
-
   const { locale } = await params
   const body = await req.json()
   let version = body.version
