@@ -42,7 +42,7 @@ export default function DownloadFileView({downloads}: DownloadFileViewProps) {
                         </div>
 
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-primary transition-colors">
+                            <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                                 {item.title}
                             </h3>
                             <p className="text-gray-600 text-sm mb-3">

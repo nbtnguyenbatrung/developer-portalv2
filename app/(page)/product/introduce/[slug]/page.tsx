@@ -88,8 +88,8 @@ export default function DppPage() {
     }
 
   return (
-      <div>
-          <div className="w-full py-10 grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-xl items-start">
+      <main className="w-full bg-background">
+          <div className="w-full py-10 grid grid-cols-1 md:grid-cols-2 gap-12 rounded-xl items-start">
               {/* Phần nội dung */}
               <div className="flex flex-col justify-center h-full text-justify">
                   <MarkdownViewer content={content} />
@@ -209,6 +209,6 @@ export default function DppPage() {
                   <DownloadFileView downloads={downloads}/>
               </div>
           }
-      </div>
+      </main>
   )
 }
