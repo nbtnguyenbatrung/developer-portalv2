@@ -14,6 +14,7 @@ import DownloadFileView from "@/components/download-file";
 import {useApiPublic} from "@/hooks/use-api-public";
 import {ViewUrl} from "@/components/view-url";
 import {useSession} from "next-auth/react";
+import {version} from "node:os";
 
 export default function DppPage() {
     const {t, language} = useLanguage()
@@ -132,7 +133,7 @@ export default function DppPage() {
                                                       onClick={() => {
                                                           setIsDropdownOpen(false);
                                                           // Thêm logic mở tài liệu ở đây
-                                                          redirect(`/product/docs/${doc?.slug}`)
+                                                          redirect(`/product/docs/${doc?.slug}/v${doc.defaultVersion}`)
                                                       }}
                                                   >
                                                       <div className="flex items-start gap-3">
@@ -165,7 +166,7 @@ export default function DppPage() {
                                       className="w-full group/btn bg-primary/5 hover:bg-primary hover:text-white text-primary mt-4"
                                       asChild
                                   >
-                                      <Link href={`/product/docs/${product?.slug}`}>
+                                      <Link href={`/product/docs/${product?.slug}/v${documents?.find(x=> x.slug === product.slug)?.defaultVersion}`}>
                                           {t("readDocs")}
                                           <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                                       </Link>
