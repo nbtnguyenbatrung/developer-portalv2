@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { Search } from "lucide-react";
+import {Menu, Search, X} from "lucide-react";
 import ServiceList from "@/components/service-list";
 import RequestBuilder from "@/components/request-builder";
 import ResponseViewer from "@/components/response-viewer";
@@ -23,6 +23,7 @@ export default function Home() {
   const rightRef = useRef<HTMLDivElement>(null);
   const [leftHeight, setLeftHeight] = useState(0);
   const { type } = useParams();
+  const [isTocOpen, setIsTocOpen] = useState(false);
 
   useEffect(() => {
     axios
@@ -84,17 +85,29 @@ export default function Home() {
   return (
     <main className="w-full bg-background">
       {/* Main Content */}
-      <div className={`flex overflow-hidden`}>
+      <div className={`flex overflow-hidden max-lg:flex-col`}>
         {/* Left Sidebar - API List */}
         <div
-          className="w-80 border-r border-border flex flex-col bg-sidebar"
-          style={{
-            height: filteredServices.length === 0 ? 200 : leftHeight,
-          }}
+          className={`w-max lg:w-80 lg:border-r border-border flex flex-col bg-sidebar height-[${filteredServices.length === 0 ? 200 : leftHeight}] lg:h-max`}
         >
           {/* Search */}
-          <div className="p-4 border-b border-border">
-            <div className="relative">
+          <div className="p-4 border-b border-border max-lg:flex max-lg:gap-2">
+              <button
+                  onClick={() => setIsTocOpen(!isTocOpen)}
+                  className="lg:hidden px-3 py-2 rounded-lg text-foreground hover:bg-muted border border-border transition-colors flex items-center"
+                  aria-label="Toggle Table of Contents"
+              >
+                  {isTocOpen ? (
+                      <>
+                          <X className="h-4 w-4" />
+                      </>
+                  ) : (
+                      <>
+                          <Menu className="h-4 w-4" />
+                      </>
+                  )}
+              </button>
+            <div className="relative max-lg:w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
@@ -107,7 +120,34 @@ export default function Home() {
           </div>
 
           {/* API List */}
-          <div className="flex-1 overflow-y-auto">
+            {isTocOpen && (
+                <div
+                    className="absolute inset-0 z-20 bg-black/50"
+                    onClick={() => setIsTocOpen(false)}
+                >
+                    <div
+                        className="absolute left-0 top-0 bottom-0 w-3/4 max-w-xs bg-card overflow-y-auto shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setIsTocOpen(false)}
+                            className="absolute top-[5rem] right-4 p-2 rounded-full text-2xl text-foreground hover:bg-muted font-bold leading-none z-10"
+                            aria-label="Close Table of Contents"
+                        >
+                            <X className="mr-2 h-4 w-4" />
+                        </button>
+
+                        <div className="pt-[8rem] px-4 pb-4">
+                            <ServiceList
+                                services={filteredServices}
+                                selectedEndpoint={displayedEndpoint}
+                                onSelectEndpoint={setSelectedEndpoint}
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+          <div className="flex-1 overflow-y-auto max-lg:hidden">
             <ServiceList
               services={filteredServices}
               selectedEndpoint={displayedEndpoint}
@@ -128,7 +168,7 @@ export default function Home() {
                 <RequestBuilder
                   api={displayedEndpoint}
                   onResponseSelect={setSelectedResponse}
-                  type={type}
+                  type={type as string}
                 />
               </div>
 

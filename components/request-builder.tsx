@@ -170,7 +170,7 @@ export default function RequestBuilder({
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <h2 className="text-2xl font-bold text-foreground">{t(type)}</h2>
-            {/*<p className="text-muted-foreground">{api.description}</p>*/}
+            <p className="text-muted-foreground">{api.name}</p>
           </div>
         </div>
       </div>

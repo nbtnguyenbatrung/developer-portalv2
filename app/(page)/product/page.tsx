@@ -2,11 +2,10 @@
 
 import ServiceGrid from "@/components/service-grid";
 import Sidebar from "@/components/sidebar-product";
-import { Search } from "lucide-react";
+import {Menu, Search, X} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Product } from "@/types/api";
 import { useLanguage } from "@/contexts/language-context";
-import { HeroSkeleton } from "@/components/hero-skeleton";
 import LogoSpinner from "@/components/logo-spinner";
 import { useApiPublic } from "@/hooks/use-api-public";
 
@@ -21,6 +20,7 @@ export default function Home() {
   const [productData, setProductData] = useState<Product[] | []>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [languageCurrent, setLanguageCurrent] = useState<string>("");
+  const [isTocOpen, setIsTocOpen] = useState(false);
 
   useEffect(() => {
     if (productList.length === 0 || language !== languageCurrent) {
@@ -80,8 +80,24 @@ export default function Home() {
     <main className="w-full bg-background">
       <div className={`flex overflow-hidden flex-col lg:flex-row`}>
         <div className="w-60 lg:border-r lg:border-border flex flex-col bg-sidebar max-lg:w-full max-xs:h-max">
-          <div className="p-4 lg:border-b lg:border-border">
-            <div className="relative">
+          <div className="p-4 lg:border-b lg:border-border max-lg:flex max-lg:gap-2">
+
+              <button
+                  onClick={() => setIsTocOpen(!isTocOpen)}
+                  className="lg:hidden px-3 py-2 rounded-lg text-foreground hover:bg-muted border border-border transition-colors flex items-center"
+                  aria-label="Toggle Table of Contents"
+              >
+                  {isTocOpen ? (
+                      <>
+                          <X className="h-4 w-4" />
+                      </>
+                  ) : (
+                      <>
+                          <Menu className="h-4 w-4" />
+                      </>
+                  )}
+              </button>
+            <div className="relative max-lg:w-full">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <input
                 type="text"
@@ -94,7 +110,37 @@ export default function Home() {
           </div>
 
           {/* Sidebar */}
-          <div className="flex-1 overflow-y-auto">
+            {isTocOpen && (
+                <div
+                    className="absolute inset-0 z-20 bg-black/50"
+                    onClick={() => setIsTocOpen(false)}
+                >
+                    <div
+                        className="absolute left-0 top-0 bottom-0 w-3/4 max-w-xs bg-card overflow-y-auto shadow-2xl"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setIsTocOpen(false)}
+                            className="absolute top-[5rem] right-4 p-2 rounded-full text-2xl text-foreground hover:bg-muted font-bold leading-none z-10"
+                            aria-label="Close Table of Contents"
+                        >
+                            <X className="mr-2 h-4 w-4" />
+                        </button>
+
+                        <div className="pt-[8rem] px-4 pb-4">
+                            <Sidebar
+                                selectedCategory={selectedCategory}
+                                onSelectCategory={setSelectedCategory}
+                                searchQuery={searchQuery}
+                                leftHeight={
+                                    productList.length === 0 || leftHeight === 0 ? 300 : leftHeight
+                                }
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+          <div className="flex-1 overflow-y-auto max-lg:hidden">
             <Sidebar
               selectedCategory={selectedCategory}
               onSelectCategory={setSelectedCategory}
