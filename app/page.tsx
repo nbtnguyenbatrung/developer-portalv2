@@ -46,7 +46,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold mb-2">{t('ready_start')}</h3>
               <p className="text-muted-foreground">{t('ready_start_text')}</p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col max-xs:flex-row gap-3">
               <Button size="lg" asChild>
                 <Link href="/login">{t('ready_start_btn_sign_in')}</Link>
               </Button>

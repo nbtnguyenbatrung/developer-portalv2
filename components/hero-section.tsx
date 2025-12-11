@@ -68,10 +68,10 @@ export function HeroSection() {
                 <p className="max-w-[500px] text-lg md:text-xl text-muted-foreground leading-relaxed">
                     {data.welcome_sub}
                 </p>
-                <div className="flex flex-col gap-3 min-[400px]:flex-row pt-4">
+                <div className="flex flex-col gap-3 xs:flex-row pt-4">
                   <Button
                     size="lg"
-                    className="btn-gradient rounded-full px-8"
+                    className="btn-gradient rounded-full px-6 xs:px-8"
                     onClick={() => {
                       const el = document.getElementById('products')
                       if (el) el.scrollIntoView({ behavior: 'smooth' })
@@ -83,7 +83,7 @@ export function HeroSection() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="rounded-full px-8 bg-transparent"
+                    className="rounded-full px-6 bg-transparent xs:px-8"
                     onClick={() => {
                       const el = document.getElementById('getting-started')
                       if (el) el.scrollIntoView({ behavior: 'smooth' })

@@ -13,10 +13,12 @@ import RateLimitView from "@/components/rate-limit";
 import DownloadFileView from "@/components/download-file";
 import {useApiPublic} from "@/hooks/use-api-public";
 import {ViewUrl} from "@/components/view-url";
+import {useSession} from "next-auth/react";
 
 export default function DppPage() {
     const {t, language} = useLanguage()
     const {call} = useApiPublic()
+    const { data: session } = useSession()
   const params = useParams<{ slug: string }>()
   const [product, setProduct] = useState<Product>()
     const [isLoading, setIsLoading] = useState(true)
@@ -200,9 +202,12 @@ export default function DppPage() {
               <RateLimitView rateLimits={rateLimit}/>
           </div>
 
-          <div className="pb-10">
-              <DownloadFileView downloads={downloads}/>
-          </div>
+          {
+              session &&
+              <div className="pb-10">
+                  <DownloadFileView downloads={downloads}/>
+              </div>
+          }
       </div>
   )
 }

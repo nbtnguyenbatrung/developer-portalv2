@@ -26,7 +26,7 @@ export default function Footer() {
               }
           </div>
         </div>
-        <div className="mt-8 border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="mt-8 border-t pt-8 flex flex-col md:flex-row justify-between items-center xs:items-start gap-4">
           <div className="flex flex-col">
             <h2 className="text-2xl font-semibold">{t("headquarters")}</h2>
             <p className="text-sm text-gray-600">

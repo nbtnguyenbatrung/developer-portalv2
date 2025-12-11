@@ -18,15 +18,17 @@ import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { useLanguage } from '@/contexts/language-context'
 import { cn } from '@/lib/utils'
-import { LogOut, Menu, Search, User, X } from 'lucide-react'
+import {LogOut, Menu, Search, User, X} from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import {Sidebar} from '@/components/siderbar'
 
 export default function Header() {
   const [showSearch, setShowSearch] = useState(false)
   const { data: session } = useSession()
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const { t } = useLanguage()
   const router = useRouter()
     const handleScrollToContact = (e: { preventDefault: () => void }) => {
@@ -39,6 +41,10 @@ export default function Header() {
       <div className="container flex h-16 items-center justify-between">
         {/* Left: Logo & mobile menu */}
         <div className="flex items-center gap-2 md:gap-6 min-w-0">
+            {/*<Button variant="ghost" size="icon" onClick={()=> setIsSidebarOpen(true)}*/}
+            {/*        className="text-foreground" aria-label="Open menu">*/}
+            {/*    <Menu className="w-6 h-6" />*/}
+            {/*</Button>*/}
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -47,7 +53,7 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="pr-0">
-              <MobileNav />
+              <MobileNav/>
             </SheetContent>
           </Sheet>
           <Link href="/" className="hidden md:block">
@@ -75,12 +81,6 @@ export default function Header() {
           >
             {t('contactSupport')}
           </Link>
-          {/*<Link
-            href="/faq"
-            className="font-medium transition-colors hover:text-foreground/80"
-          >
-            {t('faq')}
-          </Link>*/}
         </nav>
 
         <div className="flex items-center gap-2 justify-end min-w-0">
@@ -174,7 +174,7 @@ function MobileNav() {
       </Link>
       <nav className="flex flex-col gap-3 text-sm">
         <Link
-          href="/docs/api"
+          href="/product"
           className="font-medium transition-colors hover:text-foreground/80"
         >
           {t('apiReference')}

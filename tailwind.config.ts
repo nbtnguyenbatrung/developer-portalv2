@@ -83,6 +83,14 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    screens: {
+          xs: '430px',  // smartphone nhỏ
+          sm: '640px',  // smartphone lớn / tablet nhỏ
+          md: "768px",
+          lg: "1024px",
+          xl: "1280px",
+          "2xl": "1440px"
+      },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
