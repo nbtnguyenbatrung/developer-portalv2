@@ -134,7 +134,7 @@ export function DocViewer() {
   const [defaultVersion, setDefaultVersion] = useState('')
   const [versionSelect, setVersionSelect] = useState<string>('')
   const { language } = useLanguage()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [i18n, setI18n] = useState<any>()
   const {call} = useApiPublic()
   const [listDocs, setListDocs] = useState<Document[]>([])
@@ -142,14 +142,14 @@ export function DocViewer() {
     try {
       setIsLoading(true)
       const data: any = { slug: params.slug }
-      if (versionSelect) data.version = versionSelect
+      const version = params.version
+      if (version) data.version = version.replace("v", "")
       const [docData, i18n] = await Promise.all([
         callApi('post', `/api/doc-version/${language}`, data),
         getI18nData(),
       ])
       if (!data) return null
 
-      const version = params.version || docData.defaultVersion
       const listDocs = await call('get', `/api/docs?category=${docData.category}`)
       setListDocs(listDocs)
       setSelectedDoc(docData)

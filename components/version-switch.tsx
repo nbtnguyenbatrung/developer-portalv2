@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from './ui/button'
 import {Document} from "@/types/api";
+import Link from "next/link";
+import {version} from "node:os";
 
 export function VersionSwitcher({
   versions,
@@ -41,6 +43,11 @@ export function VersionSwitcher({
     setSelectedVersion(version)
     onVersionChange(version)
   }
+  const getName = () => {
+      if (listDocs.length <= 1) { return null }
+      const doc = listDocs.find((v) => v.slug === slug)
+      return doc ? doc.name : null
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,8 +58,10 @@ export function VersionSwitcher({
           <div className="bg-blue-700 text-white flex items-center justify-center rounded-lg w-8 h-8">
             <GalleryVerticalEnd className="w-4 h-4" />
           </div>
-          <div className="flex flex-col gap-0.5 leading-none justify-start md:ml-3 text-left">
+          <div className="flex flex-col gap-0.5 leading-none justify-start md:ml-3 text-left"
+               title={getName() + "/v" + selectedVersion}>
             <span className="font-bold">{t?.version_doc}</span>
+            <span className="text-xs text-gray-500 w-[130px] truncate">{getName()}</span>
             <span className="text-xs text-gray-500">v{selectedVersion}</span>
           </div>
           <ChevronsUpDown className="ml-auto w-4 h-4 text-gray-400" />
@@ -62,7 +71,7 @@ export function VersionSwitcher({
         className="w-[var(--radix-dropdown-menu-trigger-width)] bg-white shadow-lg rounded-xl p-1"
         align="start"
       >
-          {/*{
+          {
               listDocs.length > 1 ?
                   listDocs.map((doc) => (
                       <DropdownMenuSub key={doc.id}>
@@ -75,10 +84,13 @@ export function VersionSwitcher({
                                           onSelect={() => handleSelect(version)}
                                           className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
                                       >
-                                          <span className="flex-1">v{version}</span>
-                                          {version === selectedVersion && slug === doc.slug && (
-                                              <Check className="ml-2 w-4 h-4 text-blue-600" />
-                                          )}
+                                          <Link href={`/product/docs/${doc.slug}/v${version}`}
+                                                className="flex items-center px-4 py-2 rounded-lg text-sm cursor-pointer">
+                                              <span className="flex-1">v{version}</span>
+                                              {version === selectedVersion && slug === doc.slug && (
+                                                  <Check className="ml-2 w-4 h-4 text-blue-600" />
+                                              )}
+                                          </Link>
                                       </DropdownMenuItem>
                                   ))
                               }
@@ -91,26 +103,15 @@ export function VersionSwitcher({
                           onSelect={() => handleSelect(version)}
                           className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
                       >
-                          <span className="flex-1">v{version}</span>
-                          {version === selectedVersion && (
-                              <Check className="ml-2 w-4 h-4 text-blue-600" />
-                          )}
+                          <Link href={`/product/docs/${slug}/v${version}`}
+                                className="flex items-center px-4 py-2 rounded-lg text-sm cursor-pointer">
+                              <span className="flex-1">v{version}</span>
+                              {version === selectedVersion && (
+                                  <Check className="ml-2 w-4 h-4 text-blue-600" />
+                              )}
+                          </Link>
                       </DropdownMenuItem>
                   ))
-          }*/}
-          {
-              versions.map((version) => (
-                  <DropdownMenuItem
-                      key={version}
-                      onSelect={() => handleSelect(version)}
-                      className="flex items-center px-4 py-2 rounded-lg text-sm hover:bg-blue-50 cursor-pointer"
-                  >
-                      <span className="flex-1">v{version}</span>
-                      {version === selectedVersion && (
-                          <Check className="ml-2 w-4 h-4 text-blue-600" />
-                      )}
-                  </DropdownMenuItem>
-              ))
           }
 
       </DropdownMenuContent>
