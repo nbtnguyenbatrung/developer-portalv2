@@ -32,9 +32,9 @@ export default function Home() {
       const loadData = async () => {
           setIsLoading(true);
           try {
-              const r = await callApi("get", '/api/files', {
+              const r = await callApi("get", '/api/files', null, {
                   params: {
-                      nameFile: '',
+                      nameFile: type,
                   },
               })
               let arr: ApiService[] = []
