@@ -98,6 +98,7 @@ Direct API Implementation:
 * Contains the actual data to be sent to the server, usually in JSON format.
 * Example:
 
+```json
 {
   "apiOperation": "PURCHASE_ACCOUNT",
   "order": {
@@ -129,6 +130,7 @@ Direct API Implementation:
     "enable3DSecure": "false"
   }
 }
+```
 
 ### 2.2.5. Response Body
 
@@ -136,6 +138,7 @@ Direct API Implementation:
 * Includes paymentResult or error details.
 * Example (success):
 
+```json
 {
  "paymentResult": {
   "apiOperation": "PURCHASE_ACCOUNT",
@@ -175,9 +178,11 @@ Direct API Implementation:
   }
  }
 }
+```
 
 * Example (error):
 
+```json
 {
  "error": {
   "cause": "INVALID_REQUEST",
@@ -186,6 +191,7 @@ Direct API Implementation:
  },
  "result": "ERROR"
 }
+```
 
 ## 2.3. Testing Information
 
@@ -285,6 +291,7 @@ password=fPJFVp5qnCWeFmtd
 
 **_Response:_**
 
+```json
 {
   "access_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBUElURVNUIiwiYXVkIjoiVFQzRjZBTTVVUVpYSkVKWEFXSjhDSFZDOVpKMDJBNTEiLCJpc3MiOiJmUEpGVnA1cW5DV2VGbXRkIiwiZXhwIjoxNzE1NTY5NTQ1LCJpYXQiOjE3MTU1NjkyNDYsImp0aSI6IkFQSVRFU1QifQ.43XoubrISQYya4bM59MTK32T8wj6ZSLvdC2tLABY58UtEa4iggAWV1SBf4X5gx6sf5IZa_6aX3GJEv--bmNA3g",
   "token_type": "bearer",
@@ -292,6 +299,7 @@ password=fPJFVp5qnCWeFmtd
   "expires_in": 300,
   "scope": "read write trust"
 }
+```
 
 ### 4.3.2. Using the Access Token
 
@@ -314,6 +322,7 @@ refresh_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBUElURVNUIiwiYXVkIjoiVFQzRjZBTTVVU
 
 **_Response:_**
 
+```json
 {
     "access_token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBUElURVNUIiwiYXVkIjoiVFQzRjZBTTVVUVpYSkVKWEFXSjhDSFZDOVpKMDJBNTEiLCJpc3MiOiJmUEpGVnA1cW5DV2VGbXRkIiwiZXhwIjoxNzE1NTcxNzg2LCJpYXQiOjE3MTU1NzE0ODcsImp0aSI6IkFQSVRFU1QifQ.6Z8eTKRR_2BwsEd79DPyYxPOP-t7yj8aRU6kPQyoTrHlzAUOKLTby0vhWEL_UIZ00Us5kcDgaF8uBUVg7d-SWw",
     "token_type": "bearer",
@@ -321,6 +330,7 @@ refresh_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBUElURVNUIiwiYXVkIjoiVFQzRjZBTTVVU
     "scope": "read write trust",
     "expires_in": 299
 }
+```
 
 * If the refresh token is valid, the Napas system issues a new access token.
 
@@ -455,6 +465,7 @@ This flow is not recommended unless Partner has specific requirements that must 
 
 **_Request (Pay with Card):_**
 
+```json
 {
   "apiOperation": "PAY",
   "order": {
@@ -476,9 +487,11 @@ This flow is not recommended unless Partner has specific requirements that must 
   },
   "channel": "6014"
 }
+```
 
 **_Request (Pay with Token):_**
 
+```json
 {
   "apiOperation": "PAY",
   "order": {
@@ -491,9 +504,11 @@ This flow is not recommended unless Partner has specific requirements that must 
   },
   "channel": "4121"
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "PAY",
   "authorizationResponse": {
@@ -557,6 +572,7 @@ This flow is not recommended unless Partner has specific requirements that must 
   "channel": "4121",
   "version": "1"
 }
+```
 
 ### 5.4.2. Pay with 3DSecure
 
@@ -587,6 +603,7 @@ In this flow, depending on the 3DS readiness of the card attached to token, part
 
 **_Request (Pay with Card):_**
 
+```json
 {
   "apiOperation": "PAY_WITH_3DS",
   "3DSecure": {
@@ -617,9 +634,11 @@ In this flow, depending on the 3DS readiness of the card attached to token, part
     "lastName": "VAN A"
   }
 }
+```
 
 **_Request (Pay with Token):_**
 
+```json
 {
   "apiOperation": "PAY_WITH_3DS",
   "3DSecure": {
@@ -640,9 +659,11 @@ In this flow, depending on the 3DS readiness of the card attached to token, part
     "lastName": "VAN A"
   }
 }
+```
 
 **_Response (card is enrolled with 3DS):_**
 
+```json
 {
   "apiOperation": "PAY_WITH_3DS",
   "response": {
@@ -663,9 +684,11 @@ In this flow, depending on the 3DS readiness of the card attached to token, part
   },
   "3DSecureId": "3DS_111111"
 }
+```
 
 **_Response (card is not enrolled with 3DS):_**
 
+```json
 {
   "apiOperation": "PAY",
   "authorizationResponse": {
@@ -736,6 +759,7 @@ In this flow, depending on the 3DS readiness of the card attached to token, part
   },
   "3DSecureId": "3DS_112233"
 }
+```
 
 ### 5.4.3. Authorize
 
@@ -753,6 +777,7 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
 
 **_Request (with Card):_**
 
+```json
 {
   "apiOperation": "AUTHORIZE",
   "order": {
@@ -774,9 +799,11 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
   },
   "channel": "6014"
 }
+```
 
 **_Request (with Token):_**
 
+```json
 {
   "apiOperation": "AUTHORIZE",
   "order": {
@@ -788,9 +815,11 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
   },
   "channel": "6014"
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "AUTHORIZE",
   "authorizationResponse": {
@@ -876,6 +905,7 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
   "version": "1",
   "timeOfLastUpdate": "2025-04-02T04:10:28.859Z"
 }
+```
 
 ### 5.4.4. Authorize with 3DS
 
@@ -893,6 +923,7 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
 
 **_Request (with Card):_**
 
+```json
 {
   "apiOperation": "AUTHORIZE_WITH_3DS",
   "3DSecure": {
@@ -923,9 +954,11 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
     "lastName": "VAN A"
   }
 }
+```
 
 **_Request (with Token):_**
 
+```json
 {
   "apiOperation": "AUTHORIZE_WITH_3DS",
   "3DSecure": {
@@ -946,9 +979,11 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
     "lastName": "VAN A"
   }
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "AUTHORIZE_WITH_3DS",
   "merchantId": "NAPASTEST",
@@ -969,6 +1004,7 @@ Request to obtain an authorization for a proposed funds transfer. An authorizati
     "summaryStatus": "CARD_ENROLLED"
   }
 }
+```
 
 ### 5.4.5. Capture
 
@@ -986,6 +1022,7 @@ Request to capture funds previously reserved by an authorization. A Capture tran
 
 **_Request:_**
 
+```json
 {
   "apiOperation": "CAPTURE",
   "transaction": {
@@ -994,9 +1031,11 @@ Request to capture funds previously reserved by an authorization. A Capture tran
   },
   "channel": "6014"
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "CAPTURE",
   "authorizationResponse": {
@@ -1088,6 +1127,7 @@ Request to capture funds previously reserved by an authorization. A Capture tran
   "version": "1",
   "timeOfLastUpdate": "2025-03-31T09:56:35.797Z"
 }
+```
 
 ### 5.4.6. Void
 
@@ -1107,6 +1147,7 @@ Request to capture funds previously reserved by an authorization. A Capture tran
 
 **_Request:_**
 
+```json
 {
   "apiOperation": "VOID",
   "transaction": {
@@ -1114,9 +1155,11 @@ Request to capture funds previously reserved by an authorization. A Capture tran
   },
   "channel": "6014"
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "VOID",
   "authorizationResponse": {
@@ -1180,6 +1223,7 @@ Request to capture funds previously reserved by an authorization. A Capture tran
   "channel": "6014",
   "version": "1"
 }
+```
 
 ### 5.4.7. Refund
 
@@ -1200,6 +1244,7 @@ Request to capture funds previously reserved by an authorization. A Capture tran
 
 **_Request:_**
 
+```json
 {
   "apiOperation": "REFUND",
   "transaction": {
@@ -1208,9 +1253,11 @@ Request to capture funds previously reserved by an authorization. A Capture tran
   },
   "channel": "6014"
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "REFUND",
   "authorizationResponse": {
@@ -1274,6 +1321,7 @@ Request to capture funds previously reserved by an authorization. A Capture tran
   "channel": "6014",
   "version": "1"
 }
+```
 
 ### 5.4.8. Verify Token
 
@@ -1291,6 +1339,7 @@ Request to verify the cardholder's account before processing the financial trans
 
 **_Request:_**
 
+```json
 {
   "apiOperation": "VERIFY_TOKEN",
   "order": {
@@ -1305,9 +1354,11 @@ Request to verify the cardholder's account before processing the financial trans
     "token": "9149468462265267"
   }
 }
+```
 
 **_Response:_**
 
+```json
 {
   "apiOperation": "VERIFY_TOKEN",
   "gatewayEntryPoint": "WEB_SERVICES_API",
@@ -1376,6 +1427,7 @@ Request to verify the cardholder's account before processing the financial trans
   },
   "timeOfLastUpdate": "2025-04-02T02:59:39.139Z"
 }
+```
 
 ### 5.4.9. Retrieve Order
 
