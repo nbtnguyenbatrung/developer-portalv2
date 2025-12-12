@@ -163,7 +163,7 @@ export default function Header() {
                 <DropdownMenuLabel>{t("myAccount")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/dashboard">
+                  <Link href="/dashboard/api-keys">
                     <User className="mr-2 h-4 w-4" />
                     {t("dashboard")}
                   </Link>
@@ -283,7 +283,7 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
                   {session?.user?.firstName} {session?.user?.lastName}
                 </span>
                 <Link
-                  href="/dashboard"
+                  href="/dashboard/api-keys"
                   className="text-xs text-muted-foreground hover:text-primary"
                 >
                   {t("viewDashboard")}
