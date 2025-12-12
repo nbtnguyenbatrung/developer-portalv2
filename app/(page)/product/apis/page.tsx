@@ -9,6 +9,8 @@ import { Search } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import axios from 'axios'
 import {useLanguage} from "@/contexts/language-context";
+import {callApi} from "@/app/_service/utils/api";
+import LogoSpinner from "@/components/logo-spinner";
 
 export default function Home() {
   const {t} = useLanguage()
@@ -20,23 +22,32 @@ export default function Home() {
   const [API_SERVICES, setAPI_SERVICES] = useState<ApiService[] | []>([])
   const rightRef = useRef<HTMLDivElement>(null)
   const [leftHeight, setLeftHeight] = useState(0)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(process.env.NEXT_PUBLIC_API_MIS_BASE_URL + '/api/files', {
-        params: {
-          nameFile: '',
-        },
-      })
-      .then((r) => {
-        let arr: ApiService[] = []
-        r.data.forEach((data: any) => {
-          const swagger: SwaggerSpec = data
-          const apiObs = swaggerToApiServices(swagger, data)
-          arr = arr.concat(apiObs)
-        })
-        setAPI_SERVICES(arr)
-      })
+      const loadData = async () => {
+          setIsLoading(true);
+          try {
+              const r = await callApi("get", '/api/files', {
+                  params: {
+                      nameFile: '',
+                  },
+              })
+              let arr: ApiService[] = []
+              r.forEach((data: any) => {
+                  const swagger: SwaggerSpec = data
+                  const apiObs = swaggerToApiServices(swagger, data)
+                  arr = arr.concat(apiObs)
+              })
+              setAPI_SERVICES(arr)
+          } catch (error) {
+              console.error("Failed to load hero data:", error);
+          } finally {
+              setIsLoading(false);
+          }
+      };
+
+      loadData();
   }, [])
 
   const filteredServices = useMemo(() => {
@@ -77,6 +88,14 @@ export default function Home() {
 
     return () => observer.disconnect()
   }, [displayedEndpoint])
+
+    if (isLoading) {
+        return (
+            <main className="h-screen flex items-center justify-center w-full bg-background">
+                <LogoSpinner />
+            </main>
+        );
+    }
 
   return (
     <main className="w-full bg-background">
@@ -125,6 +144,7 @@ export default function Home() {
                 <RequestBuilder
                   api={displayedEndpoint}
                   onResponseSelect={setSelectedResponse}
+                  type={""}
                 />
               </div>
 

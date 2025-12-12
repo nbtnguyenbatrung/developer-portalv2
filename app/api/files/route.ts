@@ -5,6 +5,7 @@ import { join } from "path"
 import {NextRequest, NextResponse} from "next/server";
 
 export async function GET(req: NextRequest) {
+    await new Promise((resolve) => setTimeout(resolve, 500))
     try {
         const searchParams = req.nextUrl.searchParams;
 

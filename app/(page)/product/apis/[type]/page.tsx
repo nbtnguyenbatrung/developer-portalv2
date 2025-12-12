@@ -11,6 +11,8 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { useLanguage } from "@/contexts/language-context";
 import { Description } from "@/components/description";
+import {callApi} from "@/app/_service/utils/api";
+import LogoSpinner from "@/components/logo-spinner";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -24,23 +26,32 @@ export default function Home() {
   const [leftHeight, setLeftHeight] = useState(0);
   const { type } = useParams();
   const [isTocOpen, setIsTocOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get(process.env.NEXT_PUBLIC_API_MIS_BASE_URL + "/api/files", {
-        params: {
-          nameFile: type,
-        },
-      })
-      .then((r) => {
-        let arr: ApiService[] = [];
-        r.data.forEach((data: any) => {
-          const swagger: SwaggerSpec = data;
-          const apiObs = swaggerToApiServices(swagger, data);
-          arr = arr.concat(apiObs);
-        });
-        setAPI_SERVICES(arr);
-      });
+      const loadData = async () => {
+          setIsLoading(true);
+          try {
+              const r = await callApi("get", '/api/files', {
+                  params: {
+                      nameFile: '',
+                  },
+              })
+              let arr: ApiService[] = []
+              r.forEach((data: any) => {
+                  const swagger: SwaggerSpec = data
+                  const apiObs = swaggerToApiServices(swagger, data)
+                  arr = arr.concat(apiObs)
+              })
+              setAPI_SERVICES(arr)
+          } catch (error) {
+              console.error("Failed to load hero data:", error);
+          } finally {
+              setIsLoading(false);
+          }
+      };
+
+      loadData();
   }, []);
 
   const filteredServices = useMemo(() => {
@@ -81,6 +92,14 @@ export default function Home() {
 
     return () => observer.disconnect();
   }, [displayedEndpoint]);
+
+    if (isLoading) {
+        return (
+            <main className="h-screen flex items-center justify-center w-full bg-background">
+                <LogoSpinner />
+            </main>
+        );
+    }
 
   return (
     <main className="w-full bg-background">
