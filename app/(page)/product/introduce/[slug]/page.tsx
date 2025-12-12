@@ -191,7 +191,7 @@ export default function DppPage() {
               </Button>
             )}
 
-            {product.quantityApi == 0 ? (
+            {product.quantityApi == 0 || product.productCode === "DPP" ? (
               <Button
                 variant="default"
                 className="w-full group/btn bg-primary/5 text-primary mt-4"
