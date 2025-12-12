@@ -21,13 +21,11 @@ import { cn } from "@/lib/utils";
 import { LogOut, Menu, Search, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-// [CHANGE]: Import usePathname from next/navigation
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { Sidebar } from "@/components/siderbar";
 import { Separator } from "@/components/ui/separator";
 
-// [CHANGE]: Thêm class CSS cho hiệu ứng gạch chân trượt
 const getLinkClass = (isActive: boolean, hasPathname: boolean = true) => {
   const baseClasses = "font-medium transition-colors duration-200 relative";
 
@@ -97,7 +95,7 @@ export default function Header() {
           </Link>
           <Link
             href="/product"
-            className={getLinkClass(pathname === "/product")}
+            className={getLinkClass(pathname.includes("/product"))}
           >
             {t("apiReference")}
           </Link>
@@ -194,7 +192,6 @@ export default function Header() {
   );
 }
 
-// [CHANGE]: Hàm riêng cho mobile nav
 const getMobileLinkClass = (isActive: boolean) => {
   const baseClasses =
     "font-semibold text-base transition-colors duration-200 p-2 rounded-md";

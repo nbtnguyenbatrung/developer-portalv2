@@ -1156,7 +1156,7 @@
             "application/json": {
               "example": {
                 "period": 90,
-                "permissions": "ACCOUNTS, ACCOUNT_DETAIL, BALANCES",
+                "permissions": "ACCOUNTS ACCOUNT_DETAIL BALANCES",
                 "psuId": "eyJjaXBoZXJUZXh0IjoiMThiMDE4Y2U5M2Y1NWIzOGQ0Mzk4YzkwIiwiaXYiOiIxZTZiNzAwZGQ1NTQzZGM4MTFjNTYyMmUiLCJ0YWciOiJmZWExMDg5NzgzNDc4Y2IyMDdiYjc2MGY3NjMyNjRjYSIsImVuY3J5cHRlZEtleSI6IjdBUmlGYXRkWkZBRm5iSDBmUy9PZktLYS9QZnRjQmNVdGgrSVVad2E5VjRNd3dOTHdFMGtCYXl6K3A0dzdSSmxSRlo0Z3l0UHFqb2xMNksrZFRPdkE4b04ydVVReDh1eW5LZTlzdHFNdS9IMkEyem5DUE1EcmlZbUJWZHhQNnM2MEs1UjJaNXVMOEF0bkZYVEl5cGcyTmUvQ2dwTGo0a2ppL0JYSnY4ZElxY1lxeSt5VUFHd0txcXNIbktJbGhjR3V0dEJVQkE5RWJDS3ZINWxNRVNUK0o1TGQzdE1XVWswSm5RQ1QxSGx1dFlKemRFbnkyMGFvMUtVelFjMXVyei9Xdjg3ejc2R1FwbFIyd3ptVmh1WkpLd0Rpc3JJOXAvdHU1VzhrM25PeTl6Q3VQUzdJZmhKM1h5VjVDcTlCbDBqSEk0anB0S3U0QXZXby9rK2c1Ump0QT09In0",
                 "psuType": "CITIZEN_ID"
               },

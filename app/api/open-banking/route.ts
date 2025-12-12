@@ -1,4 +1,3 @@
-import { callApi } from "@/app/_service/utils/api";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,13 +16,27 @@ export async function POST(req: NextRequest) {
 
     const result = res.data;
     return NextResponse.json({ status: 200, data: result });
-  } catch (e) {
+  } catch (e: any) {
+    const responseToLog = e.response
+      ? {
+          status: e.response.status,
+          headers: e.response.headers,
+          data: e.response.data,
+        }
+      : {
+          code: e.code,
+          message: e.message,
+        };
+
+    console.log("error :>> ", JSON.stringify(responseToLog));
+
+    const errorStatus = e.response?.status || 500;
+    const errorData = e.response?.data || { error: e.code };
+
     return NextResponse.json({
-      status: 500,
-      description: "OK",
-      data: {
-        error: "request body not json format",
-      },
+      status: errorStatus,
+      description: "Fail",
+      data: errorData,
     });
   }
 }
