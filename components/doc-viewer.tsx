@@ -8,13 +8,13 @@ import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { VersionSwitcher } from "./version-switch";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { callApi } from "@/app/_service/utils/api";
 import { useLanguage } from "@/contexts/language-context";
 import LogoSpinner from "./logo-spinner";
 import { useApiPublic } from "@/hooks/use-api-public";
 import { Document } from "@/types/api";
-import { Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 
 const components = {
   // Paragraphs
@@ -133,7 +133,6 @@ export function DocViewer() {
   const [i18n, setI18n] = useState<any>();
   const { call } = useApiPublic();
   const [listDocs, setListDocs] = useState<Document[]>([]);
-
   // State mới cho mobile TOC
   const [isTocOpen, setIsTocOpen] = useState(false);
 
@@ -323,7 +322,7 @@ export function DocViewer() {
 
         <div
           ref={scrollContainerRef}
-          className="max-w-4xl px-8 py-3 overflow-y-auto flex-1 min-h-0"
+          className="px-8 py-3 overflow-y-auto flex-1 min-h-0"
         >
           <div className="prose prose-sm dark:prose-invert max-w-none">
             <ReactMarkdown

@@ -21,10 +21,41 @@ import { cn } from "@/lib/utils";
 import { LogOut, Menu, Search, User, X } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// [CHANGE]: Import usePathname from next/navigation
+import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
 import { Sidebar } from "@/components/siderbar";
 import { Separator } from "@/components/ui/separator";
+
+// [CHANGE]: Thêm class CSS cho hiệu ứng gạch chân trượt
+const getLinkClass = (isActive: boolean, hasPathname: boolean = true) => {
+  const baseClasses = "font-medium transition-colors duration-200 relative";
+
+  const activeClasses = hasPathname
+    ? "text-foreground font-semibold"
+    : "text-foreground";
+
+  const inactiveClasses = "text-foreground/60 hover:text-foreground/80";
+
+  const underlineEffectClasses = `
+    after:content-[''] 
+    after:absolute 
+    after:left-0 
+    after:-bottom-1 
+    after:h-[2px] 
+    after:bg-primary 
+    after:transition-all 
+    after:duration-300 
+    ${isActive ? "after:w-full" : "after:w-0"}
+    hover:after:w-full
+  `;
+
+  if (isActive && hasPathname) {
+    return cn(baseClasses, activeClasses, underlineEffectClasses);
+  }
+
+  return cn(baseClasses, inactiveClasses, underlineEffectClasses);
+};
 
 export default function Header() {
   const [showSearch, setShowSearch] = useState(false);
@@ -33,6 +64,8 @@ export default function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const { t } = useLanguage();
   const router = useRouter();
+  const pathname = usePathname();
+
   const handleScrollToContact = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const el = document.getElementById("footer");
@@ -59,22 +92,19 @@ export default function Header() {
         </div>
         {/* Center: Menubar */}
         <nav className="hidden md:flex flex-1 justify-center gap-6 text-sm min-w-0">
-          <Link
-            href="/"
-            className="font-medium transition-colors hover:text-foreground/80"
-          >
+          <Link href="/" className={getLinkClass(pathname === "/")}>
             {t("home")}
           </Link>
           <Link
             href="/product"
-            className="font-medium transition-colors hover:text-foreground/80"
+            className={getLinkClass(pathname === "/product")}
           >
             {t("apiReference")}
           </Link>
           <Link
             href="#"
             onClick={handleScrollToContact}
-            className="font-medium transition-colors hover:text-foreground/80"
+            className={getLinkClass(false, false)}
           >
             {t("contactSupport")}
           </Link>
@@ -119,7 +149,7 @@ export default function Header() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="gap-2 hover:bg-primary/50 hover:text-normal" 
+                  className="gap-2 hover:bg-primary/50 hover:text-normal"
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarFallback>
@@ -164,10 +194,25 @@ export default function Header() {
   );
 }
 
+// [CHANGE]: Hàm riêng cho mobile nav
+const getMobileLinkClass = (isActive: boolean) => {
+  const baseClasses =
+    "font-semibold text-base transition-colors duration-200 p-2 rounded-md";
+
+  const activeClasses = "text-primary bg-primary/10";
+
+  const inactiveClasses = "text-foreground hover:bg-muted";
+
+  return cn(baseClasses, isActive ? activeClasses : inactiveClasses);
+};
+
 function MobileNav({ closeSheet }: { closeSheet: () => void }) {
   const { t } = useLanguage();
   const { data: session } = useSession();
   const router = useRouter();
+
+  const pathname = usePathname();
+
   const handleScrollToContact = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     const el = document.getElementById("footer");
@@ -187,19 +232,18 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
         </Link>
       </div>
 
-      {/* 2. Phần Chính: Menu điều hướng */}
-      <nav className="flex flex-col gap-3 p-4 flex-grow">
+      <nav className="flex flex-col gap-1 p-4 flex-grow">
         <Link
           onClick={handleLinkClick}
           href="/"
-          className="font-medium transition-colors hover:text-foreground/80"
+          className={getMobileLinkClass(pathname === "/")}
         >
           {t("home")}
         </Link>
         <Link
           onClick={handleLinkClick}
           href="/product"
-          className="font-semibold text-base transition-colors hover:text-primary"
+          className={getMobileLinkClass(pathname === "/product")}
         >
           {t("apiReference")}
         </Link>
@@ -209,7 +253,7 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
             handleScrollToContact(e);
             handleLinkClick();
           }}
-          className="font-semibold text-base transition-colors hover:text-primary"
+          className={getMobileLinkClass(false)}
         >
           {t("contactSupport")}
         </Link>
@@ -263,10 +307,10 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
           </>
         ) : (
           <>
-            <Button variant="outline" asChild>
+            <Button variant="outline" asChild className="w-full mb-2">
               <Link href="/login">{t("login")}</Link>
             </Button>
-            <Button asChild className="btn-gradient">
+            <Button asChild className="btn-gradient w-full">
               <Link href="/register">{t("register")}</Link>
             </Button>
           </>
