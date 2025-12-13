@@ -30,7 +30,7 @@ export default function MarkdownViewer({content}: MarkdownViewerProps) {
                     ),
                     p: ({ node, children }: any) => <p className="mb-4 text-foreground leading-relaxed">{children}</p>,
                     // code: CodeBlock,
-                    code({ node, className, children, ...props }) {
+                    code({ node, className, children }) {
                         return (
                             <code
                                 className={className}
@@ -42,7 +42,6 @@ export default function MarkdownViewer({content}: MarkdownViewerProps) {
                                     lineHeight: '1.5',
                                     overflow: 'auto'
                                 }}
-                                {...props}
                             >
                                 {children}
                             </code>

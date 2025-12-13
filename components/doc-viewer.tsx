@@ -19,39 +19,39 @@ import {useTranslations} from "use-intl";
 
 const components = {
   // Paragraphs
-  p: ({ node, ...props }: any) => (
-    <p className="leading-7 my-2 text-gray-800" {...props} />
+  p: ({ node, children }: any) => (
+      <p className="leading-7 my-2 text-gray-800" >{children}</p>
   ),
 
   // Links
-  a: ({ node, ...props }: any) => (
+  a: ({ node, children }: any) => (
     <a
-      {...props}
       className="text-blue-600 hover:underline"
       target="_blank"
       rel="noopener noreferrer"
-    />
+    >
+        {children}
+    </a>
   ),
 
   // Lists
-  ul: ({ node, ordered, ...props }: any) => (
-    <ul className="list-disc pl-6 my-2" {...props} />
+  ul: ({ node, ordered, children }: any) => (
+      <ul className="list-disc pl-6 my-2" > {children} </ul>
   ),
-  ol: ({ node, ordered, ...props }: any) => (
-    <ol className="list-decimal pl-6 my-2" {...props} />
+  ol: ({ node, ordered, children }: any) => (
+      <ol className="list-decimal pl-6 my-2" >{children}</ol>
   ),
-  li: ({ node, ...props }: any) => <li className="my-1" {...props} />,
+    li: ({ node, children }: any) => <li className="my-1" >{children}</li>,
 
   // Blockquote
-  blockquote: ({ node, ...props }: any) => (
+  blockquote: ({ node, children }: any) => (
     <blockquote
       className="border-l-4 border-gray-300 pl-4 italic text-gray-700 my-3"
-      {...props}
-    />
+    >{children}</blockquote>
   ),
 
   // Code — phân biệt inline vs block
-  code: ({ node, inline, className, children, ...props }: any) => {
+  code: ({ node, inline, className, children }: any) => {
     const match = /language-(\w+)/.exec(className || "");
     if (!inline && match) {
       const lang = match[1];
@@ -65,7 +65,7 @@ const components = {
     }
     // inline code
     return (
-      <code className="bg-gray-100 px-1 py-[2px] rounded text-sm" {...props}>
+      <code className="bg-gray-100 px-1 py-[2px] rounded text-sm" >
         {children}
       </code>
     );
@@ -96,25 +96,25 @@ const components = {
   },
 
   // Tables
-  table: ({ node, ...props }: any) => (
+  table: ({ node, children }: any) => (
     <div className="overflow-x-auto my-3">
-      <table className="min-w-full border-collapse" {...props} />
+        <table className="min-w-full border-collapse" >{children}</table>
     </div>
   ),
-  thead: ({ node, ...props }: any) => (
-    <thead className="bg-gray-100" {...props} />
+  thead: ({ node, children }: any) => (
+      <thead className="bg-gray-100" >{children}</thead>
   ),
-  th: ({ node, ...props }: any) => (
-    <th className="px-3 py-2 text-left text-sm font-medium border" {...props} />
+  th: ({ node, children }: any) => (
+      <th className="px-3 py-2 text-left text-sm font-medium border" >{children}</th>
   ),
-  td: ({ node, ...props }: any) => (
-    <td className="px-3 py-2 text-sm border" {...props} />
+  td: ({ node, children }: any) => (
+      <td className="px-3 py-2 text-sm border" >{children}</td>
   ),
-  tr: ({ node, ...props }: any) => <tr {...props} />,
+    tr: ({ node, children }: any) => <tr >{children}</tr>,
 
   // Horizontal rule
-  hr: ({ node, ...props }: any) => (
-    <hr className="my-4 border-gray-200" {...props} />
+  hr: ({ node, children }: any) => (
+      <hr className="my-4 border-gray-200" >{children}</hr>
   ),
 };
 
