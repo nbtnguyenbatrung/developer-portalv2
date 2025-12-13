@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from "remark-gfm";
 
 interface MarkdownViewerProps {
     content: string
@@ -9,6 +10,7 @@ export default function MarkdownViewer({content}: MarkdownViewerProps) {
     return (
         <div className="markdown-content">
             <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
                 components={{
                     h1: ({ node, children }: any) => <h1 className="text-4xl font-bold mt-8 mb-4 text-foreground">{children}</h1>,
                     h2: ({ node, children }: any) => (

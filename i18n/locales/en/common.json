@@ -47,6 +47,7 @@
     "forgotPassword": "Forgot your password?",
     "loginLoading": "Logging in...",
     "notAccount": "Don't have an account",
-    "searchApi": "Search Apis..."
+    "searchApi": "Search Apis...",
+    "selectDocs": "Select Documents"
   }
 }

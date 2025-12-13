@@ -1,19 +1,15 @@
 import React from "react";
 
-export const ViewUrl = (data: any) =>{
+export const ViewUrl = (type: any, url: any, alt: any) =>{
 
-    switch(data.data.type){
+    switch(type){
         case "video":
-            return(
-                <video autoPlay loop muted playsInline preload="auto" id="myVideo">
-                    <source src={data.data.url} type="video/mp4"/>
-                </video>
-            )
+            return <div dangerouslySetInnerHTML={{ __html: url }} />
         case "img":
             return(
                 <img
-                    src={data.data?.url}
-                    alt="Images Product"
+                    src={url}
+                    alt={alt}
                     className="w-full h-100 object-cover rounded-lg mb-6 shadow"
                 />
             )

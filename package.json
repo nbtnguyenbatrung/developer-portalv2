@@ -51,6 +51,7 @@
     "dayjs": "^1.11.19",
     "embla-carousel-react": "8.5.1",
     "eslint-config-next": "^16.0.7",
+    "gray-matter": "^4.0.3",
     "input-otp": "1.4.1",
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.2",

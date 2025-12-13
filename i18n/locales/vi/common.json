@@ -51,6 +51,7 @@
     "forgotPassword": "Quên mật khẩu?",
     "loginLoading": "Đang đăng nhập...",
     "notAccount": "Tôi chưa có tài khoản",
-    "searchApi": "Tìm kiếm APIs..."
+    "searchApi": "Tìm kiếm APIs...",
+    "selectDocs": "Chọn Tài Liệu"
   }
 }
