@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "badge": {
+      "text": "Developer Portal"
+    },
+    "heading": {
+      "mainTitle": "Napas Product Integration Gateway",
+      "subtitle": "Enhance your business's operational capabilities and take it to the next level."
+    },
+    "cta": {
+      "primary": {
+        "text": "View Product"
+      },
+      "secondary": {
+        "text": "Get Started"
+      }
+    },
+    "image": [
+      "/card.png",
+      "/transfer.png",
+      "/qr.png"
+    ],
+    "content": {
+      "mainTitle": "Napas Member Organization Network",
+      "subTitle": "The National Payment Corporation of Vietnam (NAPAS) manages and operates a financial switching system of over 20,600 ATMs and more than 741,000 payment acceptance devices (POS/mPOS), serving over 80 million customers of 68 member organizations including banks and financial companies.",
+      "stat": [
+        {
+          "title": "Banks/ Financial Companies",
+          "quantity": 68,
+          "suffix": "+"
+        },
+        {
+          "title": "Payment Intermediary Units",
+          "quantity": 40,
+          "suffix": "+"
+        },
+        {
+          "title": "Payment Acceptance Devices (POS/mPOS)",
+          "quantity": 200,
+          "suffix": "+"
+        }
+      ]
+    }
+  },
+  "feature": {
+    "badge": {
+      "text": "Featured Services"
+    },
+    "heading": {
+      "mainTitle": "One Connection. Every Payment",
+      "subtitle": "Our mission is to “Become the most trusted retail payment network with the Government, Banks, Payment Intermediaries, customers, and partners through collaboration to deliver innovative, accessible, easy-to-use, and reliable payment products to the people of Vietnam”"
+    }
+  },
+  "product": {
+    "badge": {
+      "text": "Our Service"
+    },
+    "heading": {
+      "mainTitle": "Powerful APIs for Every Use Case",
+      "subtitle": "Choose from our comprehensive suite of banking APIs to build innovative financial applications."
+    }
+  }
+}

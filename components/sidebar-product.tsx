@@ -1,6 +1,7 @@
 "use client"
 
 import {useEffect, useMemo} from "react"
+import {useTranslations} from "use-intl";
 
 interface SidebarProps {
     selectedCategory: string
@@ -9,15 +10,14 @@ interface SidebarProps {
     leftHeight: number
 }
 
-const CATEGORIES = [
-    { label: "Tất cả", code: "all" },
-    { label: "Digital Payment Platform", code: "DPP" },
-    { label: "Open banking", code: "OB" },
-    /*{ label: "Napas Core", code: "NC" },
-    { label: "Interbank Funds Transfer", code: "IBFT" }*/
-]
-
 export default function Sidebar({ selectedCategory, onSelectCategory, searchQuery, leftHeight }: SidebarProps) {
+
+    const t = useTranslations("common")
+    const CATEGORIES = [
+        { label: t("all"), code: "all" },
+        { label: "Digital Payment Platform", code: "DPP" },
+        { label: "Open banking", code: "OB" }
+    ]
 
     const filteredServices = useMemo(() => {
         if (!searchQuery) return CATEGORIES

@@ -1,0 +1,124 @@
+[
+  {
+    "id": "7628a96b-80dc-4b50-83a6-ff3972537a5c",
+    "title": "NAPAS Domestic Card",
+    "subTitle": "OAuth 2.0, MFA, and data encryption",
+    "slug": "napas-domestic-card",
+    "summary": "NAPAS domestic cards issued by banks/financial companies include Debit Card, Prepaid Card, and Domestic Credit Card. NAPAS cards are easily identifiable with the logo on the lower right corner and a sequence of card numbers starting with 9704.",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/C_gif3.mp4",
+      "type": "video"
+    },
+    "icon": "IdCard",
+    "badge": "Popular",
+    "features": [
+      "Pay for goods and services at card-accepting units (online, offline)",
+      "Transfer/internal transfer via interbank 247",
+      "Withdrawal 247 interbank via NAPAS system",
+      "Print statements",
+      "Change PIN code"
+    ],
+    "category": "NAPAS",
+    "quantityApi": 0
+  },
+  {
+    "id": "8e4641c2-3320-4612-811c-a103a76418e7",
+    "title": "NAPAS FastFund 247 Service",
+    "subTitle": "<200ms response time for 95% of transactions",
+    "slug": "napas-fastfund-247-service-featured-service",
+    "summary": "NAPAS FastFund 247 Service provided by NAPAS to Banks, Payment Intermediaries and Payment service providers, allowing customers to use cards or bank accounts to transfer and receive money immediately anytime, anywhere.",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/B_gif2.mp4",
+      "type": "video"
+    },
+    "icon": "Zap",
+    "badge": "Popular",
+    "features": [
+      "VietQR standard complies with EMV Co.’s QR Payment standard and the Basic standard practice for QR codes issued by the State Bank.",
+      "Quick transactions/Simplifying customers’ experience and increasing payment speed by scanning QR codes, instead of selecting and inputting information as usual.",
+      "Customers are able to create their own QR codes using bank accounts issued by over 50 NAPAS’ member banks.",
+      "Making transactions anywhere, anytime, even outside office hours and during weekends, as long as each transaction is under 500 million VND."
+    ],
+    "category": "NAPAS",
+    "quantityApi": 0
+  },
+  {
+    "id": "19498f81-d1b9-4ba6-9298-5744d884aaa7",
+    "title": "NAPAS FastFund 247 with  VietQR Service",
+    "subTitle": "Fast money transfer via VietQR code",
+    "slug": "napas-fastfund-247-with-vietqr-code-service",
+    "summary": "NAPAS FastFund 247 with VietQR Service allows customers to proceed transactions with other accounts issued by any NAPAS member banks anywhere, anytime simply by scanning individual QR payment codes.",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/A_gif1.mp4",
+      "type": "video"
+    },
+    "icon": "QrCode",
+    "badge": "Popular",
+    "features": [
+      "VietQR standard complies with EMV Co.’s QR Payment standard and the Basic standard practice for QR codes issued by the State Bank.",
+      "Quick transactions/Simplifying customers’ experience and increasing payment speed by scanning QR codes, instead of selecting and inputting information as usual.",
+      "Customers are able to create their own QR codes using bank accounts issued by over 50 NAPAS’ member banks.",
+      "Making transactions anywhere, anytime, even outside office hours and during weekends, as long as each transaction is under 500 million VND."
+    ],
+    "category": "VietQR",
+    "quantityApi": 0
+  },
+  {
+    "id": "7726526e-f420-4023-8a6b-1ff4346e3a61",
+    "title": "Digital Payment Platform",
+    "subTitle": "Digital Payment Platform.",
+    "slug": "digital-payment-platform",
+    "active": true,
+    "featured": false,
+    "priority": 1,
+    "viewUrl": {
+      "url": "/introduce/dpp_images.png",
+      "type": "img"
+    },
+    "icon": "CreditCard",
+    "badge": "New",
+    "features": [
+      "Pay by card/account",
+      "Pay/top up by card token/account token",
+      "Pay by VietQRPay code",
+      "Pay by Bank/Payment Intermediary application",
+      "Pay by ApplePay",
+      "3DS authentication solution"
+    ],
+    "category": "DPP",
+    "quantityApi": 44
+  },
+  {
+    "id": "eb91044e-c0ee-46d6-98e8-671fa80f8e57",
+    "title": "Open Banking",
+    "subTitle": "Open Banking",
+    "slug": "open-banking",
+    "summary": "Accounts, KYC, AML, management.",
+    "active": true,
+    "featured": false,
+    "viewUrl": {
+      "url": "/introduce/ob_images.png",
+      "type": "img"
+    },
+    "priority": 2,
+    "icon": "Users",
+    "badge": "New",
+    "features": [
+      "Single connection, unified standard: Optimize Open API deployment with one connection, one common standard.",
+      "Flexible roles: Support 02 roles of Data Provider (DP) and Third Party Provider (TPP) simultaneously.",
+      "AIS – Account information query: Provide balance, account details, transaction history quickly and accurately.",
+      "PIS – Convenient payment: Initiate money transfer transactions, query status and cancel transactions easily."
+    ],
+    "category": "OB",
+    "quantityApi": 14
+  }
+]

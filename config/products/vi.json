@@ -1,0 +1,128 @@
+[
+  {
+    "id": "7628a96b-80dc-4b50-83a6-ff3972537a5c",
+    "title": "Thẻ nội địa NAPAS",
+    "subTitle": "OAuth 2.0, MFA, và mã hóa dữ liệu",
+    "slug": "the-noi-dia-napas",
+    "summary": "Thẻ nội địa NAPAS ( gọi tắt là Thẻ NAPAS) là thẻ thanh toán do các Ngân hàng và Công ty Tài chính Việt Nam phát hành, số thẻ được bắt đầu bằng mã tổ chức phát hành thẻ 9704 do Ngân hàng Nhà nước cấp.",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/C_gif3.mp4",
+      "type": "video"
+    },
+    "icon": "IdCard",
+    "badge": "Phổ biến",
+    "features": [
+      "Thanh toán hàng hóa, dịch vụ tại đơn vị chấp nhận thẻ (online, offline)",
+      "Chuyển tiền/chuyển khoản nội bộ, liên ngân hàng 247",
+      "Rút tiền 247 liên ngân hàng qua hệ thống NAPAS",
+      "In sao kê",
+      "Đổi PIN"
+    ],
+    "category": "NAPAS",
+    "quantityApi": 0
+  },
+  {
+    "id": "8e4641c2-3320-4612-811c-a103a76418e7",
+    "title": "Chuyển nhanh NAPAS 247",
+    "subTitle": "<200ms thời gian đáp ứng cho 95% giao dịch",
+    "slug": "dich-vu-chuyen-tien-nhanh-247",
+    "summary": "Dịch vụ Chuyển nhanh NAPAS 247 là dịch vụ do NAPAS cung cấp cho các Ngân hàng thành viên, tổ chức Trung gian thanh toán, và các tổ chức cung ứng dịch vụ chuyển tiền, qua đó cho phép khách hàng có thể sử dụng thẻ hoặc tài khoản ngân hàng để chuyển tiền đi và nhận tiền chuyển đến ngay lập tức.",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/B_gif2.mp4",
+      "type": "video"
+    },
+    "icon": "Zap",
+    "badge": "Phổ biến",
+    "features": [
+      "Chuyển tiền và nhận tiền ngay lập tức (realtime) mọi nơi, mọi lúc kể cả ngoài giờ hành chính và cuối tuần",
+      "Kết nối 58 thành viên là các Ngân hàng, Công ty viễn thông",
+      "Kiểm tra được thông tin chủ thẻ/tài khoản thụ hưởng trước khi thực hiện giao dịch.",
+      "Kênh giao dịch đa dạng, phù hợp với nhiều đối tượng khách hàng.",
+      "Hạn mức chuyển tiền tối đa lên tới dưới 500 triệu đồng/giao dịch."
+    ],
+    "category": "NAPAS",
+    "quantityApi": 0
+  },
+  {
+    "id": "19498f81-d1b9-4ba6-9298-5744d884aaa7",
+    "title": "Chuyển nhanh NAPAS 247 bằng mã VietQR",
+    "subTitle": "Chuyển tiền nhanh qua mã VietQR",
+    "slug": "dich-vu-chuyen-tien-nhanh-napas-247-bang-ma-vietqr",
+    "summary": "Dịch vụ Chuyển nhanh NAPAS 247 bằng mã VietQR cho phép khách hàng chuyển tiền từ tài khoản của mình tới tài khoản tại một ngân hàng khác trong mạng lưới của NAPAS theo phương thức chuyển tiền nhanh 24/7.",
+    "active": true,
+    "featured": true,
+    "priority": 1,
+    "viewUrl": {
+      "url": "https://static.mediacdn.vn/napas/image/A_gif1.mp4",
+      "type": "video"
+    },
+    "icon": "QrCode",
+    "badge": "Phổ biến",
+    "features": [
+      "Tiêu chuẩn VietQR tuân thủ tiêu chuẩn thanh toán QR của EMV Co. và bộ Tiêu chuẩn cơ sở cho mã QR do NHNN ban hành.",
+      "Giao dịch nhanh chóng/ Đơn giản hóa trải nghiệm và tăng tốc độ thanh toán thông qua việc quét mã QR thay vì lựa chọn ngân hàng và nhập thông tin tài khoản/thẻ ngân hàng.",
+      "Khách hàng có thể tự tạo mã QR khi đã có tài khoản tại 50+ Ngân hàng thành viên",
+      "Thực hiện các giao dịch mọi nơi, mọi lúc kể cả ngoài giờ hành chính và cuối tuần với hạn mức tối đa 1 giao dịch dưới 500 triệu đồng."
+    ],
+    "category": "VietQR",
+    "quantityApi": 0
+  },
+  {
+    "id": "7726526e-f420-4023-8a6b-1ff4346e3a61",
+    "title": "Digital Payment Platform",
+    "subTitle": "Digital Payment Platform.",
+    "slug": "digital-payment-platform",
+    "summary": "Thanh toán, chuyển khoản, giao dịch, an toàn, thời gian thực.",
+    "active": true,
+    "featured": false,
+    "priority": 1,
+    "viewUrl": {
+      "url": "/introduce/dpp_images.png",
+      "type": "img"
+    },
+    "createdAt": "2023-01-01",
+    "updatedAt": "2023-01-01",
+    "icon": "CreditCard",
+    "badge": "Mới",
+    "features": [
+      "Thanh toán bằng thẻ/tài khoản",
+      "Thanh toán/nạp tiền bằng token thẻ/token tài khoản",
+      "Thanh toán bằng mã VietQRPay",
+      "Thanh toán bằng ứng dụng của Ngân hàng/Trung gian thanh toán",
+      "Thanh toán bằng ApplePay",
+      "Giải pháp xác thực 3DS"
+    ],
+    "category": "DPP",
+    "quantityApi": 44
+  },
+  {
+    "id": "eb91044e-c0ee-46d6-98e8-671fa80f8e57",
+    "title": "Open Banking",
+    "subTitle": "Open Banking",
+    "slug": "open-banking",
+    "summary": "Tài khoản, KYC, AML, quản lý.",
+    "active": true,
+    "featured": false,
+    "viewUrl": {
+      "url": "/introduce/ob_images.png",
+      "type": "img"
+    },
+    "priority": 2,
+    "icon": "Users",
+    "badge": "Mới",
+    "features": [
+      "Kết nối duy nhất, tiêu chuẩn thống nhất: Tối ưu triển khai Open API với một kết nối, một chuẩn chung.",
+      "Linh hoạt vai trò: Hỗ trợ đồng thời 02 vai trò Data Provider (DP) và Third Party Provider (TPP).",
+      "AIS – Truy vấn thông tin tài khoản: Cung cấp số dư, chi tiết tài khoản, lịch sử giao dịch nhanh chóng, chính xác.",
+      "PIS – Thanh toán tiện lợi: Khởi tạo giao dịch chuyển tiền, truy vấn trạng thái và hủy giao dịch dễ dàng."
+    ],
+    "category": "OB",
+    "quantityApi": 14
+  }
+]

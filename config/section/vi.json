@@ -1,0 +1,63 @@
+{
+  "hero": {
+    "badge": {
+      "text": "Cổng thông tin dành cho nhà phát triển"
+    },
+    "heading": {
+      "mainTitle": "Cộng tích hợp sẵn phầm Napas",
+      "subtitle": "Tăng cường khả năng vận hành của doanh nghiệp của bạn và đưa nó lên một tầm cao mới."
+    },
+    "cta": {
+      "primary": {
+        "text": "Xem Sản Phẩm"
+      },
+      "secondary": {
+        "text": "Tiện hành tích hợp"
+      }
+    },
+    "image": [
+      "/card.png",
+      "/transfer.png",
+      "/qr.png"
+    ],
+    "content": {
+      "mainTitle": "Mạng lưới Tổ Chức Thành Viên của Napas",
+      "subTitle": "Công ty Cổ phần Thanh toán Quốc gia Việt Nam (NAPAS) đang quản trị và vận hành hệ thống chuyển mạch tài chính hơn 20.600 máy ATM, hơn 741.000 thiết bị chấp nhận thanh toán (POS/mPOS) phục vụ hơn 80 triệu khách hàng của 68 Tổ chức thành viên là ngân hàng và công ty tài chính.",
+      "stat": [
+        {
+          "title": "Ngân Hàng/ Công ty tài chính",
+          "quantity": 68,
+          "suffix": "+"
+        },
+        {
+          "title": "Đơn vị Trung gian thanh toán",
+          "quantity": 40,
+          "suffix": "+"
+        },
+        {
+          "title": "Thiết bị chấp nhận thanh toán (POS/mPOS)",
+          "quantity": 200,
+          "suffix": "+"
+        }
+      ]
+    }
+  },
+  "feature": {
+    "badge": {
+      "text": "Dịch vụ nổi bật"
+    },
+    "heading": {
+      "mainTitle": "Một kết nối. Mọi thanh toán",
+      "subtitle": "Sứ mệnh của chúng tôi là “Trở thành mạng lưới thanh toán bán lẻ đáng tin cậy nhất với Chính phủ, Ngân hàng, Trung gian thanh toán, khách hàng và các đối tác thông qua hợp tác cùng mang đến những sản phẩm thanh toán sáng tạo, dễ tiếp cận, dễ sử dụng và đáng tin cậy đối với người dân Việt Nam”"
+    }
+  },
+  "product": {
+    "badge": {
+      "text": "Dịch vụ của chúng tôi"
+    },
+    "heading": {
+      "mainTitle": "Các API mạnh mẽ cho mọi trường hợp sử dụng",
+      "subtitle": "Lựa chọn từ bộ API ngân hàng toàn diện của chúng tôi để xây dựng các ứng dụng tài chính sáng tạo."
+    }
+  }
+}

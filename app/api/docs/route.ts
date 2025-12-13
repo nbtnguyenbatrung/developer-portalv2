@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 
         const language = headers.get("Accept-Language");
         const category = searchParams.get("category") || "";
-        const fullPath = join(process.cwd(), "public", `docs/${language}` )
+        const fullPath = join(process.cwd(), "config", `docs/${language}` )
 
         // Đọc nội dung từng file
         const filePath = join(fullPath, "doc.json");

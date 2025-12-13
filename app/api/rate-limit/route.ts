@@ -7,7 +7,7 @@ import {NextRequest, NextResponse} from "next/server";
 export async function GET(req: NextRequest) {
     await new Promise((resolve) => setTimeout(resolve, 500))
     try {
-        const fullPath = join(process.cwd(), "public", "rate-limit")
+        const fullPath = join(process.cwd(), "config", "rate-limit")
 
         // Đọc nội dung từng file
         const filePath = join(fullPath, "rateLimit.json");

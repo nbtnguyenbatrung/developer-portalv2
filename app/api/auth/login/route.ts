@@ -21,14 +21,12 @@ export async function POST(req: NextRequest) {
 
     // Find user by email
     const user = await User.findOne({ email })
-      console.log("trung user ", user)
     if (!user) {
       return NextResponse.json(
         { error: 'Invalid credentials' },
         { status: 401 }
       )
     }
-      console.log("trung password ", password)
     // Check password
     const isPasswordMatch = await bcrypt.compare(password, user.password)
     if (!isPasswordMatch) {

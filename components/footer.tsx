@@ -3,9 +3,12 @@
 import Link from 'next/link'
 import { Logo } from '@/components/logo'
 import {useLanguage} from "@/contexts/language-context";
+import {useLocale} from "next-intl";
+import {useTranslations} from "use-intl";
 
 export default function Footer() {
-    const {t, language} = useLanguage()
+    const locale = useLocale();
+    const t = useTranslations("common")
   return (
     <footer className="border-t bg-background"　id={"footer"}>
       <div className="container py-8 md:py-12">
@@ -19,7 +22,7 @@ export default function Footer() {
                 {t("napas")}
             </h2>
               {
-                  language === "vi" &&
+                  locale === "vi" &&
                   <p className="text-sm text-gray-600">
                       National Payment Corporation of Vietnam
                   </p>

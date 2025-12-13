@@ -10,56 +10,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { useLanguage } from '@/contexts/language-context'
 import { ArrowRight, Zap } from 'lucide-react'
 import Link from 'next/link'
 import { ScrollReveal } from './scroll-reveal'
-import {useEffect, useState} from "react";
-import {Product, ProductSectionData} from "@/types/api";
+import {Product} from "@/types/api";
 import {icons} from "@/script/icons";
-import LogoSpinner from "@/components/logo-spinner";
-import {useApiPublic} from "@/hooks/use-api-public";
+import {useTranslations} from "use-intl";
 
-export function ProductsSection() {
+interface ProductsSectionProps {
+    data: any
+    products: Product[]
+}
+export function ProductsSection({data, products}: ProductsSectionProps) {
 
-    const { t, language } = useLanguage()
-    const {call} = useApiPublic()
-
-    const [data, setData] = useState<ProductSectionData | null>(null)
-    const [products, setProducts] = useState<Array<Product>>([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const loadData = async () => {
-            setIsLoading(true)
-            try {
-                const [productSection, productData] = await Promise.all([
-                    call("get",`/api/product-section` ),
-                    call("get", `/api/product`)
-                ])
-                setData(productSection)
-                setProducts(productData)
-            } catch (error) {
-                console.error("Failed to load hero data:", error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-
-        loadData()
-    }, [language])
-
-    if (isLoading) {
-        return(
-            <section className="h-screen flex items-center justify-center py-4 md:py-6 lg:py-6 sm: scroll-mt-20">
-                <LogoSpinner />
-            </section>
-        )
-    }
-
-    if (!data) {
-        return null
-    }
+  const t = useTranslations("common")
 
   return (
     <section id="products" className="py-4 md:py-6 lg:py-6 sm: scroll-mt-20">
@@ -74,14 +38,14 @@ export function ProductsSection() {
             <div className="inline-block">
               <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
                 <Zap className="h-3 w-3 mr-1" />
-                {data.our_service}
+                {data.badge.text}
               </Badge>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-                {data.our_service_title}
+                {data.heading.mainTitle}
             </h2>
             <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-                {data.our_service_subtitle}
+                {data.heading.subtitle}
             </p>
           </div>
         </ScrollReveal>

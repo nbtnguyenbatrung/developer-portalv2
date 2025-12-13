@@ -1,10 +1,10 @@
 "use client";
 
-import { useLanguage } from "@/contexts/language-context";
 import apiPublic from "@/app/_service/utils/api-public";
+import {useLocale} from "next-intl";
 
 export function useApiPublic() {
-    const { language } = useLanguage();
+    const locale = useLocale();
 
     const call = async <T = any>(
         method: "get" | "post" | "put" | "delete",
@@ -16,7 +16,7 @@ export function useApiPublic() {
             ...config,
             headers: {
                 ...(config?.headers || {}),
-                "Accept-Language": language,
+                "Accept-Language": locale,
             }
         };
 

@@ -1,5 +1,6 @@
 import {useLanguage} from "@/contexts/language-context";
 import {RateLimit} from "@/types/api";
+import {useTranslations} from "use-intl";
 
 interface RateLimitProps{
     rateLimits: RateLimit[];
@@ -7,7 +8,7 @@ interface RateLimitProps{
 
 export default function RateLimitView({rateLimits}: RateLimitProps) {
 
-    const {t} = useLanguage()
+    const t = useTranslations("common")
 
     return (
         <>

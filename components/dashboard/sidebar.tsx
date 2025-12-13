@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Key, Settings } from "lucide-react";
-import { useLanguage } from "@/contexts/language-context";
+import {useTranslations} from "use-intl";
 
 // Cập nhật: Thêm prop 'onLinkClick'
 export function Sidebar({
@@ -17,7 +17,7 @@ export function Sidebar({
   onLinkClick?: () => void;
 }) {
   const pathname = usePathname();
-  const { t } = useLanguage();
+  const t = useTranslations("navigation")
 
   const sidebarItems = [
     // ... (Không đổi)

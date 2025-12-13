@@ -9,12 +9,13 @@ import rehypeSanitize from "rehype-sanitize";
 import remarkGfm from "remark-gfm";
 import { VersionSwitcher } from "./version-switch";
 import { useParams, useRouter } from "next/navigation";
-import { callApi } from "@/app/_service/utils/api";
 import { useLanguage } from "@/contexts/language-context";
 import LogoSpinner from "./logo-spinner";
 import { useApiPublic } from "@/hooks/use-api-public";
 import { Document } from "@/types/api";
-import { ChevronRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import {useApi} from "@/hooks/use-api";
+import {useTranslations} from "use-intl";
 
 const components = {
   // Paragraphs
@@ -118,6 +119,7 @@ const components = {
 };
 
 export function DocViewer() {
+  const t = useTranslations("common")
   const params = useParams<{ slug: string; version: string }>();
   const [selectedDoc, setSelectedDoc] = useState<DocumentItem>();
   const [activeHeading, setActiveHeading] = useState<string>("");
@@ -125,13 +127,12 @@ export function DocViewer() {
     Array<{ id: string; level: number; text: string }>
   >([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [versions, setVersions] = useState<string[]>([]);
   const [defaultVersion, setDefaultVersion] = useState("");
   const [versionSelect, setVersionSelect] = useState<string>("");
   const { language } = useLanguage();
   const [isLoading, setIsLoading] = useState(true);
-  const [i18n, setI18n] = useState<any>();
   const { call } = useApiPublic();
+  const { callApi } = useApi()
   const [listDocs, setListDocs] = useState<Document[]>([]);
   // State mới cho mobile TOC
   const [isTocOpen, setIsTocOpen] = useState(false);
@@ -142,10 +143,7 @@ export function DocViewer() {
       const data: any = { slug: params.slug };
       const version = params.version;
       if (version) data.version = version.replace("v", "");
-      const [docData, i18n] = await Promise.all([
-        callApi("post", `/api/doc-version/${language}`, data),
-        getI18nData(),
-      ]);
+      const docData = await callApi("post", `/api/doc-version/`, data)
       if (!docData) return null;
 
       const listDocs = await call(
@@ -155,17 +153,11 @@ export function DocViewer() {
       setListDocs(listDocs);
       setSelectedDoc(docData);
       setDefaultVersion(docData.defaultVersion);
-      setVersions(docData.version);
     } catch (e) {
       console.log("e :>> ", e);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const getI18nData = async () => {
-    const i18n = await callApi("get", `/api/doc-version/${language}`);
-    setI18n(i18n);
   };
 
   useEffect(() => {
@@ -224,7 +216,7 @@ export function DocViewer() {
   const TocContent = () => (
     <div className="py-4 space-y-2">
       <h2 className="text-sm font-semibold text-foreground ">
-        {i18n?.on_this_page || "On this page"}
+        {t("on_this_page")}
       </h2>
       {tableOfContents.map((heading) => (
         <button
@@ -256,8 +248,6 @@ export function DocViewer() {
       <div className="hidden lg:block lg:col-span-3 border-r border-border bg-card/50 overflow-y-auto min-h-0">
         <div className="sticky top-0 bg-card border-b border-border py-4">
           <VersionSwitcher
-            versions={versions}
-            i18n={i18n}
             defaultVersion={defaultVersion}
             onVersionChange={handleVersionChange}
             listDocs={listDocs}
@@ -286,8 +276,6 @@ export function DocViewer() {
           </button>
 
           <VersionSwitcher
-            versions={versions}
-            i18n={i18n}
             defaultVersion={defaultVersion}
             onVersionChange={handleVersionChange}
             listDocs={listDocs}

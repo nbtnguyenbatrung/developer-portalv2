@@ -2,6 +2,7 @@
 import {useLanguage} from "@/contexts/language-context";
 import {DownloadFile} from "@/types/api";
 import {Archive, Book, Download, File, FileText, Image, Video} from "lucide-react";
+import {useTranslations} from "use-intl";
 
 interface DownloadFileViewProps{
     downloads: DownloadFile[]
@@ -9,7 +10,7 @@ interface DownloadFileViewProps{
 
 export default function DownloadFileView({downloads}: DownloadFileViewProps) {
 
-    const {t} = useLanguage()
+    const t = useTranslations("common")
     const getIcons = (icons: string)=>{
         switch(icons.toLowerCase()){
             case 'book':

@@ -3,7 +3,6 @@
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { Logo } from "@/components/logo";
 import { ModeToggle } from "@/components/mode-toggle";
-import { NotificationCenter } from "@/components/notification-center";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,8 +22,8 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
-import { Sidebar } from "@/components/siderbar";
 import { Separator } from "@/components/ui/separator";
+import {useTranslations} from "use-intl";
 
 const getLinkClass = (isActive: boolean, hasPathname: boolean = true) => {
   const baseClasses = "font-medium transition-colors duration-200 relative";
@@ -60,7 +59,8 @@ export default function Header() {
   const { data: session } = useSession();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const { t } = useLanguage();
+  const t = useTranslations("navigation")
+  const tc = useTranslations("common")
   const router = useRouter();
   const pathname = usePathname();
 
@@ -77,7 +77,7 @@ export default function Header() {
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">{t("toggleMenu")}</span>
+                <span className="sr-only">{tc("toggleMenu")}</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="pr-0">
@@ -114,7 +114,7 @@ export default function Header() {
           >
             <Input
               type="search"
-              placeholder={t("search")}
+              placeholder={tc("search")}
               className="h-9 md:w-[200px]"
             />
           </div>
@@ -125,7 +125,7 @@ export default function Header() {
               onClick={() => setShowSearch(false)}
             >
               <X className="h-5 w-5" />
-              <span className="sr-only">{t("closeSearch")}</span>
+              <span className="sr-only">{tc("closeSearch")}</span>
             </Button>
           ) : (
             <Button
@@ -160,7 +160,7 @@ export default function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>{t("myAccount")}</DropdownMenuLabel>
+                <DropdownMenuLabel>{tc("myAccount")}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
                   <Link href="/dashboard/api-keys">
@@ -204,7 +204,8 @@ const getMobileLinkClass = (isActive: boolean) => {
 };
 
 function MobileNav({ closeSheet }: { closeSheet: () => void }) {
-  const { t } = useLanguage();
+  const t = useTranslations("navigation")
+  const tc = useTranslations("common")
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -257,13 +258,13 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
         <Separator className="mt-2 mb-2" />
         <div className="flex flex-col py-1">
           <span className="font-semibold text-sm mb-2 text-foreground/70">
-            {t("language")}
+            {tc("language")}
           </span>
           <LanguageSwitcher isMobile />
         </div>
         <div className="flex flex-col py-1">
           <span className="font-semibold text-sm mb-2 text-foreground/70">
-            {t("theme")}
+            {tc("theme")}
           </span>
           <ModeToggle isMobile />
         </div>
@@ -286,7 +287,7 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
                   href="/dashboard/api-keys"
                   className="text-xs text-muted-foreground hover:text-primary"
                 >
-                  {t("viewDashboard")}
+                  {t("dashboard")}
                 </Link>
               </div>
             </div>
@@ -306,9 +307,6 @@ function MobileNav({ closeSheet }: { closeSheet: () => void }) {
           <>
             <Button variant="outline" asChild className="w-full mb-2">
               <Link href="/login">{t("login")}</Link>
-            </Button>
-            <Button asChild className="btn-gradient w-full">
-              <Link href="/register">{t("register")}</Link>
             </Button>
           </>
         )}

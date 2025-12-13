@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Basic plan",
+    "throttle": 50,
+    "unitThrottle": "request / s",
+    "quota": 10000,
+    "unitQuota": "request / ngày",
+    "createDate": "10/12/2025",
+    "modifyDate": "10/12/2025"
+  },
+  {
+    "name": "Standard plan",
+    "throttle": 150,
+    "unitThrottle": "request / s",
+    "quota": 30000,
+    "unitQuota": "request / ngày",
+    "createDate": "10/12/2025",
+    "modifyDate": "10/12/2025"
+  },
+  {
+    "name": "Premium",
+    "throttle": 300,
+    "unitThrottle": "request / s",
+    "quota": 70000,
+    "unitQuota": "request / ngày",
+    "createDate": "10/12/2025",
+    "modifyDate": "10/12/2025"
+  }
+]

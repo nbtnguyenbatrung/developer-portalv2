@@ -3,16 +3,15 @@
 import { ScrollReveal } from "@/components/scroll-reveal";
 import ServiceCard from "./service-card";
 import { Product } from "@/types/api";
-import { useLanguage } from "@/contexts/language-context";
 import { icons } from "@/script/icons";
+import {useTranslations} from "use-intl";
 
 interface ServiceGridProps {
   productList: Product[];
 }
 
 export default function ServiceGrid({ productList }: ServiceGridProps) {
-  const { t } = useLanguage();
-
+  const t = useTranslations("common")
   return (
     <div className="w-full">
       {/* Grid */}

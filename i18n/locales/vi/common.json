@@ -1,0 +1,56 @@
+{
+  "home": {
+    "title": "Trang chủ",
+    "description": "Chào mừng đến với ứng dụng"
+  },
+  "navigation": {
+    "home": "Trang Chủ",
+    "documentation": "Tài liệu",
+    "apiReference": "Sản phẩm của Napas",
+    "dashboard": "Bảng điều khiển",
+    "logout": "Đăng xuất",
+    "login": "Đăng nhập",
+    "contactSupport": "Liên hệ",
+    "dashboard_api_key": "API Keys",
+    "dashboard_setting": "Cài Đặt"
+  },
+  "common": {
+    "toggleMenu": "Chuyển đổi menu",
+    "search": "Tìm kiếm tài liệu...",
+    "closeSearch": "Đóng tìm kiếm",
+    "myAccount": "Tài khoản của tôi",
+    "language": "Ngôn ngữ",
+    "theme": "Chủ đề",
+    "napas": "Công ty Cổ phần Thanh toán Quốc gia Việt Nam - NAPAS",
+    "headquarters": "Trụ sở chính",
+    "address": "Địa chỉ",
+    "representativeOffice": "VP đại diện miền Nam",
+    "introduce": "Tổng quan",
+    "viewAll": "Xem tất cả",
+    "ready_start": "Sẵn sàng kết nối?",
+    "ready_start_text":
+    "Tao tài khoản và bắt đầu xây dựng với API của chúng tôi ngay hôm nay.",
+    "ready_start_btn_sign_in": "Đăng nhập",
+    "ready_start_btn_read_docs": "Đọc Tài liệu",
+    "searchProduct": "Tìm kiếm sản phẩm...",
+    "all": "Tất cả",
+    "noProduct": "Không tìm thấy API của sản phẩm",
+    "readDocs": "Xem Api",
+    "viewApi": "Kiểm thử API",
+    "selectDocsRead": "Chọn tài liệu bạn muốn đọc",
+    "rateLimit": "Giới hạn truy cập (Rate Limit) theo Gói",
+    "name": "Tên gói",
+    "throttle": "Giới hạn tốc độ",
+    "quota": "giới hạn số lượng",
+    "download": "Tải về",
+    "version_doc": "Phiên bản tài liệu",
+    "on_this_page": "Mục Lục",
+    "login": "Đăng nhập",
+    "descriptionLogin": "Nhập email và mật khẩu của bạn để truy cập vào tài khoản",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "loginLoading": "Đang đăng nhập...",
+    "notAccount": "Tôi chưa có tài khoản",
+    "searchApi": "Tìm kiếm APIs..."
+  }
+}

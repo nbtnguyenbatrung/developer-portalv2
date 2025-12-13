@@ -1,0 +1,25 @@
+{
+  "header": {
+    "text": "Quản lý khóa API của bạn để xác thực với API Napas."
+  },
+  "guide": {
+    "header": {
+      "mainTitle": "Hướng dẫn sử dụng và bảo mật khóa API",
+      "subtitle": "Các bước cần thiết để bảo vệ và sử dụng API Key của bạn"
+    },
+    "instructions": {
+      "mainTitle": "Hướng dẫn Sử dụng Key",
+      "subtitle": "Để thực hiện cuộc gọi API thành công, bạn phải sử dụng giá trị API Key được cấp và set vào Header của yêu cầu::",
+      "example": "Application: {{GIÁ TRỊ API KEY CỦA BẠN}}"
+    },
+    "practices": {
+      "mainTitle": "Thực hành Bảo mật Tốt nhất (Hành động Cần làm)",
+      "content": [
+        "Cấm tuyệt đối hiển thị API Key trong mã client-side hoặc kho lưu trữ công khai.",
+        "Lưu trữ API Key trong biến môi trường hoặc Hệ thống két sắt an toàn (secure vault) trên máy chủ.",
+        "Sử dụng các Key khác nhau cho môi trường thử nghiệm (sandbox) và môi trường chính thức (production).",
+        "Thu hồi (Revoke) ngay lập tức các API Key không còn sử dụng hoặc nghi ngờ đã bị lộ."
+      ]
+    }
+  }
+}

@@ -4,29 +4,42 @@
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Globe } from "lucide-react"
-import { useLanguage } from "@/contexts/language-context"
-import { cn } from '@/lib/utils' // Giả sử cn được import
+import {useLocale} from "next-intl";
+import {usePathname, useRouter} from "@/i18n/config";
+import {translateSlug} from "@/app/_helper/utils/slugs";
 
 // Thêm prop isMobile để điều chỉnh layout
 export function LanguageSwitcher({ isMobile }: { isMobile?: boolean }) {
-  const { language, setLanguage } = useLanguage()
+    const locale = useLocale();
+    const router = useRouter();
+    let pathname = usePathname();
+
+    const handleChange = (newLocale: string) => {
+        const parts = pathname.split("/").filter(Boolean);
+        const slug = parts[2]; // vị trí slug: /vi/product/introduce/[SLUG]
+        if (slug){
+            const newSlug = translateSlug(slug, newLocale);
+            pathname = pathname.replace(slug, newSlug);
+        }
+        router.replace(pathname, {locale: newLocale});
+    };
 
   // --- Giao diện Mobile Nav ---
   if (isMobile) {
     return (
       <div className="flex items-center gap-2 w-full">
         <Button
-          variant={language === "en" ? "secondary" : "ghost"}
+          variant={locale === "en" ? "secondary" : "ghost"}
           size="sm"
-          onClick={() => setLanguage("en")}
+          onClick={() => handleChange("en")}
           className="w-full justify-center"
         >
           English
         </Button>
         <Button
-          variant={language === "vi" ? "secondary" : "ghost"}
+          variant={locale === "vi" ? "secondary" : "ghost"}
           size="sm"
-          onClick={() => setLanguage("vi")}
+          onClick={() => handleChange("vi")}
           className="w-full justify-center"
         >
           Tiếng Việt
@@ -45,10 +58,10 @@ export function LanguageSwitcher({ isMobile }: { isMobile?: boolean }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setLanguage("en")} className={language === "en" ? "bg-accent" : ""}>
+        <DropdownMenuItem onClick={() => handleChange("en")} className={locale === "en" ? "bg-accent" : ""}>
           English
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setLanguage("vi")} className={language === "vi" ? "bg-accent" : ""}>
+        <DropdownMenuItem onClick={() => handleChange("vi")} className={locale === "vi" ? "bg-accent" : ""}>
           Tiếng Việt
         </DropdownMenuItem>
       </DropdownMenuContent>

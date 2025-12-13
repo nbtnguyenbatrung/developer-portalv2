@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
         const language = headers.get("Accept-Language");
         const slug = searchParams.get("slug") || "";
-        const fullPath = join(process.cwd(), "public", "introduce/md/" + language )
+        const fullPath = join(process.cwd(), "content", "introduce/" + language )
 
         // Đọc nội dung từng file
         const filePath = join(fullPath, slug + ".md");

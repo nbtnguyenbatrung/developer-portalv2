@@ -4,47 +4,18 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { useLanguage } from '@/contexts/language-context'
 import { HeroImageSlider } from './hero-image-slider'
-import {useEffect, useState} from "react";
+import {JSX, useEffect, useState} from "react";
 import {HeroSectionData} from "@/types/api";
 import {ScrollReveal} from "@/components/scroll-reveal";
 import {AnimatedCounter} from "@/components/animated-counter";
 import LogoSpinner from "@/components/logo-spinner";
 import {useApiPublic} from "@/hooks/use-api-public";
 
-export function HeroSection() {
-    const { language } = useLanguage()
-    const {call} = useApiPublic()
+interface HeroSectionProps {
+    data: any
+}
 
-    const [data, setData] = useState<HeroSectionData | null>(null)
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const loadHeroData = async () => {
-            setIsLoading(true)
-            try {
-                const heroData = await call("get", `/api/hero-section/`)
-                setData(heroData)
-            } catch (error) {
-                console.error("Failed to load hero data:", error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-
-        loadHeroData()
-    }, [language])
-
-    if (isLoading) {
-        return(
-            <section className="h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background py-10 md:py-20 lg:py-30">
-                <LogoSpinner/>
-            </section>
-        )
-    }
-
-    if (!data) {
-        return null
-    }
+export function HeroSection({data}: HeroSectionProps): JSX.Element {
 
   return (
       <ScrollReveal>
@@ -60,13 +31,13 @@ export function HeroSection() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="flex flex-col gap-6">
                 <div className="inline-block w-fit rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary border border-primary/20">
-                    {data.text}
+                    {data.badge.text}
                 </div>
                 <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-tight text-balance">
-                    {data.welcome}
+                    {data.heading.mainTitle}
                 </h1>
                 <p className="max-w-[500px] text-lg md:text-xl text-muted-foreground leading-relaxed">
-                    {data.welcome_sub}
+                    {data.heading.subtitle}
                 </p>
                 <div className="flex flex-col gap-3 xs:flex-row pt-4">
                   <Button
@@ -77,7 +48,7 @@ export function HeroSection() {
                       if (el) el.scrollIntoView({ behavior: 'smooth' })
                     }}
                   >
-                      {data.btn_view_product}
+                      {data.cta.primary.text}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                   <Button
@@ -89,7 +60,7 @@ export function HeroSection() {
                       if (el) el.scrollIntoView({ behavior: 'smooth' })
                     }}
                   >
-                      {data.btn_get_started}
+                      {data.cta.secondary.text}
                   </Button>
                 </div>
               </div>
@@ -99,15 +70,15 @@ export function HeroSection() {
             <div className="gap-8 pt-5 border-t border-primary/10">
               <div className="items-center text-center justify-center flex flex-col">
                 <p className="text-3xl md:text-4xl font-bold text-primary ">
-                    {data.hero_section_title}
+                    {data.content.mainTitle}
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                    {data.hero_section_subtitle}
+                    {data.content.subtitle}
                 </p>
               </div>
               <div className="grid grid-cols-2 mt-20 md:grid-cols-3 gap-8 text-center">
                   {
-                      data.hero_section_stat?.map((item, i) => (
+                      data.stat?.map((item: any, i: number) => (
                           <div key={i}>
                               <p className="text-3xl md:text-4xl font-bold text-primary">
                                   <AnimatedCounter

@@ -15,47 +15,12 @@ import {icons} from "@/script/icons";
 import LogoSpinner from "@/components/logo-spinner";
 import {useApiPublic} from "@/hooks/use-api-public";
 
-export function FeatureSection() {
-    const { language } = useLanguage()
-    const {call} = useApiPublic()
+interface FeatureSectionProps {
+    data: any
+    products: Product[]
+}
+export function FeatureSection({data, products}: FeatureSectionProps) {
 
-    const [data, setData] = useState<FeatureSectionData | null>(null)
-    const [products, setProducts] = useState<Array<Product>>([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const loadData = async () => {
-            setIsLoading(true)
-
-            try {
-
-                const [heroData, productData] = await Promise.all([
-                    call("get", `/api/feature-section/`),
-                    call("get", `/api/product/`)
-                ])
-                setData(heroData)
-                setProducts(productData)
-            } catch (error) {
-                console.error("Failed to load hero data:", error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-
-        loadData()
-    }, [language])
-
-    if (isLoading) {
-        return (
-            <section className="h-screen flex items-center justify-center py-4 md:py-6 bg-muted/30">
-                <LogoSpinner />
-            </section>
-        )
-    }
-
-    if (!data) {
-        return null
-    }
   return (
     <ScrollReveal>
       <section className="py-4 md:py-6 bg-muted/30">
@@ -64,14 +29,14 @@ export function FeatureSection() {
             <div className="inline-block">
               <Badge className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">
                 <FireExtinguisher className="h-3 w-3 mr-1" />
-                {data.feature_section}
+                {data.badge.text}
               </Badge>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
-                {data.feature_section_title}
+                {data.heading.mainTitle}
             </h2>
             <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-                {data.feature_section_subtitle}
+                {data.heading.subtitle}
             </p>
           </div>
 

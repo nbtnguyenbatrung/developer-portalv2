@@ -85,9 +85,7 @@ export interface Product {
   title: string
   subTitle: string
   slug: string
-  content: string
   summary: string
-  name: string
   active: boolean
   featured: boolean
   priority: number
@@ -95,11 +93,9 @@ export interface Product {
       url: string,
       type: string
   }
-  createdAt: Date
-  updatedAt: Date
   features: Array<string>
   badge?: string
-  productCode: string
+  category: string
   quantityApi: number
 }
 

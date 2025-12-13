@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import {Product} from "@/types/api";
-import {useLanguage} from "@/contexts/language-context";
+import {useTranslations} from "use-intl";
 
 interface ServiceCardProps {
   product: Product
@@ -21,7 +21,7 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ product, Icon }: ServiceCardProps) {
-    const {t} = useLanguage()
+    const t = useTranslations("common")
     return (
     <Card className="h-full group relative overflow-hidden border-2 border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-xl min-h-[380px] flex flex-col">
       {/* Background gradient on hover */}

@@ -11,34 +11,27 @@ import {
 import { Button } from './ui/button'
 import {Document} from "@/types/api";
 import Link from "next/link";
-import {version} from "node:os";
+import {useTranslations} from "use-intl";
 
 export function VersionSwitcher({
-  versions,
   defaultVersion,
-  i18n,
   onVersionChange,
   listDocs,
   slug
 }: {
-  versions: string[]
-  i18n: any
   defaultVersion: string
   onVersionChange: (version: string) => void
   listDocs: Document[]
   slug: string
 }) {
+    const t = useTranslations("common")
   const [selectedVersion, setSelectedVersion] = React.useState(defaultVersion)
-  const [t, setT] = React.useState(i18n)
   React.useEffect(() => {
     if (defaultVersion !== selectedVersion) {
       setSelectedVersion(defaultVersion)
     }
   }, [defaultVersion])
 
-  React.useEffect(() => {
-    if (i18n) setT(i18n)
-  }, [i18n])
   const handleSelect = (version: string) => {
     setSelectedVersion(version)
     onVersionChange(version)
@@ -59,7 +52,7 @@ export function VersionSwitcher({
           </div>
           <div className="flex flex-col gap-0.5 leading-none justify-start md:ml-3 text-left"
                title={getName() + "/v" + defaultVersion}>
-            <span className="font-bold">{t?.version_doc}</span>
+            <span className="font-bold">{t("version_doc")}</span>
             <span className="text-xs text-gray-500 w-[130px] truncate">{getName()}</span>
             <span className="text-xs text-gray-500">v{defaultVersion}</span>
           </div>
